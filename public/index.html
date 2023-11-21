@@ -43,72 +43,37 @@
   <!-- Loading -->
   <link href="%PUBLIC_URL%/loading.min.css" rel="stylesheet" type="text/css" />
   <!-- Your Tags -->
-
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link href="style2.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
-  <noscript>Please Enable JavaScript On Your Browser.</noscript>
-  <div id="root">
-    <div class="loading">
-      <div class="lds-ellipsis">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
+
+<!-- <p id="message">
+    Squad Master allows you to manage your employees in a easy way. You have complete control over the details of the registered employees. Manage the roles,salary grades and departments of your employees without hassle in simple clicks.
+</p> -->
+<div class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="intro-message">
+                    <h1>Effort-Tracker</h1>
+                    <h3>Manage your employees in the most perfect way</h3>
+                    </ul>
+                    <br>
+                    <br>
+                    <a href="{{ url_for('auth.register') }}" id="out">New User? Let's Get Started!</a>
+                    <br>
+                    <br>
+                    <br>
+                    <a href="{{ url_for('auth.login') }}" id="in">Administrator Login</a>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
+
 </body>
-
-<!-- Your Scripts -->
-
-<!-- LD -->
-<script type="application/ld+json">
-  {
-    "name": "React Sample",
-    "priceRange": "IRR",
-    "@type": "LocalBusiness",
-    "telephone": "+989136266179",
-    "@context": "https://schema.org",
-    "@id": "https://www.raminrezaei.ir/",
-    "url": "https://www.raminrezaei.ir/",
-    "image": "https://raminrezaei.ir/icons/logo.png",
-    "address": {
-      "@type": "PostalAddress",
-      "postalCode": "",
-      "streetAddress": "",
-      "addressLocality": "",
-      "addressCountry": "IR"
-    },
-    "geo": {
-      "latitude": 0,
-      "longitude": 0,
-      "@type": "GeoCoordinates",
-    },
-    "openingHoursSpecification": {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Saturday",
-        "Sunday"
-      ],
-      "opens": "08:00",
-      "closes": "20:00"
-    }
-  }
-</script>
-
-<script type='application/ld+json'>
-  {
-    "@type": "WebSite",
-    "name": "React Sample",
-    "alternateName": "React Sample",
-    "url": "https://raminrezaei.ir/",
-    "@context": "http://www.schema.org"
-  }
-</script>
-
 </html>
+
+
