@@ -87,7 +87,8 @@ module.exports = {
         ts: 'never',
         tsx: 'never'
       }
-    ]
+    ],
+    'prettier/prettier': 0 // turn off prettier
   },
   settings: {
     react: {

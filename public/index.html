@@ -52,26 +52,32 @@
 <!-- <p id="message">
     Squad Master allows you to manage your employees in a easy way. You have complete control over the details of the registered employees. Manage the roles,salary grades and departments of your employees without hassle in simple clicks.
 </p> -->
-<div class="intro-header">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-10">
-                <div class="intro-message">
-                    <h1>Effort-Tracker</h1>
-                    <h3>Manage your employees in the most perfect way</h3>
-                    </ul>
-                    <br>
-                    <br>
-                    <a href="{{ url_for('auth.register') }}" id="out">New User? Let's Get Started!</a>
-                    <br>
-                    <br>
-                    <br>
-                    <a href="{{ url_for('auth.login') }}" id="in">Administrator Login</a>
+<body>
+    <div id="root">
+        <!-- Existing content -->
+        <div class="intro-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10">
+                        <div class="intro-message">
+                            <h1>Effort-Tracker</h1>
+                            <h3>Manage your employees in the most perfect way</h3>
+                            </ul>
+                            <br>
+                            <br>
+                            <a href="{{ url_for('auth.register') }}" id="out">New User? Let's Get Started!</a>
+                            <br>
+                            <br>
+                            <br>
+                            <a href="{{ url_for('auth.login') }}" id="in">Administrator Login</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- End of existing content -->
     </div>
-</div>
+</body>
 
 </body>
 </html>
