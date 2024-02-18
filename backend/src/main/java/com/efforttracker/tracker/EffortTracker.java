@@ -3,6 +3,8 @@ package com.efforttracker.tracker;
 import com.efforttracker.models.Task;
 import com.efforttracker.models.User;
 import com.efforttracker.models.filter.Filter;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
@@ -25,10 +27,11 @@ import java.util.List;
  * 3. Parent task can display effort by adding all the efforts of child tasks.
  * 4. Generate Report.
  */
+@Component
 public class EffortTracker {
 
     public void addUser(final User user) {
-
+        System.out.println("User: " + user);
     }
 
     public void createTask(final Task task) {
@@ -42,7 +45,6 @@ public class EffortTracker {
     public void updateTask(final Task task, final User user) {
 
     }
-
 
     public List<Task> getTasks(final Filter filter) {
         return null;
