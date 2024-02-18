@@ -1,5 +1,11 @@
 package com.efforttracker.tracker;
 
+import com.efforttracker.models.Task;
+import com.efforttracker.models.User;
+import com.efforttracker.models.filter.Filter;
+
+import java.util.List;
+
 /**
  * Requirements:
  * 1. Create a Task.
@@ -21,23 +27,24 @@ package com.efforttracker.tracker;
  */
 public class EffortTracker {
 
-    public void addUser() {
+    public void addUser(final User user) {
 
     }
 
-    public void createTask() {
+    public void createTask(final Task task) {
 
     }
 
-    public void assignTask() {
+    public void assignTask(final Task task, final User user) {
 
     }
 
-    public void updateTask() {
+    public void updateTask(final Task task, final User user) {
 
     }
 
-    public void getTasks() {
 
+    public List<Task> getTasks(final Filter filter) {
+        return null;
     }
 }

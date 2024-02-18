@@ -6,4 +6,5 @@ public class Task {
     private int effort; // in number of days.
     private String startDate;
     private String endDate;
+    private State state;
 }
