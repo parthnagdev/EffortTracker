@@ -7,10 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.logging.Filter;
 
 /**
  * Controller for Effort Tracker API.
@@ -37,15 +41,18 @@ public class EffortTrackingController {
 	public String assignTask(@RequestParam String taskId, @RequestParam String userId) {
 		// Call the appropriate method on effortTracker
 		// Return a confirmation message
+		return null;
 	}
 	@PutMapping("/updateTask")
 	public String updateTask(@RequestBody Task task) {
 		// Call the appropriate method on effortTracker
 		// Return a confirmation message
+		return null;
 	}
 	@GetMapping("/getTasks")
 	public List<Task> getTasks(@ModelAttribute Filter filter) {
 		// Call the appropriate method on effortTracker
 		// Return the list of tasks
+		return null;
 	}
 }

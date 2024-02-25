@@ -2,6 +2,7 @@ package com.efforttracker.models;
 
 import lombok.Builder;
 import lombok.Value;
+import lombok.Data;
 
 @Builder
 //@Value
