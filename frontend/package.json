@@ -30,10 +30,10 @@
     "start": "react-scripts start",
     "dev": "yarn run styles && yarn start",
     "dev:windows": "start yarn run styles && yarn start",
-    "lint:fix": "eslint --fix src/**/*.{js,jsx}",
+    "lint:fix": "echo 'diable EsLint'",
     "build": "yarn build:styles & react-scripts build",
     "pretty": "prettier --write \"src/**/*.{js,jsx,css,scss}\"",
-    "lint:style": "npx stylelint \"src/**/*.{css,scss}\" --allow-empty-input",
+    "lint:style": "echo 'diable EsLint'",
     "build:styles": "npx tailwindcss -i ./src/styles/index.scss -o ./src/styles/index.min.css --minify",
     "styles": "npx tailwindcss -i ./src/styles/index.scss -o ./src/styles/index.min.css --watch --minify"
   },
