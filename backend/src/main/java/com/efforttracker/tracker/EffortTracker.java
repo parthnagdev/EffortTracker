@@ -1,5 +1,6 @@
 package com.efforttracker.tracker;
 
+import com.efforttracker.models.AssignTaskRequest;
 import com.efforttracker.models.Task;
 import com.efforttracker.models.User;
 import com.efforttracker.models.filter.Filter;
@@ -86,14 +87,34 @@ import java.util.stream.Collectors;
             System.out.println("Task: " + task);
         }
 
-        public void assignTask(final Task task, final User user) {
-            int taskIndex = tasks.indexOf(task);
-            if (taskIndex != -1) {
-                tasks.get(taskIndex).setUser(user);
-                System.out.println("Task: " + task + " assigned to User: " + user);
-            } else {
+        // public void assignTask(final Task task, final User user) {
+        //     int taskIndex = tasks.indexOf(task);
+        //     if (taskIndex != -1) {
+        //         tasks.get(taskIndex).setUser(user);
+        //         System.out.println("Task: " + task + " assigned to User: " + user);
+        //     } else {
+        //         System.out.println("Task not found");
+        //     }
+        // }
+
+        public void assignTask(final AssignTaskRequest assignTaskRequest) {
+        Task task = assignTaskRequest.getTask();
+        User user = assignTaskRequest.getUser();
+
+        int taskIndex = tasks.indexOf(task);
+        int userIndex = users.indexOf(user); // assuming 'users' is a list of all users
+
+        if (taskIndex != -1 && userIndex != -1) {
+            tasks.get(taskIndex).setUser(user);
+            System.out.println("Task: " + task + " assigned to User: " + user);
+        } else {
+            if (taskIndex == -1) {
                 System.out.println("Task not found");
             }
+            if (userIndex == -1) {
+                System.out.println("User not found");
+            }
+        }
         }
 
         // public void updateTask(final Task task) {
@@ -107,33 +128,46 @@ import java.util.stream.Collectors;
         // }
 
 
-                        public void updateTask(final Task updatedTask) {
-                            int taskIndex = tasks.indexOf(updatedTask);
-                            if (taskIndex != -1) {
-                                Task existingTask = tasks.get(taskIndex);
-                                if (updatedTask.getName() != null) {
-                                    existingTask.setName(updatedTask.getName());
-                                }
-                                if (updatedTask.getDescription() != null) {
-                                    existingTask.setDescription(updatedTask.getDescription());
-                                }
-                                if (updatedTask.getEffort() != null) {
-                                    existingTask.setEffort(updatedTask.getEffort());
-                                }
-                                if (updatedTask.getStartDate() != null) {
-                                    existingTask.setStartDate(updatedTask.getStartDate());
-                                }
-                                if (updatedTask.getEndDate() != null) {
-                                    existingTask.setEndDate(updatedTask.getEndDate());
-                                }
-                                if (updatedTask.getState() != null) {
-                                    existingTask.setState(updatedTask.getState());
-                                }
-                                System.out.println("Task: " + existingTask + " updated");
-                            } else {
-                                System.out.println("Task not found");
-                            }
-                        }
+        public void updateTask(final Task updatedTask) {
+            // if (updatedTask.getTaskID() == null) {
+            //     throw new IllegalArgumentException("Task ID must not be null");
+            // }
+            Task existingTask = tasks.stream()
+                                    .filter(task -> task.getTaskID() == updatedTask.getTaskID())
+                                    .findFirst()
+                                    .orElse(null);
+
+            if (existingTask != null) {
+                if (updatedTask.getName() != null) {
+                    existingTask.setName(updatedTask.getName());
+                }
+                if (updatedTask.getDescription() != null) {
+                    existingTask.setDescription(updatedTask.getDescription());
+                }
+                if (updatedTask.getEffort() != null) {
+                    existingTask.setEffort(updatedTask.getEffort());
+                }
+                if (updatedTask.getStartDate() != null) {
+                    existingTask.setStartDate(updatedTask.getStartDate());
+                }
+                if (updatedTask.getEndDate() != null) {
+                    existingTask.setEndDate(updatedTask.getEndDate());
+                }
+                if (updatedTask.getState() != null) {
+                    existingTask.setState(updatedTask.getState());
+                }
+                if (updatedTask.getUser() != null) {
+                    existingTask.setUser(updatedTask.getUser());
+                }
+                System.out.println("Task: " + existingTask + " updated");
+            } else {
+                throw new IllegalArgumentException("Task ID not found: " + updatedTask.getTaskID());
+            }
+        }
+
+        public List<Task> listTasks() {
+            return tasks;
+        }
 
         public List<Task> getTasks(final Filter filter) {
             // This is a simple implementation that only filters by state.

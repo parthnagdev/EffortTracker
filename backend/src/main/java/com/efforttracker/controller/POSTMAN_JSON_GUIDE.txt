@@ -1,0 +1,79 @@
+#POST  http://localhost:8080/addUser
+
+{
+    "name":"Parth Nagdev",
+    "username":"parthngdv"
+}
+
+{
+    "name": "Test User",
+    "username": "testuser"
+}
+
+
+
+#POST  http://localhost:8080/createTask
+
+{
+    "name": "Test Task",
+    "description": "This is a test task",
+    "effort": 5
+}
+
+{
+    "name": "Parth's Task",
+    "description": "This is a parths task",
+    "effort": 10,
+    "state": "OPEN"
+}
+
+
+
+#PUT  http://localhost:8080/updateTask
+
+{
+    "taskID": 1
+}
+
+MUST contain taskID, other fields are optional. You can put those fields in which you want to update, eg-
+{
+    "name": "Parth's Task",
+    "description": "This is a parths task",
+    "effort": 10,
+    "state": "OPEN"
+    "taskID": 1
+}
+all the non-null fields will be updated for Task with taskID: 1(except taskID, it is immutable).
+
+
+
+#POST  http://localhost:8080/assignTask
+
+{
+    "task": {
+        "name": "Test Task",
+        "description": "This is a test task",
+        "effort": 5
+    },
+    "user": {
+        "name": "Test User",
+        "username": "testuser"
+    }
+}
+
+
+
+#GET  http://localhost:8080/getTasks?state=OPEN
+
+
+Params-
+Key: state
+Value: OPEN
+
+If No parameters are given then it works as /listTasks method.
+
+
+
+#GET  http://localhost:8080/listTasks
+
+No JSON Payload needed for GET requests.

@@ -1,5 +1,6 @@
 package com.efforttracker.controller;
 
+import com.efforttracker.models.AssignTaskRequest;
 import com.efforttracker.models.Task;
 import com.efforttracker.models.User;
 import com.efforttracker.tracker.EffortTracker;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.logging.Filter;
+import com.efforttracker.models.filter.Filter;
 
 /**
  * Controller for Effort Tracker API.
@@ -37,22 +38,47 @@ public class EffortTrackingController {
 		return "Added task: " + task;
 	}
 	//code by chatGPT below
+	// @PostMapping("/assignTask")
+	// public String assignTask(@RequestBody Task task, @RequestBody User user) {
+	// 	effortTracker.assignTask(task, user);
+	// 	return "Assigned task: " + task + " to user: " + user;
+	// }
+
 	@PostMapping("/assignTask")
-	public String assignTask(@RequestParam String taskId, @RequestParam String userId) {
-		// Call the appropriate method on effortTracker
-		// Return a confirmation message
-		return null;
+	public String assignTask(@RequestBody AssignTaskRequest assignTaskRequest) {
+    effortTracker.assignTask(assignTaskRequest);
+    Task task = assignTaskRequest.getTask();
+    User user = assignTaskRequest.getUser();
+    return "Assigned task: " + task + " to user: " + user;
 	}
+
+	// @PostMapping("/assignTask")
+	// public String assignTask(@RequestParam String taskId, @RequestParam String userId) {
+	// 	// Call the appropriate method on effortTracker
+	// 	// Return a confirmation message
+	// 	return null;
+	// }
 	@PutMapping("/updateTask")
 	public String updateTask(@RequestBody Task task) {
-		// Call the appropriate method on effortTracker
-		// Return a confirmation message
-		return null;
+		effortTracker.updateTask(task);
+		return "Task updated: " + task;
 	}
+	// @PutMapping("/updateTask")
+	// public String updateTask(@RequestBody Task task) {
+	// 	// Call the appropriate method on effortTracker
+	// 	// Return a confirmation message
+	// 	return null;
+	// }
 	@GetMapping("/getTasks")
 	public List<Task> getTasks(@ModelAttribute Filter filter) {
+		return effortTracker.getTasks(filter);
 		// Call the appropriate method on effortTracker
 		// Return the list of tasks
-		return null;
+		// return null;
+	}
+
+	@GetMapping("/listTasks")
+	public List<Task> listTasks() {
+		return effortTracker.listTasks();
 	}
 }

@@ -15,6 +15,7 @@
 // }
 package com.efforttracker.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
@@ -22,6 +23,7 @@ import java.time.LocalDate;
 
 @Data
 @Builder
+@AllArgsConstructor
 public class Task {
     String name;
     String description;
@@ -30,4 +32,10 @@ public class Task {
     LocalDate endDate;
     State state;
     User user;
+    private static int lastAssignedID = 0;
+    private int taskID;
+
+    public Task() {
+        this.taskID = ++lastAssignedID;
+    }
 }
