@@ -1,0 +1,71 @@
+openapi: 3.0.3
+info:
+  title: Swagger Petstore - OpenAPI 3.0
+  description: |-
+    These are APIs for Effort tracker system.
+  version: 1.0.0
+servers:
+  - url: https://petstore3.swagger.io/api/v3
+tags:
+  - name: user
+    description: Operations about user
+paths:
+  /addUser:
+    post:
+      tags:
+        - user
+      summary: Adds user in the system
+      description: Adds user in the system
+      operationId: addUser
+      requestBody:
+        description: Adds user in the system
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid input
+        '500':
+          description: Internal Error
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: string
+          example: John
+        username:
+          type: string
+          example: john
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+      xml:
+        name: '##default'
+  requestBodies:
+    User:
+      description: User to be added
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'

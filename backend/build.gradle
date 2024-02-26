@@ -1,8 +1,17 @@
+buildscript {
+	dependencies {
+		classpath "org.openapitools:openapi-generator-gradle-plugin:7.2.0"
+	}
+}
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.2.2'
 	id 'io.spring.dependency-management' version '1.1.4'
+	id "org.openapi.generator" version "7.2.0"
 }
+
+apply plugin: 'org.openapi.generator'
 
 group = 'com.efforttracker'
 version = '0.0.1-SNAPSHOT'
@@ -14,6 +23,23 @@ java {
 repositories {
 	mavenCentral()
 }
+
+def spec = "$rootDir/../openapi/specs.yml"
+def generatedSourcesDir = "$buildDir/generated/openapi"
+
+openApiGenerate {
+	generatorName.set("java")
+
+	inputSpec.set(spec)
+	outputDir.set(generatedSourcesDir)
+
+	apiPackage.set("com.efforttracker.specs")
+	invokerPackage.set("com.efforttracker")
+	modelPackage.set("com.efforttracker.specs")
+
+}
+
+compileJava.dependsOn tasks.openApiGenerate
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
