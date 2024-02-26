@@ -2,10 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom/client';
 import { reportWebVitals } from 'reportWebVitals';
-
-
-import 'animate.css';
-import 'styles/index.scss';
+import { Routes } from 'routes';
 
 const rootElement = document.querySelector('#root');
 
@@ -15,7 +12,7 @@ const root = ReactDOM.createRoot(rootElement);
 
 root.render(
   <React.StrictMode>
-    <b>Hello World</b>
+    <Routes />
   </React.StrictMode>
 );
 
