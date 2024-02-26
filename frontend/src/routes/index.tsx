@@ -11,11 +11,13 @@ import { ScrollToTop } from 'routes/scroll-to-top';
 import { NOT_FOUND_ROUTE } from 'routes/route-path';
 
 import Tasks from 'components/tasks';
+import SideBar from 'components/sidebar';
+import NavBar from 'components/navbar';
 
 export function Routes() {
   return (
     <Router>
-      <ScrollToTop />
+      <NavBar />
       <Switch>
       <Route />
         <Route path='/tasks' element={<Tasks />} />
