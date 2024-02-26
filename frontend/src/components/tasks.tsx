@@ -4,9 +4,12 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import { Component } from 'react';
+import Box from '@mui/material/Box';
 
 function CreateTask() {
   return (
+    <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
+      <h4>Create Task</h4>
     <Form>
       <Row>
         <Col>
@@ -28,43 +31,87 @@ function CreateTask() {
         </Col>
       </Row>
     </Form>
+    </Box>
   );
 }
 
-function Tasks() {
-    return (
-      <div>
-            <CreateTask />
-            <Table striped bordered hover>
+function FilterBy() {
+  return (
+    <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
+      <h4>Filter By</h4>
+      
+    <Form>
+      <Row>
+        <Col>
+          <Form.Select aria-placeholder="Username">
+                <option>No Filter</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+          </Form.Select>
+        </Col>
+
+        <Col>
+          <Form.Select aria-placeholder="Status">
+                <option>No Filter</option>
+                <option value="1">Inprogress</option>
+                <option value="2">Inreview</option>
+                <option value="3">Complete</option>
+          </Form.Select>
+        </Col>
+
+       <Col>
+          <Button variant="primary" type="submit">
+            Filter
+          </Button>
+        </Col>
+      </Row>
+    </Form>
+
+    </Box>
+  );
+}
+
+function TaskTable() {
+  return (
+    <Box component="section" sx={{ p: 2 }} >
+        <Table striped bordered hover>
             <thead>
               <tr>
-                <th>#</th>
                 <th>Task</th>
+                <th>Status</th>
                 <th>Estimate</th>
                 <th>Assigned</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>1</td>
                 <td>Mark</td>
                 <td>Otto</td>
                 <td>@mdo</td>
               </tr>
               <tr>
-                <td>2</td>
                 <td>Jacob</td>
                 <td>Thornton</td>
                 <td>@fat</td>
               </tr>
               <tr>
-                <td>3</td>
                 <td colSpan={2}>Larry the Bird</td>
                 <td>@twitter</td>
               </tr>
             </tbody>
           </Table>
-     </div>
+    </Box>
+  )
+}
+
+function Tasks() {
+    return (
+      <Box>
+            <CreateTask />
+            <FilterBy />
+            <TaskTable />
+     </Box>
     );
   }
   
