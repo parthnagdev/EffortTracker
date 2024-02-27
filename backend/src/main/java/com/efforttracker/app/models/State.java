@@ -1,4 +1,4 @@
-package com.efforttracker.models;
+package com.efforttracker.app.models;
 
 public enum State {
     OPEN,

@@ -1,28 +1,28 @@
 openapi: 3.0.3
 info:
-  title: Swagger Petstore - OpenAPI 3.0
+  title: Effort Tracker
   description: |-
     These are APIs for Effort tracker system.
   version: 1.0.0
 servers:
-  - url: https://petstore3.swagger.io/api/v3
+  - url: http://localhost:8080/
 tags:
   - name: user
     description: Operations about user
 paths:
-  /addUser:
+  /task/create:
     post:
       tags:
-        - user
-      summary: Adds user in the system
-      description: Adds user in the system
-      operationId: addUser
+        - task
+      summary: Adds task in the system
+      description: Adds task in the system
+      operationId: createTask
       requestBody:
-        description: Adds user in the system
+        description: Adds task in the system
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User'
+              $ref: '#/components/schemas/Task'
         required: true
       responses:
         '200':
@@ -30,7 +30,32 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/Task'
+        '400':
+          description: Invalid input
+        '500':
+          description: Internal Error
+  /task/list:
+    post:
+      tags:
+        - task
+      summary: Lists task in the system
+      description: Lists task in the system
+      operationId: listTasks
+      requestBody:
+        description: Lists task in the system
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListTasksRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTasksResponse'
         '400':
           description: Invalid input
         '500':
@@ -50,6 +75,50 @@ components:
         username:
           type: string
           example: john
+    Task:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        title:
+          type: string
+          example: Enable gitignore
+        description:
+          type: string
+          example: Add gitignore file with files to ignore for git
+        estimate:
+          type: integer
+          format: int64
+          example: 10
+        username:
+          type: string
+          example: User to which this task is assigned
+    StringFilter:
+      type: array
+      items:
+        type:
+          string
+    Filter:
+      type: object
+      properties:
+        userFilter:
+          $ref: '#/components/schemas/StringFilter'
+        stateFilter:
+          $ref: '#/components/schemas/StringFilter'
+    ListTasksRequest:
+      type: object
+      properties:
+        filter:
+          $ref: '#/components/schemas/Filter'
+    ListTasksResponse:
+      type: object
+      properties:
+        taskList:
+          type: array
+          items:
+            $ref: '#/components/schemas/Task'
     ApiResponse:
       type: object
       properties:
@@ -60,8 +129,6 @@ components:
           type: string
         message:
           type: string
-      xml:
-        name: '##default'
   requestBodies:
     User:
       description: User to be added
@@ -69,3 +136,9 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/User'
+    Task:
+      description: Task to be added
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Task'

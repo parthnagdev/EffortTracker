@@ -1,15 +1,12 @@
-package com.efforttracker.tracker;
+package com.efforttracker.app.tracker;
 
-import com.efforttracker.models.AssignTaskRequest;
-import com.efforttracker.models.Task;
-import com.efforttracker.models.User;
-import com.efforttracker.models.filter.Filter;
+import com.efforttracker.app.models.AssignTaskRequest;
+import com.efforttracker.app.models.User;
+import com.efforttracker.specs.Task;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Requirements:
@@ -82,9 +79,9 @@ import java.util.stream.Collectors;
             System.out.println("User: " + user);
         }
 
-        public void createTask(final Task task) {
+        public Task createTask(final Task task) {
             tasks.add(task);
-            System.out.println("Task: " + task);
+            return task;
         }
 
         // public void assignTask(final Task task, final User user) {
@@ -105,7 +102,7 @@ import java.util.stream.Collectors;
         int userIndex = users.indexOf(user); // assuming 'users' is a list of all users
 
         if (taskIndex != -1 && userIndex != -1) {
-            tasks.get(taskIndex).setUser(user);
+            tasks.get(taskIndex).setUsername(user.getUsername());
             System.out.println("Task: " + task + " assigned to User: " + user);
         } else {
             if (taskIndex == -1) {
@@ -128,57 +125,57 @@ import java.util.stream.Collectors;
         // }
 
 
-        public void updateTask(final Task updatedTask) {
-            // if (updatedTask.getTaskID() == null) {
-            //     throw new IllegalArgumentException("Task ID must not be null");
-            // }
-            Task existingTask = tasks.stream()
-                                    .filter(task -> task.getTaskID() == updatedTask.getTaskID())
-                                    .findFirst()
-                                    .orElse(null);
-
-            if (existingTask != null) {
-                if (updatedTask.getName() != null) {
-                    existingTask.setName(updatedTask.getName());
-                }
-                if (updatedTask.getDescription() != null) {
-                    existingTask.setDescription(updatedTask.getDescription());
-                }
-                if (updatedTask.getEffort() != null) {
-                    existingTask.setEffort(updatedTask.getEffort());
-                }
-                if (updatedTask.getStartDate() != null) {
-                    existingTask.setStartDate(updatedTask.getStartDate());
-                }
-                if (updatedTask.getEndDate() != null) {
-                    existingTask.setEndDate(updatedTask.getEndDate());
-                }
-                if (updatedTask.getState() != null) {
-                    existingTask.setState(updatedTask.getState());
-                }
-                if (updatedTask.getUser() != null) {
-                    existingTask.setUser(updatedTask.getUser());
-                }
-                System.out.println("Task: " + existingTask + " updated");
-            } else {
-                throw new IllegalArgumentException("Task ID not found: " + updatedTask.getTaskID());
-            }
-        }
+//        public void updateTask(final Task updatedTask) {
+//            // if (updatedTask.getTaskID() == null) {
+//            //     throw new IllegalArgumentException("Task ID must not be null");
+//            // }
+//            Task existingTask = tasks.stream()
+//                                    .filter(task -> task.getTaskID() == updatedTask.getTaskID())
+//                                    .findFirst()
+//                                    .orElse(null);
+//
+//            if (existingTask != null) {
+//                if (updatedTask.getName() != null) {
+//                    existingTask.setName(updatedTask.getName());
+//                }
+//                if (updatedTask.getDescription() != null) {
+//                    existingTask.setDescription(updatedTask.getDescription());
+//                }
+//                if (updatedTask.getEffort() != null) {
+//                    existingTask.setEffort(updatedTask.getEffort());
+//                }
+//                if (updatedTask.getStartDate() != null) {
+//                    existingTask.setStartDate(updatedTask.getStartDate());
+//                }
+//                if (updatedTask.getEndDate() != null) {
+//                    existingTask.setEndDate(updatedTask.getEndDate());
+//                }
+//                if (updatedTask.getState() != null) {
+//                    existingTask.setState(updatedTask.getState());
+//                }
+//                if (updatedTask.getUser() != null) {
+//                    existingTask.setUser(updatedTask.getUser());
+//                }
+//                System.out.println("Task: " + existingTask + " updated");
+//            } else {
+//                throw new IllegalArgumentException("Task ID not found: " + updatedTask.getTaskID());
+//            }
+//        }
 
         public List<Task> listTasks() {
             return tasks;
         }
 
-        public List<Task> getTasks(final Filter filter) {
-            // This is a simple implementation that only filters by state.
-            // You might need to add more complex filtering logic.
-            if (filter.getState() != null) {
-                return tasks.stream()
-                    .filter(task -> task.getState() == filter.getState())
-                    .collect(Collectors.toList());
-            } else {
-                return new ArrayList<>(tasks);
-            }
-        }
+//        public List<Task> getTasks(final Filter filter) {
+//            // This is a simple implementation that only filters by state.
+//            // You might need to add more complex filtering logic.
+//            if (filter.getState() != null) {
+//                return tasks.stream()
+//                    .filter(task -> task.getState() == filter.getState())
+//                    .collect(Collectors.toList());
+//            } else {
+//                return new ArrayList<>(tasks);
+//            }
+//        }
     }
 //}

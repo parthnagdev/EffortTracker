@@ -1,6 +1,6 @@
-package com.efforttracker.models.filter;
+package com.efforttracker.app.models.filter;
 
-import com.efforttracker.models.State;
+import com.efforttracker.app.models.State;
 import lombok.Builder;
 import lombok.Value;
 

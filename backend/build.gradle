@@ -1,17 +1,14 @@
-buildscript {
-	dependencies {
-		classpath "org.openapitools:openapi-generator-gradle-plugin:7.2.0"
-	}
-}
-
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.2.2'
 	id 'io.spring.dependency-management' version '1.1.4'
-	id "org.openapi.generator" version "7.2.0"
+	id "org.openapi.generator" version "7.3.0"
+	id "org.springdoc.openapi-gradle-plugin" version "1.8.0"
+	id "io.swagger.core.v3.swagger-gradle-plugin" version "2.2.20"
 }
 
 apply plugin: 'org.openapi.generator'
+apply plugin: "io.swagger.core.v3.swagger-gradle-plugin"
 
 group = 'com.efforttracker'
 version = '0.0.1-SNAPSHOT'
@@ -28,24 +25,59 @@ def spec = "$rootDir/../openapi/specs.yml"
 def generatedSourcesDir = "$buildDir/generated/openapi"
 
 openApiGenerate {
-	generatorName.set("java")
+	generatorName.set("spring")
 
 	inputSpec.set(spec)
 	outputDir.set(generatedSourcesDir)
 
 	apiPackage.set("com.efforttracker.specs")
-	invokerPackage.set("com.efforttracker")
+	invokerPackage.set("com.efforttracker.app")
 	modelPackage.set("com.efforttracker.specs")
 
+	configOptions = [
+			// Using new Jakarta annotations instead of deprecated Javax annotations
+			useJakartaEe: 'true',
+			"interfaceOnly": "true"
+	]
 }
 
-compileJava.dependsOn tasks.openApiGenerate
-
 dependencies {
+	// Dependencies for open API code generation
+	implementation "com.google.code.gson:gson:2.10.1"
+	implementation "com.squareup.okhttp3:logging-interceptor:4.12.0"
+	implementation "com.squareup.okhttp3:okhttp:4.12.0"
+	implementation "com.squareup.okio:okio:3.8.0"
+	implementation "io.gsonfire:gson-fire:1.9.0"
+	implementation "io.swagger:swagger-core:1.6.13"
+	implementation 'jakarta.annotation:jakarta.annotation-api:3.0.0-M1'
+	implementation "org.openapitools:jackson-databind-nullable:0.2.6"
+	implementation 'org.springframework.boot:spring-boot-starter-validation:3.2.3'
+	implementation 'io.swagger.core.v3:swagger-annotations:2.2.20'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
+	compileOnly group: 'jakarta.servlet', name: 'jakarta.servlet-api', version: '6.0.0'
+
+	// Dependencies for spring boot
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok:1.18.30'
 	annotationProcessor 'org.projectlombok:lombok:1.18.30'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+sourceSets {
+	main {
+		java {
+			srcDir("$buildDir/generated/openapi/src/main/java")
+		}
+	}
+}
+
+compileJava {
+	dependsOn  tasks.openApiGenerate
+	source "$buildDir/generated/openapi/src/main/java"
+}
+
+springBoot {
+	mainClass = 'com.efforttracker.app.EffortTrackerApplication'
 }
 
 tasks.named('test') {
