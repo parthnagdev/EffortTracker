@@ -11,6 +11,12 @@ import { log } from 'console';
 import { Pencil } from 'react-bootstrap-icons';
 import { ButtonToolbar, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
+const STATUS_MAP = new Map([
+  ["INPROGRESS", "IP"],
+  ["REVIEW", "R"],
+  ["DONE", "D"]
+]);
+
 const Tasks = () => {
 
 class Task {
@@ -34,8 +40,8 @@ const [tasks, setTasks] = useState<Task[]>();
 
 function handleListTasks() {
   var tasks = [];
-  tasks.push(new Task("create_ui", "Create UI", "IP", 3, "parth"));
-  tasks.push(new Task("update_open_ui", "Update Open UI", "D", 4, "rnnagdev"));
+  tasks.push(new Task("create_ui", "Create UI", "INPROGRESS", 3, "parth"));
+  tasks.push(new Task("update_open_ui", "Update Open UI", "DONE", 4, "rnnagdev"));
   console.log(tasks[0].status);
   console.log(tasks[1].status);
   setTasks(tasks);
@@ -52,6 +58,12 @@ function handleListTasks() {
   //  .catch((err) => {
   //     console.log(err.message);
   //  });;
+}
+
+enum StatusEnum {
+  INPROGRESS,
+  REVIEW,
+  DONE
 }
 
 const CreateTask = () => {
@@ -155,20 +167,27 @@ function FilterBy() {
 //   return 
 // }
 
-const tooltip = (
-  <Tooltip id="tooltip">
-    <strong>Holy guacamole!</strong> Check this info.
-  </Tooltip>
-);
+// const tooltip = ({tip}: {tip: string}) => {
+//   return (<Tooltip id="tooltip">
+//     {tip}
+//   </Tooltip>);
+// };
 
 const Status = ({ value, actual }: {value: string, actual: string} ) => {
   console.log("Value " + value + "; Actual: " + actual);
+
+  const tooltip = (
+    <Tooltip id="tooltip">
+      {value}
+    </Tooltip>);
+
+  const buttonName = STATUS_MAP.get(value);
 
   if (actual === value) {
     return (
       <Col>
         <OverlayTrigger placement="left" overlay={tooltip}>
-          <Button disabled> {value} </Button>
+          <Button> {buttonName} </Button>
         </OverlayTrigger>
       </Col>
     );
@@ -177,7 +196,7 @@ const Status = ({ value, actual }: {value: string, actual: string} ) => {
   return (
     <Col>
       <OverlayTrigger placement="left" overlay={tooltip}>
-        <Button > {value} </Button>
+        <Button variant='secondary'> {buttonName} </Button>
       </OverlayTrigger>
     </Col>
   );
@@ -187,9 +206,9 @@ const StatusRow = ({ status }: {status: string} ) => {
   return (
     <ButtonToolbar >
       <Row>
-        <Status value='IP' actual={status} /> 
-        <Status value='R' actual={status} />
-        <Status value='D' actual={status} />
+        <Status value='INPROGRESS' actual={status} /> 
+        <Status value='REVIEW' actual={status} />
+        <Status value='DONE' actual={status} />
       </Row>
     </ButtonToolbar>
   

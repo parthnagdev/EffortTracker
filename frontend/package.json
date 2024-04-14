@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.2.0",
-    "@openapitools/openapi-generator-cli": "^2.9.0",
+    "@openapitools/openapi-generator-cli": "^2.13.1",
     "@types/jest": "^29.2.1",
     "@types/lodash": "^4.14.188",
     "@types/node": "^18.11.9",
