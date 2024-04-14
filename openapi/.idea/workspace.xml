@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2c925d78-92dc-4614-8f3d-bf05f242be21" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/com/efforttracker/app/controller/EffortTrackingController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/com/efforttracker/app/filter/SimpleCORSFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/efforttracker/EffortTrackerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/efforttracker/app/EffortTrackerApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/efforttracker/controller/EffortTrackingController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/efforttracker/controller/POSTMAN_JSON_GUIDE.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/efforttracker/app/controller/POSTMAN_JSON_GUIDE.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/efforttracker/models/AssignTaskRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/efforttracker/models/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/efforttracker/app/models/State.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/efforttracker/models/Task.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/efforttracker/models/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/efforttracker/models/filter/Filter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/efforttracker/tracker/EffortTracker.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/efforttracker/app/tracker/EffortTracker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/tasks.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/tasks.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs.yml" beforeDir="false" afterPath="$PROJECT_DIR$/specs.yml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2cs1Duvv7XlFHnW07qH3v2KOEMg" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "com.google.cloudcode.ide_session_index": "20240225_0001",
+    "last_opened_file_path": "D:/workspace/effort_tracker/EffortTracker/openapi",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2c925d78-92dc-4614-8f3d-bf05f242be21" name="Changes" comment="" />
+      <created>1708885355679</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1708885355679</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
