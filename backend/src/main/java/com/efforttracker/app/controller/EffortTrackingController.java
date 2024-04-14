@@ -94,6 +94,10 @@ public class EffortTrackingController implements TaskApi {
 	@Override
 	public ResponseEntity<ListTasksResponse> listTasks(ListTasksRequest listTasksRequest) {
 		final ListTasksResponse response = new ListTasksResponse();
+		if(listTasksRequest.getFilter() == null) {
+			response.setTaskList(effortTracker.listTasks(null));
+			return ResponseEntity.of(Optional.of(response));
+		}
 		response.setTaskList(effortTracker.listTasks(listTasksRequest.getFilter().getIdFilter()));
 		return ResponseEntity.of(Optional.of(response));
 	}
