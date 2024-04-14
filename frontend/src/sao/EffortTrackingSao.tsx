@@ -1,19 +1,27 @@
-import { TaskApi, ListTasksRequest, ListTasksResponse, User, Task } from "api";
+import { TaskApi, ListTasksRequest, ListUsersRequest, ListTasksResponse, User, Task, UserApi, ListUsersResponse } from "api";
 
 class EffortTrackingSao {
 
     taskApi: TaskApi;
+    userApi: UserApi;
 
     constructor() {
         this.taskApi = new TaskApi();
+        this.userApi = new UserApi();
     }
 
-    async createUser(user: User) {
-
+    async createUser(user: string, username: string) {
+        this.userApi.createUser({
+            name: user,
+            username: username
+        });
     }
 
-    async listUsers() {
-
+    async listUsers(callback: Function) {
+        const resp = this.userApi.listUsers({});
+        resp.then((res) => {
+            callback(res.data.userList);
+        });
     }
 
     async createTask(title: string, estimate: number, username: string) {
