@@ -10,6 +10,10 @@ import { title } from 'process';
 import { log } from 'console';
 import { Pencil } from 'react-bootstrap-icons';
 import { ButtonToolbar, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Task } from 'api';
+import EffortTrackingSao from 'sao/EffortTrackingSao';
+
+const sao = new EffortTrackingSao();
 
 const STATUS_MAP = new Map([
   ["INPROGRESS", "IP"],
@@ -19,32 +23,20 @@ const STATUS_MAP = new Map([
 
 const Tasks = () => {
 
-class Task {
-   key: string
-   title: string;
-   status: string;
-   estimate: number;
-   username: string;
-
-constructor(key: string, title: string, status: string, estimate: number, username: string) {
-    this.key = key;
-    this.title = title;
-    this.status = status;
-    this.estimate = estimate;
-    this.username = username;
-  }
-}
-
 const [tasks, setTasks] = useState<Task[]>();
 
 
-function handleListTasks() {
-  var tasks = [];
-  tasks.push(new Task("create_ui", "Create UI", "INPROGRESS", 3, "parth"));
-  tasks.push(new Task("update_open_ui", "Update Open UI", "DONE", 4, "rnnagdev"));
-  console.log(tasks[0].status);
-  console.log(tasks[1].status);
-  setTasks(tasks);
+function handleListTasks(event: FormEvent) {
+
+  event.preventDefault();
+  event.stopPropagation();
+  
+  sao.listTasks((tsks: Task[]) => {
+    console.log("Tsks: " + tsks);
+    setTasks(tsks);
+  });
+
+  console.log("Tasks after: " + tasks);
 
   // fetch("http://localhost:8080/task/list", {
   //     method: "POST",
@@ -216,8 +208,6 @@ const StatusRow = ({ status }: {status: string} ) => {
 }
 
 function TaskTable() {
-
-
   const rows = [];
 
   console.log("Tasks isU: " + tasks);
@@ -229,11 +219,11 @@ function TaskTable() {
   var i = 0;
   for (let i = 0; i< tasks!.length; i++) {
     console.log("Task title: " + tasks[i].title);
-    console.log("Task status: " + tasks[i].status);
+    // console.log("Task status: " + tasks[i].status);
     rows.push(
-        <tr key={tasks![i].key}>
+        <tr key={tasks![i].id}>
           <td> {tasks![i].title} </td>
-          <td> <StatusRow status={tasks![i].status}/> </td>
+          <td> <StatusRow status="DONE"/> </td>
           <td> <input type="text" value={tasks![i].estimate} /> </td>
           <td> {tasks![i].username} </td>
         </tr>);
