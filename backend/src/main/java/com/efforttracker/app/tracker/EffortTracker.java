@@ -1,6 +1,7 @@
 package com.efforttracker.app.tracker;
 
 import com.efforttracker.app.models.AssignTaskRequest;
+import com.efforttracker.specs.ListTasksRequest;
 //import com.efforttracker.app.models.User;
 import com.efforttracker.specs.Task;
 import com.efforttracker.specs.User;
@@ -206,8 +207,22 @@ import java.util.UUID;
            }
        }
 
-        public List<Task> listTasks() {
-            return tasks;
+        public List<Task> listTasks(List<String> taskIds) {
+            if(taskIds == null || taskIds.isEmpty()){
+                return tasks;
+            }
+            List<Task> filteredTasks = new ArrayList<>();
+            for(String taskId : taskIds){
+                Task task = tasks.stream()
+                                .filter(t -> t.getId().equals(taskId))
+                                .findFirst()
+                                .orElse(null);
+                if(task != null){
+                    filteredTasks.add(task);
+                }
+            }
+            return filteredTasks;
+            //return tasks;
         }
 
         public List<User> listUsers() {
