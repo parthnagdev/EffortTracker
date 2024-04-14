@@ -8,6 +8,13 @@ class EffortTrackingSao {
         this.taskApi = new TaskApi();
     }
 
+    async createTask(task: Task) {
+        this.taskApi.createTask(task);
+
+        // const listTaskRequest: ListTasksRequest = {};
+        // return this.taskApi.listTasks(listTaskRequest);
+    }
+
     async listTasks(callback: Function) {
         var tasks: Task[] = [];
         tasks.push({

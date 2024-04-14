@@ -10,7 +10,7 @@ import { PAGE_ROUTES } from 'routes/page-routes';
 import { ScrollToTop } from 'routes/scroll-to-top';
 import { NOT_FOUND_ROUTE } from 'routes/route-path';
 
-import Tasks from 'components/tasks';
+import Tasks from 'components/tasks/tasks';
 import SideBar from 'components/sidebar';
 import NavBar from 'components/navbar';
 
