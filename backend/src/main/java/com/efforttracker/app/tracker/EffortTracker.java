@@ -1,12 +1,15 @@
 package com.efforttracker.app.tracker;
 
 import com.efforttracker.app.models.AssignTaskRequest;
-import com.efforttracker.app.models.User;
+//import com.efforttracker.app.models.User;
 import com.efforttracker.specs.Task;
+import com.efforttracker.specs.User;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+//import java.util.Random;
+import java.util.UUID;
 
 /**
  * Requirements:
@@ -74,15 +77,41 @@ import java.util.List;
         private List<User> users = new ArrayList<>();
         private List<Task> tasks = new ArrayList<>();
 
-        public void addUser(final User user) {
+        public User addUser(final User user) {
             users.add(user);
-            System.out.println("User: " + user);
+            //System.out.println("User: " + user);
+            return user;
         }
 
         public Task createTask(final Task task) {
+            String taskId = UUID.randomUUID().toString();
+            task.setId(taskId);
             tasks.add(task);
             return task;
         }
+
+        // public Task updateTask(final Task task) {
+        //     int taskIndex = tasks.indexOf(task);
+        //     if (taskIndex != -1) {
+        //         tasks.set(taskIndex, task);
+        //         //System.out.println("Task: " + task + " updated");
+        //         return task;
+        //     } else {
+        //         //System.out.println("Task not found");
+        //         return null;
+        //     }
+        // }
+
+        // public Task updateTask(final Task updatedTask) {
+        //     for (int i = 0; i < tasks.size(); i++) {
+        //         Task existingTask = tasks.get(i);
+        //         if (existingTask.getID() == updatedTask.getID()) {
+        //             tasks.set(i, updatedTask);
+        //             return updatedTask;
+        //         }
+        //     }
+        //     return null;
+        // }
 
         // public void assignTask(final Task task, final User user) {
         //     int taskIndex = tasks.indexOf(task);
@@ -125,42 +154,55 @@ import java.util.List;
         // }
 
 
-//        public void updateTask(final Task updatedTask) {
-//            // if (updatedTask.getTaskID() == null) {
-//            //     throw new IllegalArgumentException("Task ID must not be null");
-//            // }
-//            Task existingTask = tasks.stream()
-//                                    .filter(task -> task.getTaskID() == updatedTask.getTaskID())
-//                                    .findFirst()
-//                                    .orElse(null);
-//
-//            if (existingTask != null) {
-//                if (updatedTask.getName() != null) {
-//                    existingTask.setName(updatedTask.getName());
-//                }
-//                if (updatedTask.getDescription() != null) {
-//                    existingTask.setDescription(updatedTask.getDescription());
-//                }
-//                if (updatedTask.getEffort() != null) {
-//                    existingTask.setEffort(updatedTask.getEffort());
-//                }
-//                if (updatedTask.getStartDate() != null) {
-//                    existingTask.setStartDate(updatedTask.getStartDate());
-//                }
-//                if (updatedTask.getEndDate() != null) {
-//                    existingTask.setEndDate(updatedTask.getEndDate());
-//                }
-//                if (updatedTask.getState() != null) {
-//                    existingTask.setState(updatedTask.getState());
-//                }
-//                if (updatedTask.getUser() != null) {
-//                    existingTask.setUser(updatedTask.getUser());
-//                }
-//                System.out.println("Task: " + existingTask + " updated");
-//            } else {
-//                throw new IllegalArgumentException("Task ID not found: " + updatedTask.getTaskID());
-//            }
-//        }
+       public Task updateTask(final Task updatedTask) {
+           if (updatedTask.getId() == null) {
+               throw new IllegalArgumentException("Task ID must not be null");
+           }
+           Task existingTask = tasks.stream()
+                                   .filter(task -> task.getId().equals(updatedTask.getId()))
+                                   .findFirst()
+                                   .orElse(null);
+
+           if (existingTask != null) {
+               if (updatedTask.getTitle() != null) {
+                   existingTask.setTitle(updatedTask.getTitle());
+               }
+               if (updatedTask.getDescription() != null) {
+                   existingTask.setDescription(updatedTask.getDescription());
+               }
+               if (updatedTask.getEstimate() != null) {
+                   existingTask.setEstimate(updatedTask.getEstimate());
+               }
+            //    if (updatedTask.getStartDate() != null) {
+            //        existingTask.setStartDate(updatedTask.getStartDate());
+            //    }
+            //    if (updatedTask.getEndDate() != null) {
+            //        existingTask.setEndDate(updatedTask.getEndDate());
+            //    }
+               if (updatedTask.getState() != null) {
+                   existingTask.setState(updatedTask.getState());
+               }
+               if (updatedTask.getUsername() != null) {
+                    String username = updatedTask.getUsername();
+                    User user = users.stream()
+                                    .filter(u -> u.getUsername().equals(username))
+                                    .findFirst()
+                                    .orElse(null);
+                
+                    if(user != null){
+                        existingTask.setUsername(username);
+                    }
+                    else{
+                        throw new IllegalArgumentException("User not found: " + updatedTask.getUsername());
+                    }
+                   //existingTask.setUsername(updatedTask.getUsername());
+               }
+               //System.out.println("Task: " + existingTask + " updated");
+               return existingTask;
+           } else {
+               throw new IllegalArgumentException("Task ID not found: " + updatedTask.getId());
+           }
+       }
 
         public List<Task> listTasks() {
             return tasks;

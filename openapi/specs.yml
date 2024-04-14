@@ -60,6 +60,59 @@ paths:
           description: Invalid input
         '500':
           description: Internal Error
+  /task/update:
+    post:
+      tags:
+        - task
+      summary: Updates a task
+      description: performs task updation
+      operationId: updateTask
+      requestBody: 
+        description: Task object that needs to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400':
+          description: Invalid input
+        '404':
+          description: Task not found
+        '500':
+          description: Internal Error
+  /user/create:
+    post:
+      tags:
+        - user
+      summary: Adds user in the system
+      description: Adds user in the system
+      operationId: createUser
+      requestBody:
+        description: Adds user in the system
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid input
+        '409':
+          description: User already exists
+        '500':
+          description: Internal Error       
 components:
   schemas:
     User:
@@ -79,9 +132,8 @@ components:
       type: object
       properties:
         id:
-          type: integer
-          format: int64
-          example: 10
+          type: string
+          example: hjhfhsfhsfggghg
         title:
           type: string
           example: Enable gitignore
@@ -95,6 +147,14 @@ components:
         username:
           type: string
           example: User to which this task is assigned
+        state:
+          $ref: '#/components/schemas/State'
+    State:
+      type: string
+      enum:
+        - OPEN
+        - INPROGRESS
+        - COMPLETE
     StringFilter:
       type: array
       items:

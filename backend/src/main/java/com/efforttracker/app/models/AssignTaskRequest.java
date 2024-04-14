@@ -1,5 +1,5 @@
 package com.efforttracker.app.models;
-
+import com.efforttracker.specs.User;
 import com.efforttracker.specs.Task;
 import lombok.Data;
 
