@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import { Component, FormEvent, useEffect, useState } from 'react';
+import { Component, FormEvent, createContext, useContext, useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import axios from 'axios';
 import { title } from 'process';
@@ -16,22 +16,25 @@ import { useOutsideClick } from '../util/click_outside_util';
 import TaskTable from './tasktable';
 import CreateTask from './createTask';
 import FilterBy from './filterby';
-
-const sao = new EffortTrackingSao();
+import sao from 'sao/EffortTrackingSao';
 
 const Tasks = () => {
   const [tasks, setTasks] = useState<Task[]>();
+
+  const TaskContext = createContext(tasks);
 
   function handleListTasks() {
     sao.listTasks(setTasks);
   }    
 
   return (
-    <Box>
-          <CreateTask />
-          <FilterBy handleListTasks={handleListTasks} />
-          <TaskTable tasks={tasks!} />
-    </Box>
+    <TaskContext.Provider value={tasks}>
+      <Box>
+            <CreateTask />
+            <FilterBy handleListTasks={handleListTasks} />
+            <TaskTable tasks={tasks!} />
+      </Box>
+    </TaskContext.Provider>
   );
 }
   

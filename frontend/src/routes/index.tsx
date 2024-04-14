@@ -20,7 +20,7 @@ export function Routes() {
       <NavBar />
       <Switch>
       <Route />
-        <Route path='/tasks' element={<Tasks />} />
+        <Route path='/' element={<Tasks />} />
         <Route path={NOT_FOUND_ROUTE} element={<NotFoundPage />} />
         <Route path='*' element={<Navigate to={NOT_FOUND_ROUTE} />} />
       </Switch>

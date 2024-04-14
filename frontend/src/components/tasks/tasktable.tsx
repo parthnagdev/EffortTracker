@@ -17,8 +17,7 @@ const TaskTable = ({tasks} : {tasks: Task[]}) => {
   
     var i = 0;
     for (let i = 0; i< tasks!.length; i++) {
-      console.log("Task title: " + tasks[i].title);
-      // console.log("Task status: " + tasks[i].status);
+    //   console.log("Task title: " + tasks[i].title);
          rows.push(<TaskRow task={tasks[i]!} />)
       }
     };

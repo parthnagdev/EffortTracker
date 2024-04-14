@@ -70,6 +70,19 @@ export interface Filter {
 /**
  * 
  * @export
+ * @interface FilterUser
+ */
+export interface FilterUser {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof FilterUser
+     */
+    'userFilter'?: Array<string>;
+}
+/**
+ * 
+ * @export
  * @interface ListTasksRequest
  */
 export interface ListTasksRequest {
@@ -96,15 +109,56 @@ export interface ListTasksResponse {
 /**
  * 
  * @export
+ * @interface ListUsersRequest
+ */
+export interface ListUsersRequest {
+    /**
+     * 
+     * @type {FilterUser}
+     * @memberof ListUsersRequest
+     */
+    'filter'?: FilterUser;
+}
+/**
+ * 
+ * @export
+ * @interface ListUsersResponse
+ */
+export interface ListUsersResponse {
+    /**
+     * 
+     * @type {Array<User>}
+     * @memberof ListUsersResponse
+     */
+    'userList'?: Array<User>;
+}
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const State = {
+    Open: 'OPEN',
+    Inprogress: 'INPROGRESS',
+    Complete: 'COMPLETE'
+} as const;
+
+export type State = typeof State[keyof typeof State];
+
+
+/**
+ * 
+ * @export
  * @interface Task
  */
 export interface Task {
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof Task
      */
-    'id'?: number;
+    'id'?: string;
     /**
      * 
      * @type {string}
@@ -129,7 +183,15 @@ export interface Task {
      * @memberof Task
      */
     'username'?: string;
+    /**
+     * 
+     * @type {State}
+     * @memberof Task
+     */
+    'state'?: State;
 }
+
+
 /**
  * 
  * @export
@@ -138,10 +200,10 @@ export interface Task {
 export interface User {
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof User
      */
-    'id'?: number;
+    'id'?: string;
     /**
      * 
      * @type {string}
@@ -234,6 +296,40 @@ export const TaskApiAxiosParamCreator = function (configuration?: Configuration)
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * performs task updation
+         * @summary Updates a task
+         * @param {Task} [task] Task object that needs to be updated
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateTask: async (task?: Task, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/task/update`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(task, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -270,6 +366,19 @@ export const TaskApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['TaskApi.listTasks']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * performs task updation
+         * @summary Updates a task
+         * @param {Task} [task] Task object that needs to be updated
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateTask(task?: Task, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Task>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateTask(task, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TaskApi.updateTask']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -299,6 +408,16 @@ export const TaskApiFactory = function (configuration?: Configuration, basePath?
          */
         listTasks(listTasksRequest: ListTasksRequest, options?: any): AxiosPromise<ListTasksResponse> {
             return localVarFp.listTasks(listTasksRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * performs task updation
+         * @summary Updates a task
+         * @param {Task} [task] Task object that needs to be updated
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateTask(task?: Task, options?: any): AxiosPromise<Task> {
+            return localVarFp.updateTask(task, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -332,6 +451,199 @@ export class TaskApi extends BaseAPI {
      */
     public listTasks(listTasksRequest: ListTasksRequest, options?: AxiosRequestConfig) {
         return TaskApiFp(this.configuration).listTasks(listTasksRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * performs task updation
+     * @summary Updates a task
+     * @param {Task} [task] Task object that needs to be updated
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TaskApi
+     */
+    public updateTask(task?: Task, options?: AxiosRequestConfig) {
+        return TaskApiFp(this.configuration).updateTask(task, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * UserApi - axios parameter creator
+ * @export
+ */
+export const UserApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Adds user in the system
+         * @summary Adds user in the system
+         * @param {User} user Adds user in the system
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createUser: async (user: User, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'user' is not null or undefined
+            assertParamExists('createUser', 'user', user)
+            const localVarPath = `/user/create`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(user, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Lists user in the system
+         * @summary Lists user in the system
+         * @param {ListUsersRequest} listUsersRequest Lists user in the system
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listUsers: async (listUsersRequest: ListUsersRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'listUsersRequest' is not null or undefined
+            assertParamExists('listUsers', 'listUsersRequest', listUsersRequest)
+            const localVarPath = `/user/list`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(listUsersRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * UserApi - functional programming interface
+ * @export
+ */
+export const UserApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = UserApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Adds user in the system
+         * @summary Adds user in the system
+         * @param {User} user Adds user in the system
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createUser(user: User, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createUser(user, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['UserApi.createUser']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Lists user in the system
+         * @summary Lists user in the system
+         * @param {ListUsersRequest} listUsersRequest Lists user in the system
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listUsers(listUsersRequest: ListUsersRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListUsersResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listUsers(listUsersRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['UserApi.listUsers']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * UserApi - factory interface
+ * @export
+ */
+export const UserApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = UserApiFp(configuration)
+    return {
+        /**
+         * Adds user in the system
+         * @summary Adds user in the system
+         * @param {User} user Adds user in the system
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createUser(user: User, options?: any): AxiosPromise<User> {
+            return localVarFp.createUser(user, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Lists user in the system
+         * @summary Lists user in the system
+         * @param {ListUsersRequest} listUsersRequest Lists user in the system
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listUsers(listUsersRequest: ListUsersRequest, options?: any): AxiosPromise<ListUsersResponse> {
+            return localVarFp.listUsers(listUsersRequest, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * UserApi - object-oriented interface
+ * @export
+ * @class UserApi
+ * @extends {BaseAPI}
+ */
+export class UserApi extends BaseAPI {
+    /**
+     * Adds user in the system
+     * @summary Adds user in the system
+     * @param {User} user Adds user in the system
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    public createUser(user: User, options?: AxiosRequestConfig) {
+        return UserApiFp(this.configuration).createUser(user, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Lists user in the system
+     * @summary Lists user in the system
+     * @param {ListUsersRequest} listUsersRequest Lists user in the system
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    public listUsers(listUsersRequest: ListUsersRequest, options?: AxiosRequestConfig) {
+        return UserApiFp(this.configuration).listUsers(listUsersRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

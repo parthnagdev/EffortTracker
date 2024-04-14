@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import { FormEvent } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
+import sao from "sao/EffortTrackingSao";
 
 const CreateTask = () => {
 
@@ -11,6 +12,7 @@ const CreateTask = () => {
     function handleCreateTask(e: FormEvent) {
        // Prevent the browser from reloading the page
        e.preventDefault();
+       sao.createTask(title, Number(estimate), username);
     }
   
     return (
