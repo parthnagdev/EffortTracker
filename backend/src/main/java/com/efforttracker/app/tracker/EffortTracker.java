@@ -78,6 +78,8 @@ import java.util.UUID;
         private List<Task> tasks = new ArrayList<>();
 
         public User addUser(final User user) {
+            String userId = UUID.randomUUID().toString();
+            user.setId(userId);
             users.add(user);
             //System.out.println("User: " + user);
             return user;
@@ -123,25 +125,25 @@ import java.util.UUID;
         //     }
         // }
 
-        public void assignTask(final AssignTaskRequest assignTaskRequest) {
-        Task task = assignTaskRequest.getTask();
-        User user = assignTaskRequest.getUser();
+        // public void assignTask(final AssignTaskRequest assignTaskRequest) {
+        // Task task = assignTaskRequest.getTask();
+        // User user = assignTaskRequest.getUser();
 
-        int taskIndex = tasks.indexOf(task);
-        int userIndex = users.indexOf(user); // assuming 'users' is a list of all users
+        // int taskIndex = tasks.indexOf(task);
+        // int userIndex = users.indexOf(user); // assuming 'users' is a list of all users
 
-        if (taskIndex != -1 && userIndex != -1) {
-            tasks.get(taskIndex).setUsername(user.getUsername());
-            System.out.println("Task: " + task + " assigned to User: " + user);
-        } else {
-            if (taskIndex == -1) {
-                System.out.println("Task not found");
-            }
-            if (userIndex == -1) {
-                System.out.println("User not found");
-            }
-        }
-        }
+        // if (taskIndex != -1 && userIndex != -1) {
+        //     tasks.get(taskIndex).setUsername(user.getUsername());
+        //     System.out.println("Task: " + task + " assigned to User: " + user);
+        // } else {
+        //     if (taskIndex == -1) {
+        //         System.out.println("Task not found");
+        //     }
+        //     if (userIndex == -1) {
+        //         System.out.println("User not found");
+        //     }
+        // }
+        // }
 
         // public void updateTask(final Task task) {
         //     int taskIndex = tasks.indexOf(task);
@@ -206,6 +208,10 @@ import java.util.UUID;
 
         public List<Task> listTasks() {
             return tasks;
+        }
+
+        public List<User> listUsers() {
+            return users;
         }
 
 //        public List<Task> getTasks(final Filter filter) {
