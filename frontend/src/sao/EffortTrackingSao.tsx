@@ -1,4 +1,4 @@
-import { TaskApi, ListTasksRequest, ListUsersRequest, ListTasksResponse, User, Task, UserApi, ListUsersResponse } from "api";
+import { TaskApi, ListTasksRequest, ListUsersRequest, ListTasksResponse, User, Task, UserApi, ListUsersResponse, State } from "api";
 
 class EffortTrackingSao {
 
@@ -37,10 +37,43 @@ class EffortTrackingSao {
     }
 
     async updateStatus(taskId: string, status: string, successCallback: Function) {
-        successCallback();
 
-        // const listTaskRequest: ListTasksRequest = {};
+        console.log("Updating task: " + taskId);
+
+        console.log("Updating status: " + status);
+
+        this.taskApi.listTasks({
+            filter: {
+                idFilter: [taskId]
+            }
+        }).then((res) => {
+            const task = res.data.taskList?.at(0);
+            const newTask: Task = {
+                ...task,
+                state: this.getState(status)
+            }
+
+            console.log("newTask: " + newTask.state);
+            this.taskApi.updateTask(newTask).then((res) => {
+                console.log("State: " + res.data.state);
+                successCallback();
+            });
+        });
+
+        // const listTaskRequest:   ListTasksRequest = {};
         // return this.taskApi.listTasks(listTaskRequest);
+    }
+
+    getState(state: string) {
+        if (State.Open === state) {
+            return State.Open;
+        }
+
+        if (State.Inprogress === state) {
+            return State.Inprogress;
+        }
+
+        return State.Complete;
     }
 
     async updateTask(taskId: string, title: string, estimate: number, username: string, successCallback: Function) {

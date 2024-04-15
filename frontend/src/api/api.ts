@@ -59,6 +59,12 @@ export interface Filter {
      * @type {Array<string>}
      * @memberof Filter
      */
+    'idFilter'?: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof Filter
+     */
     'userFilter'?: Array<string>;
     /**
      * 
