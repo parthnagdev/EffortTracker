@@ -5,16 +5,26 @@ class EffortTrackingSao {
     taskApi: TaskApi;
     userApi: UserApi;
 
+    log?: Function;
+    error?: Function;
+
     constructor() {
         this.taskApi = new TaskApi();
         this.userApi = new UserApi();
+    }
+
+    public setLoggers(log: Function, error: Function) {
+        this.log = log;
+        this.error = error;
     }
 
     async createUser(user: string, username: string) {
         this.userApi.createUser({
             name: user,
             username: username
-        });
+        })
+        .then((res) => this.log!("User created successfully"))
+        .catch((error) => this.error!("Some error occurred while creating user"));
     }
 
     async listUsers(callback: Function) {
@@ -30,7 +40,9 @@ class EffortTrackingSao {
             state: "OPEN",
             estimate: estimate,
             username: username
-        });
+        })
+        .then((res) => this.log!("Task created successfully"))
+        .catch((error) => this.error!("Some error occurred while creating task"));
 
         // const listTaskRequest: ListTasksRequest = {};
         // return this.taskApi.listTasks(listTaskRequest);
@@ -58,7 +70,7 @@ class EffortTrackingSao {
                 console.log("State: " + res.data.state);
                 successCallback();
             });
-        });
+        }).catch((error) => this.error!("Some error occurred while updating status"));
 
         // const listTaskRequest:   ListTasksRequest = {};
         // return this.taskApi.listTasks(listTaskRequest);
@@ -94,7 +106,7 @@ class EffortTrackingSao {
             this.taskApi.updateTask(newTask).then((res) => {
                 console.log("State: " + res.data.state);
                 successCallback();
-            });
+            }).catch((error) => this.error!("Some error occurred while updating task"));;
         });
 
         // const listTaskRequest: ListTasksRequest = {};
@@ -127,7 +139,7 @@ class EffortTrackingSao {
         const response = this.taskApi.listTasks(listTaskRequest);
         response.then((res) => {
             callback(res.data.taskList);
-        })
+        }).catch((error) => this.error!("Some error occurred while listing tasks"));
     }
 }
 
