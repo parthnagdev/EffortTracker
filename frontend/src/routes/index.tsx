@@ -13,13 +13,15 @@ import { NOT_FOUND_ROUTE } from 'routes/route-path';
 import Tasks from 'components/tasks/tasks';
 import SideBar from 'components/sidebar';
 import NavBar from 'components/navbar';
+import Login from 'pages/Login';
 
 export function Routes() {
   return (
     <Router>
       <NavBar />
       <Switch>
-      <Route />
+        <Route />
+        <Route path='/login' element={<Login />} />
         <Route path='/' element={<Tasks />} />
         <Route path={NOT_FOUND_ROUTE} element={<NotFoundPage />} />
         <Route path='*' element={<Navigate to={NOT_FOUND_ROUTE} />} />
