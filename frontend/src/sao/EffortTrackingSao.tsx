@@ -77,7 +77,25 @@ class EffortTrackingSao {
     }
 
     async updateTask(taskId: string, title: string, estimate: number, username: string, successCallback: Function) {
-        successCallback();
+        this.taskApi.listTasks({
+            filter: {
+                idFilter: [taskId]
+            }
+        }).then((res) => {
+            const task = res.data.taskList?.at(0);
+            const newTask: Task = {
+                ...task,
+                title: title,
+                estimate: estimate,
+                username: username
+            }
+
+            console.log("newTask: " + newTask.state);
+            this.taskApi.updateTask(newTask).then((res) => {
+                console.log("State: " + res.data.state);
+                successCallback();
+            });
+        });
 
         // const listTaskRequest: ListTasksRequest = {};
         // return this.taskApi.listTasks(listTaskRequest);

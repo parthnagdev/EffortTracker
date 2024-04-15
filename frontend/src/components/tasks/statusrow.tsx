@@ -1,3 +1,4 @@
+import { State } from "api";
 import { useState } from "react";
 import { Button, ButtonToolbar, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import sao from "sao/EffortTrackingSao";
@@ -20,7 +21,7 @@ const Status = ({ taskId, value, actual, handleUpdateCallback }: {taskId: string
 
     console.log("value: " + value);
     console.log("Button name: " + buttonName);
-    console.log("status: " + status);
+    console.log("status: " + actual);
   
     if (value === actual) {
       return (
@@ -40,14 +41,28 @@ const Status = ({ taskId, value, actual, handleUpdateCallback }: {taskId: string
       </Col>
     );
   }
+
+  function getCorrectedState(status: string) {
+    console.log("handleUpdateStatus Status: " + status);
+    if (State.Complete === status) {
+        return "COMPELETE";
+    }
+
+    return status
+  }
   
   const StatusRow = ({ taskId, status}: {taskId: string, status: string} ) => {
 
-    const [currentStatus, setStatus] = useState(status);
+    const [currentStatus, setStatus] = useState(getCorrectedState(status));
 
     console.log("Status here: " + status);
 
     function handleUpdateStatus(taskId: string, status: string) {
+        // console.log("handleUpdateStatus Status: " + status);
+        // if (State.Complete === status) {
+        //     status = "COMPELETE";
+        // }
+
         sao.updateStatus(taskId, status, () => setStatus(status));
     }
 
