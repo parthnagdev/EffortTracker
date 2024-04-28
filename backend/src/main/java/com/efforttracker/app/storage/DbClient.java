@@ -1,7 +1,10 @@
 package com.efforttracker.app.storage;
 
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Scenario 1: Failover happens when autocommit is set to true - Catch SQLException with code 08S02.
@@ -13,30 +16,62 @@ public class DbClient {
    private static final String PASSWORD = "12345678";
    private static final int MAX_RETRIES = 5;
 
-   public DbClient() throws SQLException {
-      try (Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)) {
-         // Configure the connection.
-         setInitialSessionState(conn);
+   private Connection conn;
 
-         // Do something with method "betterExecuteQuery" using the Cluster-Aware Driver.
+   public static void main(String args[]) {
+      final DbClient dbClient = new DbClient();
+      dbClient.printTasks();
+   }
+
+   public DbClient() {
+      conn = getConnection();
+   }
+
+   public void printTasks() {
+      try {
          String select_sql = "SELECT * FROM tasks";
-         try (ResultSet rs = betterExecuteQuery(conn, select_sql)) {
+         try (ResultSet rs = betterExecuteQuery(select_sql)) {
             while (rs.next()) {
                System.out.println(rs.getString("first_name"));
             }
          }
+      } catch (final SQLException ex) {
+         throw new RuntimeException("Unable to retrieve users data.", ex);
       }
    }
 
-   private static void setInitialSessionState(Connection conn) throws SQLException {
-      // Your code here for the initial connection setup.
-      try (Statement stmt1 = conn.createStatement()) {
-         stmt1.executeUpdate("SET time_zone = \"+00:00\"");
+   private Connection getConnection() {
+      try {
+         if (conn == null || conn.isClosed()) {
+            conn = DriverManager.getConnection(CONNECTION_STRING,USERNAME,PASSWORD);
+//               // Configure the connection.
+//               setInitialSessionState(conn);
+//
+//               // Do something with method "betterExecuteQuery" using the Cluster-Aware Driver.
+//               String select_sql = "SELECT * FROM tasks";
+//               try (ResultSet rs = betterExecuteQuery(conn, select_sql)) {
+//                  while (rs.next()) {
+//                     System.out.println(rs.getString("first_name"));
+//                  }
+//               }
+
+         }
+      } catch (final SQLException ex) {
+         throw new RuntimeException("Unable to connect to DB", ex);
       }
+
+      return conn;
    }
+
+//   private static void setInitialSessionState(Connection conn) throws SQLException {
+//      // Your code here for the initial connection setup.
+//      try (Statement stmt1 = conn.createStatement()) {
+//         stmt1.executeUpdate("SET time_zone = \"+00:00\"");
+//      }
+//   }
 
    // A better executing query method when autocommit is set as the default value - true.
-   private static ResultSet betterExecuteQuery(Connection conn, String query) throws SQLException {
+   private ResultSet betterExecuteQuery(String query) throws SQLException {
       // Record the times of retry.
       int retries = 0;
 
@@ -54,7 +89,7 @@ public class DbClient {
             // Failover has occurred and the driver has failed over to another instance successfully.
             if ("08S02".equalsIgnoreCase(e.getSQLState())) {
                // Reconfigure the connection.
-               setInitialSessionState(conn);
+               getConnection();
                // Re-execute that query again.
                retries++;
 
