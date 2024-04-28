@@ -1,6 +1,7 @@
 package com.efforttracker.app.tracker;
 
-import com.efforttracker.app.models.AssignTaskRequest;
+//import com.efforttracker.app.models.AssignTaskRequest;
+import com.efforttracker.app.storage.DbClient;
 import com.efforttracker.specs.ListTasksRequest;
 //import com.efforttracker.app.models.User;
 import com.efforttracker.specs.Task;
@@ -75,22 +76,25 @@ import java.util.UUID;
 
     @Component
     public class EffortTracker {
-        private List<User> users = new ArrayList<>();
-        private List<Task> tasks = new ArrayList<>();
+        //private List<User> users = new ArrayList<>();
+        //private List<Task> tasks = new ArrayList<>();
+        DbClient dbClient = new DbClient();
 
         public User addUser(final User user) {
-            String userId = UUID.randomUUID().toString();
-            user.setId(userId);
-            users.add(user);
+            //String userId = UUID.randomUUID().toString();
+            //user.setId(userId);
+            //users.add(user);
+            dbClient.addUser(user);
             //System.out.println("User: " + user);
-            return user;
+            return dbClient.getUser(user.getUsername());
         }
 
-        public Task createTask(final Task task) {
-            String taskId = UUID.randomUUID().toString();
-            task.setId(taskId);
-            tasks.add(task);
-            return task;
+        public Task createTask( Task task) {
+            //String taskId = UUID.randomUUID().toString();
+            //task.setId(taskId);
+            //tasks.add(task);
+            task = dbClient.createTask(task);
+            return dbClient.getTask(task.getId());
         }
 
         // public Task updateTask(final Task task) {
@@ -161,10 +165,7 @@ import java.util.UUID;
            if (updatedTask.getId() == null) {
                throw new IllegalArgumentException("Task ID must not be null");
            }
-           Task existingTask = tasks.stream()
-                                   .filter(task -> task.getId().equals(updatedTask.getId()))
-                                   .findFirst()
-                                   .orElse(null);
+           Task existingTask = dbClient.getTask(updatedTask.getId());
 
            if (existingTask != null) {
                if (updatedTask.getTitle() != null) {
@@ -187,10 +188,7 @@ import java.util.UUID;
                }
                if (updatedTask.getUsername() != null) {
                     String username = updatedTask.getUsername();
-                    User user = users.stream()
-                                    .filter(u -> u.getUsername().equals(username))
-                                    .findFirst()
-                                    .orElse(null);
+                    User user = dbClient.getUser(username);
                 
                     if(user != null){
                         existingTask.setUsername(username);
@@ -201,6 +199,7 @@ import java.util.UUID;
                    //existingTask.setUsername(updatedTask.getUsername());
                }
                //System.out.println("Task: " + existingTask + " updated");
+               dbClient.updateTask(existingTask);
                return existingTask;
            } else {
                throw new IllegalArgumentException("Task ID not found: " + updatedTask.getId());
@@ -208,25 +207,12 @@ import java.util.UUID;
        }
 
         public List<Task> listTasks(List<String> taskIds) {
-            if(taskIds == null || taskIds.isEmpty()){
-                return tasks;
-            }
-            List<Task> filteredTasks = new ArrayList<>();
-            for(String taskId : taskIds){
-                Task task = tasks.stream()
-                                .filter(t -> t.getId().equals(taskId))
-                                .findFirst()
-                                .orElse(null);
-                if(task != null){
-                    filteredTasks.add(task);
-                }
-            }
-            return filteredTasks;
+            return dbClient.listTasks(taskIds);
             //return tasks;
         }
 
         public List<User> listUsers() {
-            return users;
+            return dbClient.listUsers();
         }
 
 //        public List<Task> getTasks(final Filter filter) {
