@@ -183,15 +183,21 @@ public class DbClient {
         try {
             String select_sql = "SELECT * FROM users";
             try (ResultSet rs = betterExecuteQuery(select_sql)) {
+                List<User> users = new ArrayList<>();
                 while (rs.next()) {
-                    System.out.println(rs.getString("name, username"));
+                    User user = new User();
+                    user.setId(rs.getString("id"));
+                    user.setName(rs.getString("name"));
+                    user.setUsername(rs.getString("username"));
+                    users.add(user);
                 }
+                return users;
             }
         } catch (final SQLException ex) {
             throw new RuntimeException("Unable to retrieve users data.", ex);
         }
 
-        return null;
+        //return null;
     }
 
 
