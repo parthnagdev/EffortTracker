@@ -12,6 +12,7 @@ import com.efforttracker.specs.TaskApi;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
@@ -101,4 +102,10 @@ public class EffortTrackingController implements TaskApi {
 		response.setTaskList(effortTracker.listTasks(listTasksRequest.getFilter().getIdFilter()));
 		return ResponseEntity.of(Optional.of(response));
 	}
+
+
+	@GetMapping("/ping")
+    public ResponseEntity<String> ping() {
+        return ResponseEntity.ok("healthy");
+    }
 }

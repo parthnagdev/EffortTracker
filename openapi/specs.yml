@@ -137,15 +137,128 @@ paths:
         '400':
           description: Invalid input
         '500':
-          description: Internal Error      
+          description: Internal Error
+  /project/create:
+    post:
+      tags:
+        - project
+      summary: Adds project in the system
+      description: Adds project in the system
+      operationId: createProject
+      requestBody:
+        description: Adds project in the system
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          description: Invalid input
+        '500':
+          description: Internal Error 
+  /project/update:
+    post:
+      tags:
+        - project
+      summary: Updates a project
+      description: performs project updation
+      operationId: updateProject
+      requestBody: 
+        description: Project object that needs to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          description: Invalid input
+        '404':
+          description: Project not found
+        '500':
+          description: Internal Error
+  /project/list:
+    post:
+      tags:
+        - project
+      summary: Lists project in the system
+      description: Lists project in the system
+      operationId: listProjects
+      requestBody:
+        description: Lists project in the system
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListProjectsRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListProjectsResponse'
+        '400':
+          description: Invalid input
+        '500':
+          description: Internal Error
 components:
   schemas:
-    User:
+    Project:
       type: object
       properties:
         id:
           type: string
           example: hhdbsjns-hddjskks-shdhdjsk
+        name:
+          type: string
+          example: Project1
+        description:
+          type: string
+          example: Project1 description
+        startDate:
+          type: string
+          example: 2021-09-01
+        endDate:
+          type: string
+          example: 2021-09-30
+    ListProjectsRequest:
+      type: object
+      properties:
+        filter:
+          $ref: '#/components/schemas/FilterProject'
+    ListProjectsResponse:
+      type: object
+      properties:
+        projectList:
+          type: array
+          items:
+            $ref: '#/components/schemas/Project'
+    FilterProject:
+      type: object
+      properties:
+        idFilter:
+          $ref: '#/components/schemas/StringFilter'
+        nameFilter:
+          $ref: '#/components/schemas/StringFilter'
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 3
         name:
           type: string
           example: John
@@ -157,7 +270,10 @@ components:
       properties:
         id:
           type: string
-          example: 3
+          example: hjhfhsfhsfggghg
+        projectId:
+          type: string
+          example: hhdbsjns-hddjskks-shdhdjsk
         title:
           type: string
           example: Enable gitignore
@@ -248,3 +364,9 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Task'
+    Project:
+      description: Project to be added
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Project'
