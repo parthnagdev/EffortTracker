@@ -195,6 +195,12 @@ export interface Task {
      * @memberof Task
      */
     'state'?: State;
+    /**
+     * 
+     * @type {string}
+     * @memberof Task
+     */
+    'parentId'?: string;
 }
 
 

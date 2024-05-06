@@ -25,20 +25,22 @@ const Status = ({ taskId, value, actual, handleUpdateCallback }: {taskId: string
   
     if (value === actual) {
       return (
-        <Col>
+        
+        <div style={{ paddingLeft: 4, paddingRight: 0 }}>
           <OverlayTrigger placement="left" overlay={tooltip}>
-            <Button> {buttonName} </Button>
+            <Button size="sm">{buttonName}</Button>
           </OverlayTrigger>
-        </Col>
+          </div>
       );
     }
   
     return (
-      <Col>
-        <OverlayTrigger placement="left" overlay={tooltip}>
-          <Button variant='secondary' onClick={() => handleUpdateCallback(taskId, value)}> {buttonName} </Button>
+      
+      <div style={{ paddingLeft: 4, paddingRight: 0 }}>
+        <OverlayTrigger placement="left" overlay={tooltip} >
+          <Button size="sm" variant='secondary' onClick={() => handleUpdateCallback(taskId, value)}> {buttonName} </Button>
         </OverlayTrigger>
-      </Col>
+        </div>
     );
   }
 
@@ -68,11 +70,11 @@ const Status = ({ taskId, value, actual, handleUpdateCallback }: {taskId: string
 
     return (
       <ButtonToolbar >
-        <Row>
+        
           <Status taskId={taskId} value='OPEN' actual={currentStatus} handleUpdateCallback={handleUpdateStatus}/> 
           <Status taskId={taskId} value='INPROGRESS' actual={currentStatus} handleUpdateCallback={handleUpdateStatus}/>
           <Status taskId={taskId} value='COMPELETE' actual={currentStatus} handleUpdateCallback={handleUpdateStatus}/>
-        </Row>
+        
       </ButtonToolbar>
     
       );

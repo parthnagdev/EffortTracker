@@ -157,7 +157,7 @@ components:
       properties:
         id:
           type: string
-          example: hjhfhsfhsfggghg
+          example: 3
         title:
           type: string
           example: Enable gitignore
@@ -173,6 +173,9 @@ components:
           example: User to which this task is assigned
         state:
           $ref: '#/components/schemas/State'
+        parentId: 
+          type: string
+          example: 6
     State:
       type: string
       enum:

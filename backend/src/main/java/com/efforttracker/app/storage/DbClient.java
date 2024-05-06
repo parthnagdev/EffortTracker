@@ -63,6 +63,7 @@ public class DbClient {
                     task.setEstimate(rs.getLong("estimate"));
                     task.setUsername(rs.getString("username"));
                     task.setState(State.valueOf(rs.getString("state")));
+                    task.setParentId(rs.getString("parentId"));
                     return task;
                 }
             }
@@ -158,6 +159,7 @@ public class DbClient {
                     task.setEstimate(rs.getLong("estimate"));
                     task.setUsername(rs.getString("username"));
                     task.setState(State.valueOf(rs.getString("state")));
+                    task.setParentId(rs.getString("parentId"));
                     tasks.add(task);
                 }
                 return tasks;

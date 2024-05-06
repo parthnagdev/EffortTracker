@@ -1,12 +1,8 @@
-import Box from '@mui/material/Box';
-import { Task, User } from 'api';
+import { User } from 'api';
 import { createContext, useEffect, useState } from 'react';
 import { Alert } from 'react-bootstrap';
 import sao from 'sao/EffortTrackingSao';
-import CreateUser from '../admin/createUser';
-import CreateTask from './createTask';
-import FilterBy from './filterby';
-import TaskTable from './tasktable';
+import CreateUser from 'components/admin/createUser';
 
 const BasicAlert = () => {
 
@@ -27,7 +23,7 @@ const BasicAlert = () => {
   }
 
   function logError(log: string) {
-    setMsg({
+    setMsg({ 
       log: '',
       errorMessage: log
     });
@@ -56,11 +52,9 @@ const BasicAlert = () => {
 }
 
 
-const Tasks = () => {
-  const [tasks, setTasks] = useState<Task[]>([]);
+const Admin = () => {
   const [users, setUsers] = useState<User[]>([]);
 
-  const TaskContext = createContext(tasks);
   const UserContext = createContext(users);
 
   useEffect(() => {
@@ -74,21 +68,11 @@ const Tasks = () => {
     });
   }
 
-  function handleListTasks() {
-    sao.listTasks(setTasks);
-  }    
-
   return (
     <UserContext.Provider value={users}>
-    <TaskContext.Provider value={tasks}>
-      <Box>
-            <BasicAlert />
-            <FilterBy handleListTasks={handleListTasks} />
-            <TaskTable tasks={tasks!} />
-      </Box>
-    </TaskContext.Provider>
+       <CreateUser />
     </UserContext.Provider>
   );
 }
   
-export default Tasks;
+export default Admin;
