@@ -1,0 +1,19 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "database-1.cp6o00skgzb5.ap-south-1.rds.amazonaws.com",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "MySQL Effort Tracker DB",
+            "database": "EffortTrackerSchema",
+            "username": "admin",
+            "password": "12345678",
+            "connectionTimeout": 30
+        }
+    ]
+}

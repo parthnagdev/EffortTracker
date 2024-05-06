@@ -3,6 +3,7 @@ package com.efforttracker.app.tracker;
 //import com.efforttracker.app.models.AssignTaskRequest;
 import com.efforttracker.app.storage.DbClient;
 import com.efforttracker.specs.ListTasksRequest;
+import com.efforttracker.specs.Project;
 //import com.efforttracker.app.models.User;
 import com.efforttracker.specs.Task;
 import com.efforttracker.specs.User;
@@ -95,6 +96,40 @@ import java.util.UUID;
             //tasks.add(task);
             task = dbClient.createTask(task);
             return dbClient.getTask(task.getId());
+        }
+
+        public Project createProject(Project project) {
+            return dbClient.createProject(project);
+        }
+
+        public Project updaProject(Project project) {
+            if (project.getId() == null) {
+                throw new IllegalArgumentException("Project ID must not be null");
+            }
+            Project existingProject = dbClient.getProject(project.getId());
+
+            if (existingProject != null) {
+                if (project.getName() != null) {
+                    existingProject.setName(project.getName());
+                }
+                if (project.getDescription() != null) {
+                    existingProject.setDescription(project.getDescription());
+                }
+                if (project.getStartDate() != null) {
+                    existingProject.setStartDate(project.getStartDate());
+                }
+                if (project.getEndDate() != null) {
+                    existingProject.setEndDate(project.getEndDate());
+                }
+                dbClient.updateProject(existingProject);
+                return existingProject;
+            } else {
+                throw new IllegalArgumentException("Project ID not found: " + project.getId());
+            }
+        }
+
+        public Project lisProjects(List<String> projectIds) {
+            return dbClient.listProjects(projectIds);
         }
 
         // public Task updateTask(final Task task) {
