@@ -17,7 +17,9 @@ const root = ReactDOM.createRoot(rootElement);
 
 root.render(
   <React.StrictMode>
-    <Routes />
+    <PrimeReactProvider>
+      <Routes />
+    </PrimeReactProvider>
   </React.StrictMode>
 );
 
