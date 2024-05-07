@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.efforttracker.specs.Project;
 import com.efforttracker.specs.State;
 import com.efforttracker.specs.Task;
 import com.efforttracker.specs.User;
@@ -64,6 +65,7 @@ public class DbClient {
                     task.setUsername(rs.getString("username"));
                     task.setState(State.valueOf(rs.getString("state")));
                     task.setParentId(rs.getString("parentId"));
+                    task.setProjectId(rs.getString("projectId"));
                     return task;
                 }
             }
@@ -111,8 +113,14 @@ public class DbClient {
    public Task createTask(final Task task) {
     getConnection();
       try {
-         String insert_sql = "INSERT INTO tasks (title, description, estimate, username, state) VALUES ('" + task.getTitle() + "', '" + task.getDescription() + "' , '" + task.getEstimate() + "', '" + task.getUsername() + "', '" + task.getState() + "')";
-         try (PreparedStatement stmt = conn.prepareStatement(insert_sql, Statement.RETURN_GENERATED_KEYS)) {
+        String insert_sql = "INSERT INTO tasks (title, description, estimate, username, state, projectId) VALUES ('" 
+        + task.getTitle() + "', '" 
+        + task.getDescription() + "' , '" 
+        + task.getEstimate() + "', '" 
+        + task.getUsername() + "', '" 
+        + task.getState() + "', '"
+        + task.getProjectId() + "')";
+     try (PreparedStatement stmt = conn.prepareStatement(insert_sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.executeUpdate();
 
             try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
@@ -133,7 +141,7 @@ public class DbClient {
    public Task updateTask(final Task updatedTask) {
     getConnection();
       try {
-         String update_sql = "UPDATE tasks SET title = '" + updatedTask.getTitle() + "', description = '" + updatedTask.getDescription() + "', estimate = '" + updatedTask.getEstimate() + "', username = '" + updatedTask.getUsername() + "', state = '" + updatedTask.getState() + "' WHERE id = '" + updatedTask.getId() + "'";
+         String update_sql = "UPDATE tasks SET title = '" + updatedTask.getTitle() + "', description = '" + updatedTask.getDescription() + "', estimate = '" + updatedTask.getEstimate() + "', username = '" + updatedTask.getUsername() + "', state = '" + updatedTask.getState() + "', projectId = '" + updatedTask.getProjectId() + "' WHERE id = '" + updatedTask.getId() + "'";
          try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(update_sql);
          }
@@ -147,6 +155,7 @@ public class DbClient {
     public List<Task> listTasks(List<String> taskIds) {
     getConnection();
     if(taskIds == null || taskIds.isEmpty()){
+        //System.out.println("taskIds is null or empty");
         try {
             String select_sql = "SELECT * FROM tasks";
             try (ResultSet rs = betterExecuteQuery(select_sql)) {
@@ -160,6 +169,7 @@ public class DbClient {
                     task.setUsername(rs.getString("username"));
                     task.setState(State.valueOf(rs.getString("state")));
                     task.setParentId(rs.getString("parentId"));
+                    task.setProjectId(rs.getString("projectId"));
                     tasks.add(task);
                 }
                 return tasks;
@@ -200,6 +210,165 @@ public class DbClient {
         }
 
         //return null;
+    }
+
+    public Project createProject(final Project project) {
+        getConnection();
+        try {
+            //System.out.println("Creating project from DbClient.java");
+            String insert_sql = "INSERT INTO projects (name, description, startDate, endDate) VALUES (?, ?, ?, ?)";
+            try (PreparedStatement stmt = conn.prepareStatement(insert_sql)) {
+                stmt.setString(1, project.getName());
+                stmt.setString(2, project.getDescription());
+                stmt.setDate(3, java.sql.Date.valueOf(project.getStartDate()));
+                stmt.setDate(4, java.sql.Date.valueOf(project.getEndDate()));
+                stmt.executeUpdate();
+            }
+        } catch (final SQLException ex) {
+            throw new RuntimeException("Unable to create project.", ex);
+        }
+    
+        return project;
+    }
+
+    public Project getProject(final String projectId) {
+        getConnection();
+        try {
+            String select_sql = "SELECT * FROM projects WHERE id = '" + projectId + "'";
+            try (ResultSet rs = betterExecuteQuery(select_sql)) {
+                Project project = new Project();
+                while (rs.next()) {
+                    project.setId(rs.getString("id"));
+                    project.setName(rs.getString("name"));
+                    project.setDescription(rs.getString("description"));
+                    project.setStartDate(rs.getDate("startDate").toLocalDate());
+                    project.setEndDate(rs.getDate("endDate").toLocalDate());
+                    return project;
+                }
+            }
+        } catch (final SQLException ex) {
+            throw new RuntimeException("Unable to retrieve project data.", ex);
+        }
+    
+        return null;
+    }
+
+    public List<Project> listProjects() {
+        getConnection();
+        try {
+            String select_sql = "SELECT * FROM projects";
+            try (ResultSet rs = betterExecuteQuery(select_sql)) {
+                List<Project> projects = new ArrayList<>();
+                while (rs.next()) {
+                    Project project = new Project();
+                    project.setId(rs.getString("id"));
+                    project.setName(rs.getString("name"));
+                    project.setDescription(rs.getString("description"));
+                    project.setStartDate(rs.getDate("startDate").toLocalDate());
+                    project.setEndDate(rs.getDate("endDate").toLocalDate());
+                    projects.add(project);
+                }
+                return projects;
+            }
+        } catch (final SQLException ex) {
+            throw new RuntimeException("Unable to retrieve projects data.", ex);
+        }
+    
+        //return null;
+    }
+
+    public Project updateProject(final Project updatedProject) {
+        getConnection();
+        try {
+            String update_sql = "UPDATE projects SET name = ?, description = ?, startDate = ?, endDate = ? WHERE id = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(update_sql)) {
+                stmt.setString(1, updatedProject.getName());
+                stmt.setString(2, updatedProject.getDescription());
+                stmt.setDate(3, java.sql.Date.valueOf(updatedProject.getStartDate()));
+                stmt.setDate(4, java.sql.Date.valueOf(updatedProject.getEndDate()));
+                stmt.setString(5, updatedProject.getId());
+                stmt.executeUpdate();
+            }
+        } catch (final SQLException ex) {
+            throw new RuntimeException("Unable to update project.", ex);
+        }
+    
+        return updatedProject;
+    }
+
+    public void deleteProject(final String projectId) {
+        getConnection();
+        try {
+            String delete_sql = "DELETE FROM projects WHERE id = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(delete_sql)) {
+                stmt.setString(1, projectId);
+                stmt.executeUpdate();
+            }
+        } catch (final SQLException ex) {
+            throw new RuntimeException("Unable to delete project.", ex);
+        }
+    }
+
+    public void deleteTask(final String taskId) {
+        getConnection();
+        try {
+            String delete_sql = "DELETE FROM tasks WHERE id = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(delete_sql)) {
+                stmt.setString(1, taskId);
+                stmt.executeUpdate();
+            }
+        } catch (final SQLException ex) {
+            throw new RuntimeException("Unable to delete task.", ex);
+        }
+    }
+
+    public void deleteUser(final String username) {
+        getConnection();
+        try {
+            String delete_sql = "DELETE FROM users WHERE username = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(delete_sql)) {
+                stmt.setString(1, username);
+                stmt.executeUpdate();
+            }
+        } catch (final SQLException ex) {
+            throw new RuntimeException("Unable to delete user.", ex);
+        }
+    }
+
+    public void deleteAllTasks() {
+        getConnection();
+        try {
+            String delete_sql = "DELETE FROM tasks";
+            try (Statement stmt = conn.createStatement()) {
+                stmt.executeUpdate(delete_sql);
+            }
+        } catch (final SQLException ex) {
+            throw new RuntimeException("Unable to delete tasks.", ex);
+        }
+    }
+
+    public void deleteAllProjects() {
+        getConnection();
+        try {
+            String delete_sql = "DELETE FROM projects";
+            try (Statement stmt = conn.createStatement()) {
+                stmt.executeUpdate(delete_sql);
+            }
+        } catch (final SQLException ex) {
+            throw new RuntimeException("Unable to delete projects.", ex);
+        }
+    }
+
+    public void deleteAllUsers() {
+        getConnection();
+        try {
+            String delete_sql = "DELETE FROM users";
+            try (Statement stmt = conn.createStatement()) {
+                stmt.executeUpdate(delete_sql);
+            }
+        } catch (final SQLException ex) {
+            throw new RuntimeException("Unable to delete users.", ex);
+        }
     }
 
     

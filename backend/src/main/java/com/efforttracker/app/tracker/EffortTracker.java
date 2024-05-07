@@ -99,10 +99,11 @@ import java.util.UUID;
         }
 
         public Project createProject(Project project) {
+            //System.out.println("creating project from EffortTracker");
             return dbClient.createProject(project);
         }
 
-        public Project updaProject(Project project) {
+        public Project updateProject(Project project) {
             if (project.getId() == null) {
                 throw new IllegalArgumentException("Project ID must not be null");
             }
@@ -128,8 +129,8 @@ import java.util.UUID;
             }
         }
 
-        public Project lisProjects(List<String> projectIds) {
-            return dbClient.listProjects(projectIds);
+        public List<Project> listProjects() {
+            return dbClient.listProjects();
         }
 
         // public Task updateTask(final Task task) {
@@ -233,6 +234,17 @@ import java.util.UUID;
                     }
                    //existingTask.setUsername(updatedTask.getUsername());
                }
+                if (updatedTask.getProjectId() != null) {
+                     String projectId = updatedTask.getProjectId();
+                    Project project = dbClient.getProject(projectId);
+
+                    if(project != null){
+                        existingTask.setProjectId(projectId);
+                    }
+                    else{
+                        throw new IllegalArgumentException("Project not found: " + updatedTask.getProjectId());
+                    }
+                }
                //System.out.println("Task: " + existingTask + " updated");
                dbClient.updateTask(existingTask);
                return existingTask;

@@ -230,9 +230,11 @@ components:
           example: Project1 description
         startDate:
           type: string
+          format: date
           example: 2021-09-01
         endDate:
           type: string
+          format: date
           example: 2021-09-30
     ListProjectsRequest:
       type: object
