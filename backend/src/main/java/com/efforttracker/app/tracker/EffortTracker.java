@@ -4,6 +4,7 @@ package com.efforttracker.app.tracker;
 import com.efforttracker.app.storage.DbClient;
 import com.efforttracker.specs.ListTasksRequest;
 import com.efforttracker.specs.Project;
+import com.efforttracker.specs.State;
 //import com.efforttracker.app.models.User;
 import com.efforttracker.specs.Task;
 import com.efforttracker.specs.User;
@@ -253,8 +254,8 @@ import java.util.UUID;
            }
        }
 
-        public List<Task> listTasks(List<String> taskIds) {
-            return dbClient.listTasks(taskIds);
+        public List<Task> listTasks(List<String> taskIds, List<String> usernames, List<String> projectIds, State state) {
+            return dbClient.listTasks(taskIds, usernames, projectIds, state);
             //return tasks;
         }
 

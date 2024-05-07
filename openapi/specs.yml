@@ -312,8 +312,10 @@ components:
           $ref: '#/components/schemas/StringFilter'
         userFilter:
           $ref: '#/components/schemas/StringFilter'
-        stateFilter:
+        projectFilter:
           $ref: '#/components/schemas/StringFilter'
+        stateFilter:
+          $ref: '#/components/schemas/State'
     FilterUser:
       type: object
       properties:

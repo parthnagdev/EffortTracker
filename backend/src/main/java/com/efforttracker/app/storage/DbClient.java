@@ -152,43 +152,162 @@ public class DbClient {
       return updatedTask;
     }
 
-    public List<Task> listTasks(List<String> taskIds) {
-    getConnection();
-    if(taskIds == null || taskIds.isEmpty()){
-        //System.out.println("taskIds is null or empty");
-        try {
-            String select_sql = "SELECT * FROM tasks";
-            try (ResultSet rs = betterExecuteQuery(select_sql)) {
-                List<Task> tasks = new ArrayList<>();
-                while (rs.next()) {
-                    Task task = new Task();
-                    task.setId(rs.getString("id"));
-                    task.setTitle(rs.getString("title"));
-                    task.setDescription(rs.getString("description"));
-                    task.setEstimate(rs.getLong("estimate"));
-                    task.setUsername(rs.getString("username"));
-                    task.setState(State.valueOf(rs.getString("state")));
-                    task.setParentId(rs.getString("parentId"));
-                    task.setProjectId(rs.getString("projectId"));
-                    tasks.add(task);
-                }
-                return tasks;
+    // public List<Task> listTasks(List<String> taskIds, List<String> usernames, List<String> projectIds, State state) {
+    // getConnection();
+    // if((taskIds == null || taskIds.isEmpty()) && (usernames == null || usernames.isEmpty()) && (projectIds == null || projectIds.isEmpty()) && state == null){
+    //     System.out.println("taskIds is null or empty");
+    //     try {
+    //         String select_sql = "SELECT * FROM tasks";
+    //         try (ResultSet rs = betterExecuteQuery(select_sql   )) {
+    //             List<Task> tasks = new ArrayList<>();
+    //             while (rs.next()) {
+    //                 Task task = new Task();
+    //                 task.setId(rs.getString("id"));
+    //                 task.setTitle(rs.getString("title"));
+    //                 task.setDescription(rs.getString("description"));
+    //                 task.setEstimate(rs.getLong("estimate"));
+    //                 task.setUsername(rs.getString("username"));
+    //                 task.setState(State.valueOf(rs.getString("state")));
+    //                 task.setParentId(rs.getString("parentId"));
+    //                 task.setProjectId(rs.getString("projectId"));
+    //                 tasks.add(task);
+    //             }
+    //             return tasks;
+    //         }
+    //     } catch (final SQLException ex) {
+    //         throw new RuntimeException("Unable to retrieve tasks data.", ex);
+    //     }
+    // }
+    // List<Task> filteredTasks = new ArrayList<>();
+    // if(taskIds != null && !taskIds.isEmpty()){
+    //     for(String taskId : taskIds){
+    //         Task task = getTask(taskId);
+    //         if(task != null){
+    //             filteredTasks.add(task);
+    //         }
+    //     }
+    // }
+    // if(usernames != null && !usernames.isEmpty()){
+    //     for(String username : usernames){
+    //         try {
+    //             String select_sql = "SELECT * FROM tasks WHERE username = '" + username + "'";
+    //             try (ResultSet rs = betterExecuteQuery(select_sql)) {
+    //                 while (rs.next()) {
+    //                     Task task = new Task();
+    //                     task.setId(rs.getString("id"));
+    //                     task.setTitle(rs.getString("title"));
+    //                     task.setDescription(rs.getString("description"));
+    //                     task.setEstimate(rs.getLong("estimate"));
+    //                     task.setUsername(rs.getString("username"));
+    //                     task.setState(State.valueOf(rs.getString("state")));
+    //                     task.setParentId(rs.getString("parentId"));
+    //                     task.setProjectId(rs.getString("projectId"));
+    //                     filteredTasks.add(task);
+    //                 }
+    //             }
+    //         } catch (final SQLException ex) {
+    //             throw new RuntimeException("Unable to retrieve tasks data.", ex);
+    //         }
+    //     }
+    // }
+    // if(projectIds != null && !projectIds.isEmpty()){
+    //     for(String projectId : projectIds){
+    //         try {
+    //             String select_sql = "SELECT * FROM tasks WHERE projectId = '" + projectId + "'";
+    //             try (ResultSet rs = betterExecuteQuery(select_sql)) {
+    //                 while (rs.next()) {
+    //                     Task task = new Task();
+    //                     task.setId(rs.getString("id"));
+    //                     task.setTitle(rs.getString("title"));
+    //                     task.setDescription(rs.getString("description"));
+    //                     task.setEstimate(rs.getLong("estimate"));
+    //                     task.setUsername(rs.getString("username"));
+    //                     task.setState(State.valueOf(rs.getString("state")));
+    //                     task.setParentId(rs.getString("parentId"));
+    //                     task.setProjectId(rs.getString("projectId"));
+    //                     filteredTasks.add(task);
+    //                 }
+    //             }
+    //         } catch (final SQLException ex) {
+    //             throw new RuntimeException("Unable to retrieve tasks data.", ex);
+    //         }
+    //     }
+    // }
+    // if(state != null){
+    //     try {
+    //         String select_sql = "SELECT * FROM tasks WHERE state = '" + state + "'";
+    //         try (ResultSet rs = betterExecuteQuery(select_sql)) {
+    //             while (rs.next()) {
+    //                 Task task = new Task();
+    //                 task.setId(rs.getString("id"));
+    //                 task.setTitle(rs.getString("title"));
+    //                 task.setDescription(rs.getString("description"));
+    //                 task.setEstimate(rs.getLong("estimate"));
+    //                 task.setUsername(rs.getString("username"));
+    //                 task.setState(State.valueOf(rs.getString("state")));
+    //                 task.setParentId(rs.getString("parentId"));
+    //                 task.setProjectId(rs.getString("projectId"));
+    //                 filteredTasks.add(task);
+    //             }
+    //         }
+    //     } catch (final SQLException ex) {
+    //         throw new RuntimeException("Unable to retrieve tasks data.", ex);
+    //     }
+    // }
+
+    // return filteredTasks;
+
+    // }
+
+    public List<Task> listTasks(List<String> taskIds, List<String> usernames, List<String> projectIds, State state) {
+        getConnection();
+        List<Task> tasks = new ArrayList<>();
+        StringBuilder select_sql = new StringBuilder("SELECT * FROM tasks WHERE ");
+    
+        if(taskIds != null && !taskIds.isEmpty()){
+            String taskIdsStr = String.join("','", taskIds);
+            select_sql.append("id IN ('").append(taskIdsStr).append("') AND ");
+        }
+    
+        if(usernames != null && !usernames.isEmpty()){
+            String usernamesStr = String.join("','", usernames);
+            select_sql.append("username IN ('").append(usernamesStr).append("') AND ");
+        }
+    
+        if(projectIds != null && !projectIds.isEmpty()){
+            String projectIdsStr = String.join("','", projectIds);
+            select_sql.append("projectId IN ('").append(projectIdsStr).append("') AND ");
+        }
+    
+        if(state != null){
+            select_sql.append("state = '").append(state).append("' AND ");
+        }
+    
+        // Remove the last " AND " from the query
+        if (select_sql.toString().endsWith(" AND ")) {
+            select_sql.setLength(select_sql.length() - 5);
+        }
+    
+        try (ResultSet rs = betterExecuteQuery(select_sql.toString())) {
+            while (rs.next()) {
+                Task task = new Task();
+                task.setId(rs.getString("id"));
+                task.setTitle(rs.getString("title"));
+                task.setDescription(rs.getString("description"));
+                task.setEstimate(rs.getLong("estimate"));
+                task.setUsername(rs.getString("username"));
+                task.setState(State.valueOf(rs.getString("state")));
+                task.setParentId(rs.getString("parentId"));
+                task.setProjectId(rs.getString("projectId"));
+                tasks.add(task);
             }
         } catch (final SQLException ex) {
             throw new RuntimeException("Unable to retrieve tasks data.", ex);
         }
+    
+        return tasks;
     }
-    List<Task> filteredTasks = new ArrayList<>();
-    for(String taskId : taskIds){
-        Task task = getTask(taskId);
-        if(task != null){
-            filteredTasks.add(task);
-        }
-    }
-    return filteredTasks;
 
-        //return null;
-    }
 
     public List<User> listUsers() {
     getConnection();
