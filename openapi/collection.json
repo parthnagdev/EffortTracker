@@ -1,1 +1,1619 @@
-{"item":[{"name":"task","description":"","item":[{"name":"create","description":"","item":[{"id":"4f61d16f-a7b1-4f8f-b370-09e323431da3","name":"Adds task in the system","request":{"name":"Adds task in the system","description":{"content":"Adds task in the system","type":"text/plain"},"url":{"path":["task","create"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}],"method":"POST","body":{"mode":"raw","raw":"{\n  \"id\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimate\": \"<long>\",\n  \"username\": \"<string>\",\n  \"state\": \"COMPLETE\"\n}","options":{"raw":{"headerFamily":"json","language":"json"}}},"auth":null},"response":[{"id":"c4c47af4-00fd-42b0-8274-869a23f49665","name":"Successful operation","originalRequest":{"url":{"path":["task","create"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}],"method":"POST","body":{"mode":"raw","raw":"{\n  \"id\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimate\": \"<long>\",\n  \"username\": \"<string>\",\n  \"state\": \"COMPLETE\"\n}","options":{"raw":{"headerFamily":"json","language":"json"}}}},"status":"OK","code":200,"header":[{"key":"Content-Type","value":"application/json"}],"body":"{\n  \"id\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimate\": \"<long>\",\n  \"username\": \"<string>\",\n  \"state\": \"COMPLETE\"\n}","cookie":[],"_postman_previewlanguage":"json"},{"id":"143a503e-3ba8-456a-a3ee-72fc0bd10111","name":"Invalid input","originalRequest":{"url":{"path":["task","create"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Content-Type","value":"application/json"}],"method":"POST","body":{"mode":"raw","raw":"{\n  \"id\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimate\": \"<long>\",\n  \"username\": \"<string>\",\n  \"state\": \"COMPLETE\"\n}","options":{"raw":{"headerFamily":"json","language":"json"}}}},"status":"Bad Request","code":400,"header":[],"cookie":[],"_postman_previewlanguage":"text"},{"id":"5718343a-2c85-43c6-916f-3af8a9ea7b8e","name":"Internal Error","originalRequest":{"url":{"path":["task","create"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Content-Type","value":"application/json"}],"method":"POST","body":{"mode":"raw","raw":"{\n  \"id\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimate\": \"<long>\",\n  \"username\": \"<string>\",\n  \"state\": \"COMPLETE\"\n}","options":{"raw":{"headerFamily":"json","language":"json"}}}},"status":"Internal Server Error","code":500,"header":[],"cookie":[],"_postman_previewlanguage":"text"}],"event":[],"protocolProfileBehavior":{"disableBodyPruning":true}}]},{"name":"list","description":"","item":[{"id":"ee94ef9c-4679-4ce5-8b59-09a14b67fb1c","name":"Lists task in the system","request":{"name":"Lists task in the system","description":{"content":"Lists task in the system","type":"text/plain"},"url":{"path":["task","list"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}],"method":"POST","body":{"mode":"raw","raw":"{\n  \"filter\": {\n    \"userFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"stateFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}","options":{"raw":{"headerFamily":"json","language":"json"}}},"auth":null},"response":[{"id":"af8b543a-61cf-4824-8bb7-88af7a07b1f2","name":"Successful operation","originalRequest":{"url":{"path":["task","list"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}],"method":"POST","body":{"mode":"raw","raw":"{\n  \"filter\": {\n    \"userFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"stateFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}","options":{"raw":{"headerFamily":"json","language":"json"}}}},"status":"OK","code":200,"header":[{"key":"Content-Type","value":"application/json"}],"body":"{\n  \"taskList\": [\n    {\n      \"id\": \"<string>\",\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"estimate\": \"<long>\",\n      \"username\": \"<string>\",\n      \"state\": \"COMPLETE\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"estimate\": \"<long>\",\n      \"username\": \"<string>\",\n      \"state\": \"INPROGRESS\"\n    }\n  ]\n}","cookie":[],"_postman_previewlanguage":"json"},{"id":"0ac0f46d-63e8-4279-be46-4524d3e69bae","name":"Invalid input","originalRequest":{"url":{"path":["task","list"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Content-Type","value":"application/json"}],"method":"POST","body":{"mode":"raw","raw":"{\n  \"filter\": {\n    \"userFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"stateFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}","options":{"raw":{"headerFamily":"json","language":"json"}}}},"status":"Bad Request","code":400,"header":[],"cookie":[],"_postman_previewlanguage":"text"},{"id":"5e1c8cf0-fc47-4ac5-a73c-d2b381ca1737","name":"Internal Error","originalRequest":{"url":{"path":["task","list"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Content-Type","value":"application/json"}],"method":"POST","body":{"mode":"raw","raw":"{\n  \"filter\": {\n    \"userFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"stateFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}","options":{"raw":{"headerFamily":"json","language":"json"}}}},"status":"Internal Server Error","code":500,"header":[],"cookie":[],"_postman_previewlanguage":"text"}],"event":[],"protocolProfileBehavior":{"disableBodyPruning":true}}]},{"name":"update","description":"","item":[{"id":"f9b2953b-991e-4b4c-8a3a-96a97559bd0f","name":"Updates a task","request":{"name":"Updates a task","description":{"content":"performs task updation","type":"text/plain"},"url":{"path":["task","update"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}],"method":"POST","body":{"mode":"raw","raw":"{\n  \"id\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimate\": \"<long>\",\n  \"username\": \"<string>\",\n  \"state\": \"COMPLETE\"\n}","options":{"raw":{"headerFamily":"json","language":"json"}}},"auth":null},"response":[{"id":"07f46ad5-e0ab-49b6-8cb5-590c4fe34711","name":"Successful operation","originalRequest":{"url":{"path":["task","update"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}],"method":"POST","body":{"mode":"raw","raw":"{\n  \"id\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimate\": \"<long>\",\n  \"username\": \"<string>\",\n  \"state\": \"COMPLETE\"\n}","options":{"raw":{"headerFamily":"json","language":"json"}}}},"status":"OK","code":200,"header":[{"key":"Content-Type","value":"application/json"}],"body":"{\n  \"id\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimate\": \"<long>\",\n  \"username\": \"<string>\",\n  \"state\": \"COMPLETE\"\n}","cookie":[],"_postman_previewlanguage":"json"},{"id":"38bc3984-86cd-40d8-812f-a61645be8ce9","name":"Invalid input","originalRequest":{"url":{"path":["task","update"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Content-Type","value":"application/json"}],"method":"POST","body":{"mode":"raw","raw":"{\n  \"id\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimate\": \"<long>\",\n  \"username\": \"<string>\",\n  \"state\": \"COMPLETE\"\n}","options":{"raw":{"headerFamily":"json","language":"json"}}}},"status":"Bad Request","code":400,"header":[],"cookie":[],"_postman_previewlanguage":"text"},{"id":"c2389efe-c856-46d7-86ca-4319dff7ab20","name":"Task not found","originalRequest":{"url":{"path":["task","update"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Content-Type","value":"application/json"}],"method":"POST","body":{"mode":"raw","raw":"{\n  \"id\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimate\": \"<long>\",\n  \"username\": \"<string>\",\n  \"state\": \"COMPLETE\"\n}","options":{"raw":{"headerFamily":"json","language":"json"}}}},"status":"Not Found","code":404,"header":[],"cookie":[],"_postman_previewlanguage":"text"},{"id":"faa13c97-2f82-4ee0-9ae9-2e0893c7a3e7","name":"Internal Error","originalRequest":{"url":{"path":["task","update"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Content-Type","value":"application/json"}],"method":"POST","body":{"mode":"raw","raw":"{\n  \"id\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimate\": \"<long>\",\n  \"username\": \"<string>\",\n  \"state\": \"COMPLETE\"\n}","options":{"raw":{"headerFamily":"json","language":"json"}}}},"status":"Internal Server Error","code":500,"header":[],"cookie":[],"_postman_previewlanguage":"text"}],"event":[],"protocolProfileBehavior":{"disableBodyPruning":true}}]}]},{"name":"user","description":"","item":[{"name":"create","description":"","item":[{"id":"f5f270f4-15bd-4c46-8587-35a7f049982f","name":"Adds user in the system","request":{"name":"Adds user in the system","description":{"content":"Adds user in the system","type":"text/plain"},"url":{"path":["user","create"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}],"method":"POST","body":{"mode":"raw","raw":"{\n  \"id\": \"<String>\",\n  \"name\": \"<string>\",\n  \"username\": \"<string>\"\n}","options":{"raw":{"headerFamily":"json","language":"json"}}},"auth":null},"response":[{"id":"23f8b045-1266-4692-b03e-6cc7f0252946","name":"Successful operation","originalRequest":{"url":{"path":["user","create"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}],"method":"POST","body":{"mode":"raw","raw":"{\n  \"id\": \"<String>\",\n  \"name\": \"<string>\",\n  \"username\": \"<string>\"\n}","options":{"raw":{"headerFamily":"json","language":"json"}}}},"status":"OK","code":200,"header":[{"key":"Content-Type","value":"application/json"}],"body":"{\n  \"id\": \"<String>\",\n  \"name\": \"<string>\",\n  \"username\": \"<string>\"\n}","cookie":[],"_postman_previewlanguage":"json"},{"id":"7cde494e-0517-474f-9be1-18e071ec25f7","name":"Invalid input","originalRequest":{"url":{"path":["user","create"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Content-Type","value":"application/json"}],"method":"POST","body":{"mode":"raw","raw":"{\n  \"id\": \"<String>\",\n  \"name\": \"<string>\",\n  \"username\": \"<string>\"\n}","options":{"raw":{"headerFamily":"json","language":"json"}}}},"status":"Bad Request","code":400,"header":[],"cookie":[],"_postman_previewlanguage":"text"},{"id":"14c0ced6-40f9-4028-b9b1-e1a41f14ddc4","name":"User already exists","originalRequest":{"url":{"path":["user","create"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Content-Type","value":"application/json"}],"method":"POST","body":{"mode":"raw","raw":"{\n  \"id\": \"<String>\",\n  \"name\": \"<string>\",\n  \"username\": \"<string>\"\n}","options":{"raw":{"headerFamily":"json","language":"json"}}}},"status":"Conflict","code":409,"header":[],"cookie":[],"_postman_previewlanguage":"text"},{"id":"7ff5b907-caaf-4d19-9977-15048dd88a08","name":"Internal Error","originalRequest":{"url":{"path":["user","create"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Content-Type","value":"application/json"}],"method":"POST","body":{"mode":"raw","raw":"{\n  \"id\": \"<String>\",\n  \"name\": \"<string>\",\n  \"username\": \"<string>\"\n}","options":{"raw":{"headerFamily":"json","language":"json"}}}},"status":"Internal Server Error","code":500,"header":[],"cookie":[],"_postman_previewlanguage":"text"}],"event":[],"protocolProfileBehavior":{"disableBodyPruning":true}}]},{"name":"list","description":"","item":[{"id":"4a8aec83-9c0b-47ed-8c89-aab2aa5877bd","name":"Lists user in the system","request":{"name":"Lists user in the system","description":{"content":"Lists user in the system","type":"text/plain"},"url":{"path":["user","list"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}],"method":"POST","body":{"mode":"raw","raw":"{\n  \"filter\": {\n    \"userFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}","options":{"raw":{"headerFamily":"json","language":"json"}}},"auth":null},"response":[{"id":"fa9f9935-6db5-40a9-989b-c2c90a03e4e3","name":"Successful operation","originalRequest":{"url":{"path":["user","list"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}],"method":"POST","body":{"mode":"raw","raw":"{\n  \"filter\": {\n    \"userFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}","options":{"raw":{"headerFamily":"json","language":"json"}}}},"status":"OK","code":200,"header":[{"key":"Content-Type","value":"application/json"}],"body":"{\n  \"userList\": [\n    {\n      \"id\": \"<String>\",\n      \"name\": \"<string>\",\n      \"username\": \"<string>\"\n    },\n    {\n      \"id\": \"<String>\",\n      \"name\": \"<string>\",\n      \"username\": \"<string>\"\n    }\n  ]\n}","cookie":[],"_postman_previewlanguage":"json"},{"id":"3b2c7832-d9fe-45c2-9c0d-c613a53b3d87","name":"Invalid input","originalRequest":{"url":{"path":["user","list"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Content-Type","value":"application/json"}],"method":"POST","body":{"mode":"raw","raw":"{\n  \"filter\": {\n    \"userFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}","options":{"raw":{"headerFamily":"json","language":"json"}}}},"status":"Bad Request","code":400,"header":[],"cookie":[],"_postman_previewlanguage":"text"},{"id":"87286783-0621-4774-929b-4c76e8668ba3","name":"Internal Error","originalRequest":{"url":{"path":["user","list"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Content-Type","value":"application/json"}],"method":"POST","body":{"mode":"raw","raw":"{\n  \"filter\": {\n    \"userFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}","options":{"raw":{"headerFamily":"json","language":"json"}}}},"status":"Internal Server Error","code":500,"header":[],"cookie":[],"_postman_previewlanguage":"text"}],"event":[],"protocolProfileBehavior":{"disableBodyPruning":true}}]}]}],"event":[],"variable":[{"key":"baseUrl","value":"http://localhost:8080/"}],"info":{"_postman_id":"17c39ed2-32ca-4b76-ae45-23559f201004","name":"Effort Tracker","schema":"https://schema.getpostman.com/json/collection/v2.1.0/collection.json","description":{"content":"These are APIs for Effort tracker system.","type":"text/plain"}}}
+{
+    "item": [
+        {
+            "name": "task",
+            "description": "",
+            "item": [
+                {
+                    "name": "create",
+                    "description": "",
+                    "item": [
+                        {
+                            "id": "2afd9ee8-40e4-4404-9c9a-1c55cf6e1466",
+                            "name": "Adds task in the system",
+                            "request": {
+                                "name": "Adds task in the system",
+                                "description": {
+                                    "content": "Adds task in the system",
+                                    "type": "text/plain"
+                                },
+                                "url": {
+                                    "path": [
+                                        "task",
+                                        "create"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"id\": \"<string>\",\n  \"projectId\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimate\": \"<long>\",\n  \"username\": \"<string>\",\n  \"state\": \"INPROGRESS\",\n  \"parentId\": \"<string>\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "8d62d671-42a0-4b8a-8802-3e3d48b1200e",
+                                    "name": "Successful operation",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "task",
+                                                "create"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"id\": \"<string>\",\n  \"projectId\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimate\": \"<long>\",\n  \"username\": \"<string>\",\n  \"state\": \"INPROGRESS\",\n  \"parentId\": \"<string>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"id\": \"<string>\",\n  \"projectId\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimate\": \"<long>\",\n  \"username\": \"<string>\",\n  \"state\": \"INPROGRESS\",\n  \"parentId\": \"<string>\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                },
+                                {
+                                    "id": "f195405a-0724-4001-8c64-285efe30502d",
+                                    "name": "Invalid input",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "task",
+                                                "create"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"id\": \"<string>\",\n  \"projectId\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimate\": \"<long>\",\n  \"username\": \"<string>\",\n  \"state\": \"INPROGRESS\",\n  \"parentId\": \"<string>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Bad Request",
+                                    "code": 400,
+                                    "header": [],
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                },
+                                {
+                                    "id": "71d75fff-4dbe-42a8-a1f1-b962852a57dc",
+                                    "name": "Internal Error",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "task",
+                                                "create"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"id\": \"<string>\",\n  \"projectId\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimate\": \"<long>\",\n  \"username\": \"<string>\",\n  \"state\": \"INPROGRESS\",\n  \"parentId\": \"<string>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Internal Server Error",
+                                    "code": 500,
+                                    "header": [],
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "list",
+                    "description": "",
+                    "item": [
+                        {
+                            "id": "f8d40192-f306-4de6-9ba1-59181c9d3002",
+                            "name": "Lists task in the system",
+                            "request": {
+                                "name": "Lists task in the system",
+                                "description": {
+                                    "content": "Lists task in the system",
+                                    "type": "text/plain"
+                                },
+                                "url": {
+                                    "path": [
+                                        "task",
+                                        "list"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"filter\": {\n    \"idFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"userFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"stateFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "6d783a5f-cb61-42a0-8b7a-a8e254897fc2",
+                                    "name": "Successful operation",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "task",
+                                                "list"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"filter\": {\n    \"idFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"userFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"stateFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"taskList\": [\n    {\n      \"id\": \"<string>\",\n      \"projectId\": \"<string>\",\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"estimate\": \"<long>\",\n      \"username\": \"<string>\",\n      \"state\": \"OPEN\",\n      \"parentId\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"projectId\": \"<string>\",\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"estimate\": \"<long>\",\n      \"username\": \"<string>\",\n      \"state\": \"OPEN\",\n      \"parentId\": \"<string>\"\n    }\n  ]\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                },
+                                {
+                                    "id": "d5ce38a6-03ac-434b-a6cb-d2f5de4fe0bb",
+                                    "name": "Invalid input",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "task",
+                                                "list"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"filter\": {\n    \"idFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"userFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"stateFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Bad Request",
+                                    "code": 400,
+                                    "header": [],
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                },
+                                {
+                                    "id": "fb1d20f8-bea7-4f0a-9aac-af247c0f73ac",
+                                    "name": "Internal Error",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "task",
+                                                "list"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"filter\": {\n    \"idFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"userFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"stateFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Internal Server Error",
+                                    "code": 500,
+                                    "header": [],
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "update",
+                    "description": "",
+                    "item": [
+                        {
+                            "id": "219973da-ed44-4ab9-9da5-c0231eac6a54",
+                            "name": "Updates a task",
+                            "request": {
+                                "name": "Updates a task",
+                                "description": {
+                                    "content": "performs task updation",
+                                    "type": "text/plain"
+                                },
+                                "url": {
+                                    "path": [
+                                        "task",
+                                        "update"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"id\": \"<string>\",\n  \"projectId\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimate\": \"<long>\",\n  \"username\": \"<string>\",\n  \"state\": \"INPROGRESS\",\n  \"parentId\": \"<string>\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "6c051520-e5b9-45e1-8080-bc5dbd1022b1",
+                                    "name": "Successful operation",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "task",
+                                                "update"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"id\": \"<string>\",\n  \"projectId\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimate\": \"<long>\",\n  \"username\": \"<string>\",\n  \"state\": \"INPROGRESS\",\n  \"parentId\": \"<string>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"id\": \"<string>\",\n  \"projectId\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimate\": \"<long>\",\n  \"username\": \"<string>\",\n  \"state\": \"INPROGRESS\",\n  \"parentId\": \"<string>\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                },
+                                {
+                                    "id": "27b5b52e-6916-42c7-b3ae-fc1ddfc2087f",
+                                    "name": "Invalid input",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "task",
+                                                "update"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"id\": \"<string>\",\n  \"projectId\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimate\": \"<long>\",\n  \"username\": \"<string>\",\n  \"state\": \"INPROGRESS\",\n  \"parentId\": \"<string>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Bad Request",
+                                    "code": 400,
+                                    "header": [],
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                },
+                                {
+                                    "id": "8133dc00-55cf-4639-b5dc-df9c718ddd8c",
+                                    "name": "Task not found",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "task",
+                                                "update"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"id\": \"<string>\",\n  \"projectId\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimate\": \"<long>\",\n  \"username\": \"<string>\",\n  \"state\": \"INPROGRESS\",\n  \"parentId\": \"<string>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Not Found",
+                                    "code": 404,
+                                    "header": [],
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                },
+                                {
+                                    "id": "3782b8f0-bc6a-4774-a75d-e1988687dcec",
+                                    "name": "Internal Error",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "task",
+                                                "update"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"id\": \"<string>\",\n  \"projectId\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimate\": \"<long>\",\n  \"username\": \"<string>\",\n  \"state\": \"INPROGRESS\",\n  \"parentId\": \"<string>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Internal Server Error",
+                                    "code": 500,
+                                    "header": [],
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "user",
+            "description": "",
+            "item": [
+                {
+                    "name": "create",
+                    "description": "",
+                    "item": [
+                        {
+                            "id": "69a231b6-f10e-45f0-af33-d08d7270d81a",
+                            "name": "Adds user in the system",
+                            "request": {
+                                "name": "Adds user in the system",
+                                "description": {
+                                    "content": "Adds user in the system",
+                                    "type": "text/plain"
+                                },
+                                "url": {
+                                    "path": [
+                                        "user",
+                                        "create"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"username\": \"<string>\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "48d91d28-7b6c-48a5-9e34-c1672fa53570",
+                                    "name": "Successful operation",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "user",
+                                                "create"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"username\": \"<string>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"username\": \"<string>\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                },
+                                {
+                                    "id": "ac92d5e1-8132-4bda-8640-ba06c2821b5b",
+                                    "name": "Invalid input",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "user",
+                                                "create"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"username\": \"<string>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Bad Request",
+                                    "code": 400,
+                                    "header": [],
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                },
+                                {
+                                    "id": "bbad0f72-3764-4ef9-b88a-2f19c9221ba9",
+                                    "name": "User already exists",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "user",
+                                                "create"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"username\": \"<string>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Conflict",
+                                    "code": 409,
+                                    "header": [],
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                },
+                                {
+                                    "id": "2c673a53-d6d9-47a8-a14a-58bc13b25433",
+                                    "name": "Internal Error",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "user",
+                                                "create"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"username\": \"<string>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Internal Server Error",
+                                    "code": 500,
+                                    "header": [],
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "list",
+                    "description": "",
+                    "item": [
+                        {
+                            "id": "6387b111-023b-4024-9f3a-007b410014fd",
+                            "name": "Lists user in the system",
+                            "request": {
+                                "name": "Lists user in the system",
+                                "description": {
+                                    "content": "Lists user in the system",
+                                    "type": "text/plain"
+                                },
+                                "url": {
+                                    "path": [
+                                        "user",
+                                        "list"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"filter\": {\n    \"userFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "fd5899d2-89cb-4241-85d1-331062b661ef",
+                                    "name": "Successful operation",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "user",
+                                                "list"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"filter\": {\n    \"userFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"userList\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"username\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"username\": \"<string>\"\n    }\n  ]\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                },
+                                {
+                                    "id": "3ca648bc-cd68-4bb6-8930-7eadc74766ec",
+                                    "name": "Invalid input",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "user",
+                                                "list"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"filter\": {\n    \"userFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Bad Request",
+                                    "code": 400,
+                                    "header": [],
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                },
+                                {
+                                    "id": "f5614134-8aa3-4a20-aef0-69bc240ea205",
+                                    "name": "Internal Error",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "user",
+                                                "list"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"filter\": {\n    \"userFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Internal Server Error",
+                                    "code": 500,
+                                    "header": [],
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "project",
+            "description": "",
+            "item": [
+                {
+                    "name": "create",
+                    "description": "",
+                    "item": [
+                        {
+                            "id": "dc572028-7b67-4422-a390-9ddc083ba7c5",
+                            "name": "Adds project in the system",
+                            "request": {
+                                "name": "Adds project in the system",
+                                "description": {
+                                    "content": "Adds project in the system",
+                                    "type": "text/plain"
+                                },
+                                "url": {
+                                    "path": [
+                                        "project",
+                                        "create"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "97f8d0cd-b83b-40a0-b089-36a3255d4fb2",
+                                    "name": "Successful operation",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "project",
+                                                "create"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                },
+                                {
+                                    "id": "20112b8d-3f72-49a1-9564-6d3d28c0004a",
+                                    "name": "Invalid input",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "project",
+                                                "create"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Bad Request",
+                                    "code": 400,
+                                    "header": [],
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                },
+                                {
+                                    "id": "ed087647-3a01-492b-841f-ab471405ed59",
+                                    "name": "Internal Error",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "project",
+                                                "create"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Internal Server Error",
+                                    "code": 500,
+                                    "header": [],
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "update",
+                    "description": "",
+                    "item": [
+                        {
+                            "id": "5550349b-bb73-4b1d-bb2d-ff93326b6c3a",
+                            "name": "Updates a project",
+                            "request": {
+                                "name": "Updates a project",
+                                "description": {
+                                    "content": "performs project updation",
+                                    "type": "text/plain"
+                                },
+                                "url": {
+                                    "path": [
+                                        "project",
+                                        "update"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "8210569d-2d69-49a0-a283-51988b7f07e7",
+                                    "name": "Successful operation",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "project",
+                                                "update"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                },
+                                {
+                                    "id": "58905bb4-76a2-4ab1-85d7-dd848b6182ad",
+                                    "name": "Invalid input",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "project",
+                                                "update"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Bad Request",
+                                    "code": 400,
+                                    "header": [],
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                },
+                                {
+                                    "id": "aa4a555c-764d-487a-a297-4e486fcf3749",
+                                    "name": "Project not found",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "project",
+                                                "update"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Not Found",
+                                    "code": 404,
+                                    "header": [],
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                },
+                                {
+                                    "id": "5eedb668-3d0c-4cd3-8d47-22b89353c779",
+                                    "name": "Internal Error",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "project",
+                                                "update"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Internal Server Error",
+                                    "code": 500,
+                                    "header": [],
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "list",
+                    "description": "",
+                    "item": [
+                        {
+                            "id": "0849fbdb-b23c-40b4-9b9e-3c1717deb7b2",
+                            "name": "Lists project in the system",
+                            "request": {
+                                "name": "Lists project in the system",
+                                "description": {
+                                    "content": "Lists project in the system",
+                                    "type": "text/plain"
+                                },
+                                "url": {
+                                    "path": [
+                                        "project",
+                                        "list"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"filter\": {\n    \"idFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"nameFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "7480e26a-14f5-48dd-9780-2621d03d9906",
+                                    "name": "Successful operation",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "project",
+                                                "list"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"filter\": {\n    \"idFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"nameFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"projectList\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"startDate\": \"<date>\",\n      \"endDate\": \"<date>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"startDate\": \"<date>\",\n      \"endDate\": \"<date>\"\n    }\n  ]\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                },
+                                {
+                                    "id": "d0d47ae8-c37c-4830-9812-e0fbdce982ed",
+                                    "name": "Invalid input",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "project",
+                                                "list"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"filter\": {\n    \"idFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"nameFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Bad Request",
+                                    "code": 400,
+                                    "header": [],
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                },
+                                {
+                                    "id": "527be6f3-89ed-4ff7-82e3-d486b5bf8353",
+                                    "name": "Internal Error",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "project",
+                                                "list"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"filter\": {\n    \"idFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"nameFilter\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Internal Server Error",
+                                    "code": 500,
+                                    "header": [],
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "event": [],
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "http://localhost:8080"
+        }
+    ],
+    "info": {
+        "_postman_id": "63175bf4-d991-4d6a-a5a3-a4035a5c73d1",
+        "name": "Effort Tracker",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": {
+            "content": "These are APIs for Effort tracker system.",
+            "type": "text/plain"
+        }
+    }
+}
