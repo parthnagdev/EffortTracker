@@ -113,12 +113,13 @@ public class DbClient {
    public Task createTask(final Task task) {
     getConnection();
       try {
-        String insert_sql = "INSERT INTO tasks (title, description, estimate, username, state, projectId) VALUES ('" 
+        String insert_sql = "INSERT INTO tasks (title, description, estimate, username, state, parentId, projectId) VALUES ('"
         + task.getTitle() + "', '" 
         + task.getDescription() + "' , '" 
         + task.getEstimate() + "', '" 
         + task.getUsername() + "', '" 
         + task.getState() + "', '"
+        + task.getParentId() + "', '"
         + task.getProjectId() + "')";
      try (PreparedStatement stmt = conn.prepareStatement(insert_sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.executeUpdate();
@@ -261,34 +262,49 @@ public class DbClient {
 
     public List<Task> listTasks(List<String> taskIds, List<String> usernames, List<String> projectIds, State state) {
         getConnection();
-        List<Task> tasks = new ArrayList<>();
-        StringBuilder select_sql = new StringBuilder("SELECT * FROM tasks WHERE ");
-    
-        if(taskIds != null && !taskIds.isEmpty()){
-            String taskIdsStr = String.join("','", taskIds);
-            select_sql.append("id IN ('").append(taskIdsStr).append("') AND ");
+
+        final String select_sql_query;
+
+        if ((taskIds == null || taskIds.isEmpty())
+         && (usernames == null || taskIds.isEmpty())
+        && (projectIds == null || projectIds.isEmpty())
+        && state == null) {
+            select_sql_query = "SELECT * FROM tasks";
+        } else {
+
+            List<Task> tasks = new ArrayList<>();
+            StringBuilder select_sql = new StringBuilder("SELECT * FROM tasks WHERE ");
+
+            if (taskIds != null && !taskIds.isEmpty()) {
+                String taskIdsStr = String.join("','", taskIds);
+                select_sql.append("id IN ('").append(taskIdsStr).append("') AND ");
+            }
+
+            if (usernames != null && !usernames.isEmpty()) {
+                String usernamesStr = String.join("','", usernames);
+                select_sql.append("username IN ('").append(usernamesStr).append("') AND ");
+            }
+
+            if (projectIds != null && !projectIds.isEmpty()) {
+                String projectIdsStr = String.join("','", projectIds);
+                select_sql.append("projectId IN ('").append(projectIdsStr).append("') AND ");
+            }
+
+            if (state != null) {
+                select_sql.append("state = '").append(state).append("' AND ");
+            }
+
+            // Remove the last " AND " from the query
+            if (select_sql.toString().endsWith(" AND ")) {
+                select_sql.setLength(select_sql.length() - 5);
+            }
+
+            select_sql_query = select_sql.toString();
         }
+
+        final List<Task> tasks = new ArrayList<>();
     
-        if(usernames != null && !usernames.isEmpty()){
-            String usernamesStr = String.join("','", usernames);
-            select_sql.append("username IN ('").append(usernamesStr).append("') AND ");
-        }
-    
-        if(projectIds != null && !projectIds.isEmpty()){
-            String projectIdsStr = String.join("','", projectIds);
-            select_sql.append("projectId IN ('").append(projectIdsStr).append("') AND ");
-        }
-    
-        if(state != null){
-            select_sql.append("state = '").append(state).append("' AND ");
-        }
-    
-        // Remove the last " AND " from the query
-        if (select_sql.toString().endsWith(" AND ")) {
-            select_sql.setLength(select_sql.length() - 5);
-        }
-    
-        try (ResultSet rs = betterExecuteQuery(select_sql.toString())) {
+        try (ResultSet rs = betterExecuteQuery(select_sql_query)) {
             while (rs.next()) {
                 Task task = new Task();
                 task.setId(rs.getString("id"));

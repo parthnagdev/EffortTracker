@@ -34,12 +34,17 @@ class EffortTrackingSao {
         });
     }
 
-    async createTask(title: string, estimate: number, username: string) {
+    async createTask(title: string, estimate: number, username: string, parentId: string) {
+
+        console.log("Parent Id: " + parentId);
+
         this.taskApi.createTask({
             title: title,
             state: "OPEN",
             estimate: estimate,
-            username: username
+            username: username,
+            parentId: parentId,
+            projectId: "1"
         })
         .then((res) => this.log!("Task created successfully"))
         .catch((error) => this.error!("Some error occurred while creating task"));

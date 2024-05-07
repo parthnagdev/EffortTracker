@@ -1,6 +1,6 @@
 import { Task } from "api";
 import TaskRow from "./taskrow";
-import { Table } from "react-bootstrap";
+import { Col, Row, Table } from "react-bootstrap";
 import BootstrapTable from 'react-bootstrap-table-next'
 import { AlignEnd, Columns, Pencil } from "react-bootstrap-icons";
 
@@ -27,6 +27,9 @@ import { InputText } from "primereact/inputtext";
 import { Toast } from "primereact/toast";
 import { MenuItem } from "primereact/menuitem";
 import { Menu } from "primereact/menu";
+import { Dialog } from "primereact/dialog";
+import CreateTask from "./createTask";
+import { Box } from "@mui/material";
 
 function generateGraph(tasks: Task[]) {
   let taskds: TaskData[] = [];
@@ -174,18 +177,24 @@ const TaskTable = ({tasks} : {tasks: Task[]}) => {
       return rowData.name !== 'Blue Band';
   };
 
-  const menuLeft = useRef<Menu>(null);
+    const menuLeft = useRef<Menu>(null);
     const menuRight = useRef<Menu>(null);
     const toast = useRef<Toast>(null);
     const items: MenuItem[] = [
         {
             items: [
                 {
-                    label: 'Create Task'
+                    label: 'Create Task',
+                    command: () => {
+                      setVisible(true);
+                    }
                 }
             ]
         }
     ];
+
+    const [visible, setVisible] = useState(false);
+    const [selectedId, setSelectedId] = useState("");
 
 
   return (
@@ -200,15 +209,39 @@ const TaskTable = ({tasks} : {tasks: Task[]}) => {
                       bodyStyle={{ textAlign: 'center' }} 
                       body={(node: TreeNode) => {
                         return (
-                           <div>
+                           <div >
                             <PButton icon="pi pi-pencil" rounded text severity="secondary" aria-label="Bookmark" />
                             <Menu model={items} popup ref={menuRight} id="popup_menu_left" />
-                            <PButton icon="pi pi-angle-down" rounded text severity="secondary" onClick={(event) => menuRight.current?.toggle(event)} aria-label="Bookmark" />
+                            <PButton icon="pi pi-angle-down" rounded text severity="secondary" onClick={(event) => {
+                                    setSelectedId(node.data.task.id);
+                                    menuRight.current?.toggle(event);
+                              }} aria-label="Bookmark" />
+
                             </div> 
                           );
                         }}>
                       </Column>
           </TreeTable>
+          <Dialog 
+              visible={visible}
+              modal
+              onHide={() => setVisible(false)}
+              content={({ hide }) => (
+                <Box component="section"
+                    height={130}
+                    width={700}
+                    display="flex"
+                    sx={{ p: 1, bgcolor:  (theme) => theme.palette.mode === "light"
+                      ? "#f5f5f5"
+                      : "#0f0f0f",  borderRadius: '16px'}}>
+
+                        <CreateTask parentId={selectedId}/>
+                        <Box  alignItems="top">
+                         <PButton icon="pi pi-times" text severity="secondary" onClick={(e) => hide(e)} />
+                        </Box>
+                </Box>
+              )}>
+          </Dialog>
       </div> 
   );
 }

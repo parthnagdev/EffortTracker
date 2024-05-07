@@ -95,6 +95,7 @@ import java.util.UUID;
             //String taskId = UUID.randomUUID().toString();
             //task.setId(taskId);
             //tasks.add(task);
+            System.out.println("Task: " + task);
             task = dbClient.createTask(task);
             return dbClient.getTask(task.getId());
         }

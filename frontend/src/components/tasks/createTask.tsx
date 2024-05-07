@@ -3,7 +3,7 @@ import { FormEvent } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import sao from "sao/EffortTrackingSao";
 
-const CreateTask = () => {
+const CreateTask = ({parentId}: {parentId: string}) => {
 
     var title = "";
     var estimate = "";
@@ -12,11 +12,13 @@ const CreateTask = () => {
     function handleCreateTask(e: FormEvent) {
        // Prevent the browser from reloading the page
        e.preventDefault();
-       sao.createTask(title, Number(estimate), username);
+       sao.createTask(title, Number(estimate), username, parentId);
     }
   
     return (
-      <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
+      <Box sx={{ p: 2, bgcolor:  (theme) => theme.palette.mode === "light"
+      ? "#f5f5f5"
+      : "#0f0f0f"}}>
         <h4>Create Task</h4>
       <Form onSubmit={handleCreateTask}>
         <Row>

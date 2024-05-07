@@ -71,7 +71,34 @@ export interface Filter {
      * @type {Array<string>}
      * @memberof Filter
      */
-    'stateFilter'?: Array<string>;
+    'projectFilter'?: Array<string>;
+    /**
+     * 
+     * @type {State}
+     * @memberof Filter
+     */
+    'stateFilter'?: State;
+}
+
+
+/**
+ * 
+ * @export
+ * @interface FilterProject
+ */
+export interface FilterProject {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof FilterProject
+     */
+    'idFilter'?: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof FilterProject
+     */
+    'nameFilter'?: Array<string>;
 }
 /**
  * 
@@ -85,6 +112,32 @@ export interface FilterUser {
      * @memberof FilterUser
      */
     'userFilter'?: Array<string>;
+}
+/**
+ * 
+ * @export
+ * @interface ListProjectsRequest
+ */
+export interface ListProjectsRequest {
+    /**
+     * 
+     * @type {FilterProject}
+     * @memberof ListProjectsRequest
+     */
+    'filter'?: FilterProject;
+}
+/**
+ * 
+ * @export
+ * @interface ListProjectsResponse
+ */
+export interface ListProjectsResponse {
+    /**
+     * 
+     * @type {Array<Project>}
+     * @memberof ListProjectsResponse
+     */
+    'projectList'?: Array<Project>;
 }
 /**
  * 
@@ -141,6 +194,43 @@ export interface ListUsersResponse {
 /**
  * 
  * @export
+ * @interface Project
+ */
+export interface Project {
+    /**
+     * 
+     * @type {string}
+     * @memberof Project
+     */
+    'id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Project
+     */
+    'name'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Project
+     */
+    'description'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Project
+     */
+    'startDate'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Project
+     */
+    'endDate'?: string;
+}
+/**
+ * 
+ * @export
  * @enum {string}
  */
 
@@ -165,6 +255,12 @@ export interface Task {
      * @memberof Task
      */
     'id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Task
+     */
+    'projectId'?: string;
     /**
      * 
      * @type {string}
@@ -229,6 +325,256 @@ export interface User {
      */
     'username'?: string;
 }
+
+/**
+ * ProjectApi - axios parameter creator
+ * @export
+ */
+export const ProjectApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Adds project in the system
+         * @summary Adds project in the system
+         * @param {Project} project Adds project in the system
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createProject: async (project: Project, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'project' is not null or undefined
+            assertParamExists('createProject', 'project', project)
+            const localVarPath = `/project/create`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(project, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Lists project in the system
+         * @summary Lists project in the system
+         * @param {ListProjectsRequest} listProjectsRequest Lists project in the system
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listProjects: async (listProjectsRequest: ListProjectsRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'listProjectsRequest' is not null or undefined
+            assertParamExists('listProjects', 'listProjectsRequest', listProjectsRequest)
+            const localVarPath = `/project/list`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(listProjectsRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * performs project updation
+         * @summary Updates a project
+         * @param {Project} [project] Project object that needs to be updated
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateProject: async (project?: Project, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/project/update`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(project, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * ProjectApi - functional programming interface
+ * @export
+ */
+export const ProjectApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = ProjectApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Adds project in the system
+         * @summary Adds project in the system
+         * @param {Project} project Adds project in the system
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createProject(project: Project, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Project>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createProject(project, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ProjectApi.createProject']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Lists project in the system
+         * @summary Lists project in the system
+         * @param {ListProjectsRequest} listProjectsRequest Lists project in the system
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listProjects(listProjectsRequest: ListProjectsRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListProjectsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listProjects(listProjectsRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ProjectApi.listProjects']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * performs project updation
+         * @summary Updates a project
+         * @param {Project} [project] Project object that needs to be updated
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateProject(project?: Project, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Project>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateProject(project, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ProjectApi.updateProject']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * ProjectApi - factory interface
+ * @export
+ */
+export const ProjectApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = ProjectApiFp(configuration)
+    return {
+        /**
+         * Adds project in the system
+         * @summary Adds project in the system
+         * @param {Project} project Adds project in the system
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createProject(project: Project, options?: any): AxiosPromise<Project> {
+            return localVarFp.createProject(project, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Lists project in the system
+         * @summary Lists project in the system
+         * @param {ListProjectsRequest} listProjectsRequest Lists project in the system
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listProjects(listProjectsRequest: ListProjectsRequest, options?: any): AxiosPromise<ListProjectsResponse> {
+            return localVarFp.listProjects(listProjectsRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * performs project updation
+         * @summary Updates a project
+         * @param {Project} [project] Project object that needs to be updated
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateProject(project?: Project, options?: any): AxiosPromise<Project> {
+            return localVarFp.updateProject(project, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * ProjectApi - object-oriented interface
+ * @export
+ * @class ProjectApi
+ * @extends {BaseAPI}
+ */
+export class ProjectApi extends BaseAPI {
+    /**
+     * Adds project in the system
+     * @summary Adds project in the system
+     * @param {Project} project Adds project in the system
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProjectApi
+     */
+    public createProject(project: Project, options?: AxiosRequestConfig) {
+        return ProjectApiFp(this.configuration).createProject(project, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Lists project in the system
+     * @summary Lists project in the system
+     * @param {ListProjectsRequest} listProjectsRequest Lists project in the system
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProjectApi
+     */
+    public listProjects(listProjectsRequest: ListProjectsRequest, options?: AxiosRequestConfig) {
+        return ProjectApiFp(this.configuration).listProjects(listProjectsRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * performs project updation
+     * @summary Updates a project
+     * @param {Project} [project] Project object that needs to be updated
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProjectApi
+     */
+    public updateProject(project?: Project, options?: AxiosRequestConfig) {
+        return ProjectApiFp(this.configuration).updateProject(project, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
 
 /**
  * TaskApi - axios parameter creator
