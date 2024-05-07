@@ -10,6 +10,8 @@ import com.efforttracker.specs.TaskApi;
 //import com.efforttracker.specs.User;
 //import com.efforttracker.specs.UserApi;
 
+import jakarta.validation.OverridesAttribute.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +39,7 @@ public class EffortTrackingController implements TaskApi {
 		if(task.getId() != null) {
 			throw new IllegalArgumentException("Task ID must be null");
 		}
-		System.out.println("Task: " + task);
+		//System.out.println("Task: " + task);
 		final Task createdTask = effortTracker.createTask(task);
 		return ResponseEntity.of(Optional.of(createdTask));
 	}
@@ -96,10 +98,16 @@ public class EffortTrackingController implements TaskApi {
 	public ResponseEntity<ListTasksResponse> listTasks(ListTasksRequest listTasksRequest) {
 		final ListTasksResponse response = new ListTasksResponse();
 		if(listTasksRequest.getFilter() == null) {
-			response.setTaskList(effortTracker.listTasks(null));
+			//System.out.println("Filter is null");
+			response.setTaskList(effortTracker.listTasks(null, null, null, null));
 			return ResponseEntity.of(Optional.of(response));
 		}
-		response.setTaskList(effortTracker.listTasks(listTasksRequest.getFilter().getIdFilter()));
+		response.setTaskList(effortTracker.listTasks(
+			listTasksRequest.getFilter().getIdFilter(),
+			listTasksRequest.getFilter().getUserFilter(),
+			listTasksRequest.getFilter().getProjectFilter(),
+			listTasksRequest.getFilter().getStateFilter()
+		));
 		return ResponseEntity.of(Optional.of(response));
 	}
 
