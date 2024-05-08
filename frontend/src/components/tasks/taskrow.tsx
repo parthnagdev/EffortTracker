@@ -53,24 +53,24 @@ const TaskRow = ({taskd}: {taskd: TaskData}) => {
       
       return (
             <tr key={task.id} className="h-3">
-              <td> {spacing} {toggle} <Button size="sm" variant='secondary' > T53575{task.id} </Button> </td>
+              {/* <td> {spacing} {toggle} <Button size="sm" variant='secondary' > T53575{task.id} </Button> </td>
               <td> <input type="text" defaultValue={title} onChange={e => title = e.target.value}/> </td>
               <td> <input type="text" defaultValue={username} onChange={e => username = e.target.value}/> </td>
               <td> <StatusRow taskId={task.id + ""} status={task.state!} /> </td>
               <td> <div > <input type="text" defaultValue={estimate} onChange={e => estimate = e.target.value}/> </div> </td>
-              <td> <Floppy onClick={handleTaskSave}/> </td>
+              <td> <Floppy onClick={handleTaskSave}/> </td> */}
             </tr>
       );
     } else {
       return (
         <tr key={task.id} className="h-3">
-          <td> {spacing} {toggle} <Button size="sm" variant='secondary' > T53575{task.id} </Button>  </td>
+          {/* <td> {spacing} {toggle} <Button size="sm" variant='secondary' > T53575{task.id} </Button>  </td>
           <td> {title} </td>
           <td> {username} </td>
           <td> <StatusRow taskId={task.id + ""} status={task.state!}/> </td>
           <td> {estimate} </td>
           <td> <Pencil onClick={() => handleTaskEdit()}/> </td>
-          <td> <Button variant="text">&#x25BE;</Button> </td>
+          <td> <Button variant="text">&#x25BE;</Button> </td> */}
         </tr>
       );
     }
