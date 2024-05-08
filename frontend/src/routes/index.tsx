@@ -12,6 +12,8 @@ import Admin from 'components/admin/admin';
 import NavBar from 'components/navbar';
 import Tasks from 'components/tasks/tasks';
 import Login from 'pages/Login';
+import Projects from 'components/projects/projects';
+import Users from 'components/users/users';
 
 export function Routes() {
   return (
@@ -20,6 +22,8 @@ export function Routes() {
       <Switch>
         <Route />
         <Route path='/login' element={<Login />} />
+        <Route path='/projects' element={<Projects />} />
+        <Route path='/users' element={<Users />} />
         <Route path='/' element={<Admin />} />
         <Route path='/tasks' element={<Tasks />} />
         <Route path={NOT_FOUND_ROUTE} element={<NotFoundPage />} />

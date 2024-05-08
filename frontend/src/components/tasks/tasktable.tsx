@@ -116,8 +116,6 @@ function generateDepthRec(g: Map<String, String[]>, id: String, taskMap: Map<Str
 }
 
 const TaskTable = ({tasks} : {tasks: Task[]}) => {
-    const rows : any[] = [];
-  
     console.log("Tasks isU: " + tasks);
   
     console.log("Tasks: " + tasks);

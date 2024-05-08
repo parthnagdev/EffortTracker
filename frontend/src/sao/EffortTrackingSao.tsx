@@ -1,9 +1,10 @@
-import { TaskApi, ListTasksRequest, ListUsersRequest, ListTasksResponse, User, Task, UserApi, ListUsersResponse, State } from "api";
+import { TaskApi, ListTasksRequest, ListUsersRequest, ListTasksResponse, User, Task, UserApi, ListUsersResponse, State, ProjectApi, ListProjectsRequest } from "api";
 
 class EffortTrackingSao {
 
     taskApi: TaskApi;
     userApi: UserApi;
+    projectApi: ProjectApi;
 
     log?: Function;
     error?: Function;
@@ -11,6 +12,7 @@ class EffortTrackingSao {
     constructor() {
         this.taskApi = new TaskApi();
         this.userApi = new UserApi();
+        this.projectApi = new ProjectApi();
     }
 
     public setLoggers(log: Function, error: Function) {
@@ -145,6 +147,14 @@ class EffortTrackingSao {
         response.then((res) => {
             callback(res.data.taskList);
         }).catch((error) => this.error!("Some error occurred while listing tasks"));
+    }
+
+    async listProjects(callback: Function) {
+        const listProjectsRequest: ListProjectsRequest = {};
+        const response = this.projectApi.listProjects(listProjectsRequest);
+        response.then((res) => {
+            callback(res.data.projectList);
+        }).catch((error) => this.error!("Some error occurred while listing projects"));
     }
 }
 

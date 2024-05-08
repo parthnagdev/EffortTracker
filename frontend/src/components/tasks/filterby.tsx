@@ -11,8 +11,7 @@ const FilterBy = ({handleListTasks}: {handleListTasks: Function}) => {
     }
 
     return (
-      <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
-        <h4>Filter By</h4>
+      <Box component="section" sx={{ p: 2 }}>
         
       <Form onSubmit={handleFilterBy}>
         <Row>
