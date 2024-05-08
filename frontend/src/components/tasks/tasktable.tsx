@@ -166,7 +166,7 @@ const TaskTable = ({tasks, visible, setVisible, users, refresh} : {
       let taskd: TaskData = node.data;
 
       return (
-        <Button variant={STATUS_TO_SEVERITY_MAP.get(taskd.task.state!)} size="sm"> T53575{taskd.task.id} </Button>
+        <Button variant="secondary" size="sm"> T53575{taskd.task.id} </Button>
       );
     };
 

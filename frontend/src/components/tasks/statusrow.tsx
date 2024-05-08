@@ -65,7 +65,7 @@ const Status = ({ taskId, value, actual, handleUpdateCallback }: {taskId: string
         
         <div style={{ paddingLeft: 4, paddingRight: 0 }}>
           <OverlayTrigger placement="left" overlay={tooltip}>
-          <Button size="sm" variant={sev}  onClick={() => handleUpdateCallback(taskId, value)} aria-label="Cancel" > {buttonName} </Button>
+          <Button size="sm" variant="primary"  onClick={() => handleUpdateCallback(taskId, value)} aria-label="Cancel" > {buttonName} </Button>
           </OverlayTrigger>
           </div>
       );
@@ -89,7 +89,7 @@ const Status = ({ taskId, value, actual, handleUpdateCallback }: {taskId: string
       <div style={{ paddingLeft: 4, paddingRight: 0 }}>
         <OverlayTrigger placement="left" overlay={tooltip} >
           {/* <Button size="sm" variant='secondary' onClick={() => handleUpdateCallback(taskId, value)}> {buttonName} </Button> */}
-          <Button size="sm" variant="outline-link"  onClick={() => handleUpdateCallback(taskId, value)} aria-label="Cancel" > {buttonName} </Button>
+          <Button size="sm" variant="secondary"  onClick={() => handleUpdateCallback(taskId, value)} aria-label="Cancel" > {buttonName} </Button>
         </OverlayTrigger>
         </div>
     );
