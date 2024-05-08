@@ -202,6 +202,10 @@ const TaskTable = ({tasks, visible, setVisible, users, refresh} : {
     
     const [selectedId, setSelectedId] = useState<string | undefined>();
 
+    const deleteTask = (taskId: string) => {
+        sao.deleteTask(taskId, refresh);
+    };
+
 
   return (
       <div className="card">
@@ -211,7 +215,7 @@ const TaskTable = ({tasks, visible, setVisible, users, refresh} : {
               <Column  header="User" body={constructUserDropDown} ></Column>
               <Column field="status" body={constructStatus} header="Status"></Column>
               <Column field="estimate" header="Estimate" body={(node: TreeNode) => node.data.task.estimate} ></Column>
-              <Column headerStyle={{ width: '10%', minWidth: '8rem' }} 
+              <Column headerStyle={{ width: '15%', minWidth: '8rem' }} 
                       bodyStyle={{ textAlign: 'center' }} 
                       body={(node: TreeNode) => {
                         return (
@@ -222,7 +226,7 @@ const TaskTable = ({tasks, visible, setVisible, users, refresh} : {
                                     setSelectedId(node.data.task.id);
                                     menuRight.current?.toggle(event);
                               }} aria-label="Bookmark" />
-
+                             <PButton icon="pi pi-trash" onClick={(e) => deleteTask(node.data.task.id)} rounded text severity="secondary" aria-label="Bookmark" />
                             </div> 
                           );
                         }}>

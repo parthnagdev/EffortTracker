@@ -51,6 +51,19 @@ export interface ApiResponse {
 /**
  * 
  * @export
+ * @interface DeleteTaskRequest
+ */
+export interface DeleteTaskRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteTaskRequest
+     */
+    'id'?: string;
+}
+/**
+ * 
+ * @export
  * @interface Filter
  */
 export interface Filter {
@@ -627,6 +640,40 @@ export const TaskApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
+         * performs task updation
+         * @summary Deletes a task
+         * @param {DeleteTaskRequest} [deleteTaskRequest] Id of the Task that needs to be deleted
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteTask: async (deleteTaskRequest?: DeleteTaskRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/task/delete`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(deleteTaskRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Lists task in the system
          * @summary Lists task in the system
          * @param {ListTasksRequest} listTasksRequest Lists task in the system
@@ -720,6 +767,19 @@ export const TaskApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * performs task updation
+         * @summary Deletes a task
+         * @param {DeleteTaskRequest} [deleteTaskRequest] Id of the Task that needs to be deleted
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteTask(deleteTaskRequest?: DeleteTaskRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteTask(deleteTaskRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TaskApi.deleteTask']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Lists task in the system
          * @summary Lists task in the system
          * @param {ListTasksRequest} listTasksRequest Lists task in the system
@@ -766,6 +826,16 @@ export const TaskApiFactory = function (configuration?: Configuration, basePath?
             return localVarFp.createTask(task, options).then((request) => request(axios, basePath));
         },
         /**
+         * performs task updation
+         * @summary Deletes a task
+         * @param {DeleteTaskRequest} [deleteTaskRequest] Id of the Task that needs to be deleted
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteTask(deleteTaskRequest?: DeleteTaskRequest, options?: any): AxiosPromise<void> {
+            return localVarFp.deleteTask(deleteTaskRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Lists task in the system
          * @summary Lists task in the system
          * @param {ListTasksRequest} listTasksRequest Lists task in the system
@@ -805,6 +875,18 @@ export class TaskApi extends BaseAPI {
      */
     public createTask(task: Task, options?: AxiosRequestConfig) {
         return TaskApiFp(this.configuration).createTask(task, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * performs task updation
+     * @summary Deletes a task
+     * @param {DeleteTaskRequest} [deleteTaskRequest] Id of the Task that needs to be deleted
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TaskApi
+     */
+    public deleteTask(deleteTaskRequest?: DeleteTaskRequest, options?: AxiosRequestConfig) {
+        return TaskApiFp(this.configuration).deleteTask(deleteTaskRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

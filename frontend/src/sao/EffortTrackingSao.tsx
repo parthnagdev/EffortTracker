@@ -1,4 +1,4 @@
-import { TaskApi, ListTasksRequest, ListUsersRequest, ListTasksResponse, User, Task, UserApi, ListUsersResponse, State, ProjectApi, ListProjectsRequest, Filter } from "api";
+import { TaskApi, ListTasksRequest, ListUsersRequest, ListTasksResponse, User, Task, UserApi, ListUsersResponse, State, ProjectApi, ListProjectsRequest, Filter, DeleteTaskRequest } from "api";
 
 class EffortTrackingSao {
 
@@ -177,6 +177,21 @@ class EffortTrackingSao {
         response.then((res) => {
             callback(res.data.projectList);
         }).catch((error) => this.error!("Some error occurred while listing projects"));
+    }
+
+    async deleteTask(taskId: string, successCallback: Function) {
+        if (!taskId || taskId === '') {
+            console.error("task id should be present");
+            return;
+        }
+
+        const deleteTaskRequest: DeleteTaskRequest = {
+            id: taskId
+        };
+        const response = this.taskApi.deleteTask(deleteTaskRequest);
+        response.then((res) => {
+            successCallback();
+        }).catch((error) => this.error!("Some error occurred while deleting task: " + taskId));
     }
 }
 
