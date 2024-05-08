@@ -110,26 +110,32 @@ class EffortTrackingSao {
         return State.Open;
     }
 
-    async updateTask(taskId: string, title: string, estimate: number, username: string, successCallback: Function) {
-        this.taskApi.listTasks({
-            filter: {
-                idFilter: [taskId]
-            }
-        }).then((res) => {
-            const task = res.data.taskList?.at(0);
-            const newTask: Task = {
-                ...task,
-                title: title,
-                estimate: estimate,
-                username: username
-            }
+    async updateTask(task: Task, successCallback: Function) {
+        if (!task.id){
+            console.error("Task id is needed for task update");
+        }
 
-            console.log("newTask: " + newTask.state);
-            this.taskApi.updateTask(newTask).then((res) => {
-                console.log("State: " + res.data.state);
-                successCallback();
-            }).catch((error) => this.error!("Some error occurred while updating task"));;
-        });
+        // this.taskApi.listTasks({
+        //     filter: {
+        //         idFilter: [task.id!]
+        //     }
+        // }).then((res) => {
+        //     const task = res.data.taskList?.at(0);
+        //     const newTask: Task = {
+        //         ...task,
+        //         title: title,
+        //         estimate: estimate,
+        //         username: username
+        //     }
+
+        //     console.log("newTask: " + newTask.state);
+            
+        // });
+
+        this.taskApi.updateTask(task).then((res) => {
+            console.log("State: " + res.data.state);
+            successCallback();
+        }).catch((error) => this.error!("Some error occurred while updating task"));;
 
         // const listTaskRequest: ListTasksRequest = {};
         // return this.taskApi.listTasks(listTaskRequest);

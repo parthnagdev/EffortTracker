@@ -30,16 +30,16 @@ const TaskRow = ({taskd}: {taskd: TaskData}) => {
     }
   
     function handleTaskSave() {
-      sao.updateTask(task.id!, title!, Number(estimate!), username!, () => {
-        const newState = {
-            inEditMode: false,
-            title: title,
-            estimate: Number(estimate),
-            username: username
-          }
+      // sao.updateTask(task.id!, title!, Number(estimate!), username!, () => {
+      //   const newState = {
+      //       inEditMode: false,
+      //       title: title,
+      //       estimate: Number(estimate),
+      //       username: username
+      //     }
 
-          setTaskState(newState);
-      });
+      //     setTaskState(newState);
+      // });
     }
 
     let spacing: any[] = [];

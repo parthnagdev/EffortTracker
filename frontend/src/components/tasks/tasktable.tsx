@@ -5,6 +5,7 @@ import { Column } from 'primereact/column';
 import { TreeNode } from 'primereact/treenode';
 import { TreeTable } from 'primereact/treetable';
 import { Button } from "react-bootstrap";
+import sao from "sao/EffortTrackingSao";
 
 
 import { Box } from "@mui/material";
@@ -17,6 +18,8 @@ import { Toast } from "primereact/toast";
 import { useRef, useState } from "react";
 import CreateTask from "./createTask";
 import StatusRow from "./statusrow";
+import { Dropdown } from "primereact/dropdown";
+import { getUserData, getUserDataList } from "components/users/users";
 
 function generateGraph(tasks: Task[]) {
   let taskds: TaskData[] = [];
@@ -144,8 +147,6 @@ const TaskTable = ({tasks, visible, setVisible, users, refresh} : {
     const constructStatus = (node: TreeNode) => {
         let taskd: TaskData = node.data;
 
-        console.log("FIND: task: " + taskd.task.title + "; state: " + taskd.task.state);
-
         return (
           <StatusRow taskId={taskd.task.id + ""} status={taskd.task.state!} refresh={refresh} />
         );
@@ -159,13 +160,29 @@ const TaskTable = ({tasks, visible, setVisible, users, refresh} : {
       );
     };
 
+    const constructUserDropDown = (node: TreeNode) => {
+        let taskd: TaskData = node.data;
+
+        return (
+          <Dropdown value={{name: taskd.task.username}} 
+                  onChange={(e) => {
+                      sao.updateTask({
+                        ...taskd.task,
+                        username: e.value.name
+                      }, refresh);
+                   }} 
+                   options={getUserDataList(users)} 
+                   optionLabel="name"  placeholder={taskd.task.username}  />
+        );
+    };
+
     const textEditor = (options) => {
       return <InputText type="text" value={options.value} onChange={(e) => options.editorCallback(e.target.value)} />;
     };
 
     const allowEdit = (rowData) => {
-      return rowData.name !== 'Blue Band';
-  };
+        return rowData.name !== 'Blue Band';
+    };
 
     const menuLeft = useRef<Menu>(null);
     const menuRight = useRef<Menu>(null);
@@ -182,7 +199,6 @@ const TaskTable = ({tasks, visible, setVisible, users, refresh} : {
             ]
         }
     ];
-
     
     const [selectedId, setSelectedId] = useState<string | undefined>();
 
@@ -192,7 +208,7 @@ const TaskTable = ({tasks, visible, setVisible, users, refresh} : {
           <TreeTable value={task_data.nodes} size={1} selectionMode="single" stripedRows >
               <Column field="id" body={constructIdTag} expander></Column>
               <Column field="task" header="Task" body={(node: TreeNode) => node.data.task.title} editor={(options) => textEditor(options)} ></Column>
-              <Column field="owner" header="Owner" body={(node: TreeNode) => node.data.task.username} ></Column>
+              <Column  header="User" body={constructUserDropDown} ></Column>
               <Column field="status" body={constructStatus} header="Status"></Column>
               <Column field="estimate" header="Estimate" body={(node: TreeNode) => node.data.task.estimate} ></Column>
               <Column headerStyle={{ width: '10%', minWidth: '8rem' }} 
