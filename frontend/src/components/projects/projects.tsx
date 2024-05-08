@@ -2,7 +2,7 @@ import { Project } from "api";
 
 import { Column } from 'primereact/column';
 import { TreeNode } from 'primereact/treenode';
-import { Button } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 
 
 import { DataTable } from "primereact/datatable";
@@ -30,7 +30,7 @@ const Projects = () => {
 
 
   return (
-      <div className="card">
+      <Container className="card">
           <DataTable value={projects} selectionMode="single" stripedRows >
               <Column field="id" body={constructIdTag} ></Column>
               <Column field="name" header="Project" ></Column>
@@ -38,7 +38,7 @@ const Projects = () => {
               <Column field="endDate" header="End Date"></Column>
              
           </DataTable>
-      </div> 
+        </Container>
   );
 }
 

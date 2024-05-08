@@ -1,10 +1,11 @@
 import Box from '@mui/material/Box';
 import { State, Task, User } from 'api';
 import { useEffect, useState } from 'react';
-import { Alert } from 'react-bootstrap';
+import { Alert, Button, Col, Container, Row } from 'react-bootstrap';
 import sao from 'sao/EffortTrackingSao';
 import FilterBy from './filterby';
 import TaskTable from './tasktable';
+import { Margin } from '@mui/icons-material';
 
 const BasicAlert = () => {
 
@@ -73,18 +74,42 @@ const Tasks = () => {
 
   console.log("Tasks: " + tasks);
 
+  const [visible, setVisible] = useState(false);
+
   return (
-      <Box>
-            <BasicAlert />
-            <FilterBy handleSetTasks={setTasks}
-                       users={users} 
-                       selectedState={selectedState} 
-                       selectedUser={selectedUser}
-                       setSelectedState={setSelectedState}
-                       setSelectedUser={setSelectedUser}/>
-            <TaskTable tasks={tasks!} />
-      </Box>
-   
+      <div>
+      <Container>
+            <Row>
+              <BasicAlert />
+            </Row>
+            <Row className="justify-content-md-center">
+              <Col xs={10}>
+                <FilterBy handleSetTasks={setTasks}
+                          users={users} 
+                          selectedState={selectedState} 
+                          selectedUser={selectedUser}
+                          setSelectedState={setSelectedState}
+                          setSelectedUser={setSelectedUser} />
+              </Col>
+              <Col >
+              <Button variant="primary" size="lg" 
+                        onClick={() => {
+                          setVisible(true);
+                        }}
+                        style={{
+                          marginTop: 10,
+                          
+                        }}>
+                    Create Task
+                </Button>
+              </Col>
+            </Row>
+            <Row>
+              <TaskTable tasks={tasks!} visible={visible} setVisible={setVisible}/>
+            </Row> 
+      </Container>
+      
+      </div>
   );
 }
   

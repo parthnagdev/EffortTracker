@@ -117,7 +117,8 @@ function generateDepthRec(g: Map<String, String[]>, id: String, taskMap: Map<Str
   return node;
 }
 
-const TaskTable = ({tasks} : {tasks: Task[]}) => {
+const TaskTable = ({tasks, visible, setVisible} : {
+                tasks: Task[], visible: boolean, setVisible: Function}) => {
     console.log("Tasks isU: " + tasks);
   
     console.log("Tasks: " + tasks);
@@ -193,8 +194,8 @@ const TaskTable = ({tasks} : {tasks: Task[]}) => {
         }
     ];
 
-    const [visible, setVisible] = useState(false);
-    const [selectedId, setSelectedId] = useState("");
+    
+    const [selectedId, setSelectedId] = useState<string | undefined>();
 
 
   return (
@@ -225,7 +226,11 @@ const TaskTable = ({tasks} : {tasks: Task[]}) => {
           <Dialog 
               visible={visible}
               modal
-              onHide={() => setVisible(false)}
+              onHide={() => {
+                  setSelectedId(undefined);
+                  setVisible(false);
+                }
+              }
               content={({ hide }) => (
                 <Box component="section"
                     height={130}

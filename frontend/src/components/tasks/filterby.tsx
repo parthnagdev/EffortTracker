@@ -118,7 +118,7 @@ const FilterBy = ({handleSetTasks, users, selectedUser, selectedState, setSelect
     }
 
     return (
-      <Box component="section" sx={{ p: 2 }}>
+      
         
       <Form onSubmit={handleFilterBy}>
         <Row>
@@ -137,14 +137,12 @@ const FilterBy = ({handleSetTasks, users, selectedUser, selectedState, setSelect
           </Col>
   
          <Col>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" size="lg" type="submit">
               Filter
             </Button>
           </Col>
         </Row>
       </Form>
-  
-      </Box>
     );
   }
 

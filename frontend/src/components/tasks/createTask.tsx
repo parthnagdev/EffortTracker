@@ -3,7 +3,7 @@ import { FormEvent } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import sao from "sao/EffortTrackingSao";
 
-const CreateTask = ({parentId}: {parentId: string}) => {
+const CreateTask = ({parentId}: {parentId: string | undefined}) => {
 
     var title = "";
     var estimate = "";

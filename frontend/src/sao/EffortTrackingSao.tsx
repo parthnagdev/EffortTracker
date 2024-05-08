@@ -36,7 +36,7 @@ class EffortTrackingSao {
         });
     }
 
-    async createTask(title: string, estimate: number, username: string, parentId: string) {
+    async createTask(title: string, estimate: number, username: string, parentId: string | undefined) {
 
         console.log("Parent Id: " + parentId);
 
