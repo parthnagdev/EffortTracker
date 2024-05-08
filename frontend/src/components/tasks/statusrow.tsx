@@ -6,7 +6,9 @@ import sao from "sao/EffortTrackingSao";
 const STATUS_MAP = new Map([
     ["INPROGRESS", "IP"],
     ["OPEN", "O"],
-    ["COMPELETE", "C"]
+    ["COMPELETE", "C"],
+    ["REVIEW", "R"],
+    ["BLOCKED", "B"]
   ]);
 
 const Status = ({ taskId, value, actual, handleUpdateCallback }: {taskId: string, value: string, actual: string, handleUpdateCallback: Function} ) => {
@@ -74,6 +76,8 @@ const Status = ({ taskId, value, actual, handleUpdateCallback }: {taskId: string
           <Status taskId={taskId} value='OPEN' actual={currentStatus} handleUpdateCallback={handleUpdateStatus}/> 
           <Status taskId={taskId} value='INPROGRESS' actual={currentStatus} handleUpdateCallback={handleUpdateStatus}/>
           <Status taskId={taskId} value='COMPELETE' actual={currentStatus} handleUpdateCallback={handleUpdateStatus}/>
+          <Status taskId={taskId} value='REVIEW' actual={currentStatus} handleUpdateCallback={handleUpdateStatus}/>
+          <Status taskId={taskId} value='BLOCKED' actual={currentStatus} handleUpdateCallback={handleUpdateStatus}/>
         
       </ButtonToolbar>
     

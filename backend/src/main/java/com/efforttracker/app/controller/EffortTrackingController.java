@@ -99,14 +99,15 @@ public class EffortTrackingController implements TaskApi {
 		final ListTasksResponse response = new ListTasksResponse();
 		if(listTasksRequest.getFilter() == null) {
 			//System.out.println("Filter is null");
-			response.setTaskList(effortTracker.listTasks(null, null, null, null));
+			response.setTaskList(effortTracker.listTasks(null, null, null, null, null));
 			return ResponseEntity.of(Optional.of(response));
 		}
 		response.setTaskList(effortTracker.listTasks(
 			listTasksRequest.getFilter().getIdFilter(),
 			listTasksRequest.getFilter().getUserFilter(),
 			listTasksRequest.getFilter().getProjectFilter(),
-			listTasksRequest.getFilter().getStateFilter()
+			listTasksRequest.getFilter().getStateFilter(),
+			listTasksRequest.getFilter().getParentIdFilter()
 		));
 		return ResponseEntity.of(Optional.of(response));
 	}

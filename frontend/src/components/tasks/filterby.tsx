@@ -50,7 +50,7 @@ const FilterBy = ({handleSetTasks, users, selectedUser, selectedState, setSelect
   
       let userFilter: string[] | undefined = undefined;
       if (selectedUser) {
-        userFilter = [selectedUser.name!];
+        userFilter = [selectedUser.username!];
       }
   
       return {
@@ -86,7 +86,7 @@ const FilterBy = ({handleSetTasks, users, selectedUser, selectedState, setSelect
       }
 
       return {
-        name: user.name!,
+        name: user.username!,
         user: user
       }
     }

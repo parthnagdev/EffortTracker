@@ -78,6 +78,12 @@ export interface Filter {
      * @memberof Filter
      */
     'stateFilter'?: State;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof Filter
+     */
+    'parentIdFilter'?: Array<string>;
 }
 
 
@@ -237,7 +243,9 @@ export interface Project {
 export const State = {
     Open: 'OPEN',
     Inprogress: 'INPROGRESS',
-    Complete: 'COMPLETE'
+    Complete: 'COMPLETE',
+    Review: 'REVIEW',
+    Blocked: 'BLOCKED'
 } as const;
 
 export type State = typeof State[keyof typeof State];

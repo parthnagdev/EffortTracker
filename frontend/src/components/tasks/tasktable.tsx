@@ -1,35 +1,22 @@
 import { Task } from "api";
-import TaskRow from "./taskrow";
-import { Col, Row, Table } from "react-bootstrap";
-import BootstrapTable from 'react-bootstrap-table-next'
-import { AlignEnd, Columns, Pencil } from "react-bootstrap-icons";
 
-import { TreeTable, TreeTableTogglerTemplateOptions } from 'primereact/treetable';
-import { Column } from 'primereact/column';
-import { Button } from "react-bootstrap";
-import { TreeNode } from 'primereact/treenode';
 import { Button as PButton } from 'primereact/button';
+import { Column } from 'primereact/column';
+import { TreeNode } from 'primereact/treenode';
+import { TreeTable } from 'primereact/treetable';
+import { Button } from "react-bootstrap";
 
-import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 
-import React, { useRef, useState } from "react";
-import { DndProvider } from "react-dnd";
-import {
-  Tree,
-  MultiBackend,
-  getBackendOptions,
-} from "@minoru/react-dnd-treeview";
-import { has, size } from "lodash";
-import TaskData from "components/models/task_data";
-import StatusRow from "./statusrow";
-import { classNames } from "primereact/utils";
-import { InputText } from "primereact/inputtext";
-import { Toast } from "primereact/toast";
-import { MenuItem } from "primereact/menuitem";
-import { Menu } from "primereact/menu";
-import { Dialog } from "primereact/dialog";
-import CreateTask from "./createTask";
 import { Box } from "@mui/material";
+import TaskData from "components/models/task_data";
+import { Dialog } from "primereact/dialog";
+import { InputText } from "primereact/inputtext";
+import { Menu } from "primereact/menu";
+import { MenuItem } from "primereact/menuitem";
+import { Toast } from "primereact/toast";
+import { useRef, useState } from "react";
+import CreateTask from "./createTask";
+import StatusRow from "./statusrow";
 
 function generateGraph(tasks: Task[]) {
   let taskds: TaskData[] = [];
@@ -202,7 +189,7 @@ const TaskTable = ({tasks, visible, setVisible} : {
       <div className="card">
           <TreeTable value={task_data.nodes} size={1} selectionMode="single" stripedRows >
               <Column field="id" body={constructIdTag} expander></Column>
-              <Column field="task" header="Task" body={(node: TreeNode) => node.data.task.description} editor={(options) => textEditor(options)} ></Column>
+              <Column field="task" header="Task" body={(node: TreeNode) => node.data.task.title} editor={(options) => textEditor(options)} ></Column>
               <Column field="owner" header="Owner" body={(node: TreeNode) => node.data.task.username} ></Column>
               <Column field="status" body={constructStatus} header="Status"></Column>
               <Column field="estimate" header="Estimate" body={(node: TreeNode) => node.data.task.estimate} ></Column>

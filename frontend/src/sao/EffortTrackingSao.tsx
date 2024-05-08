@@ -84,15 +84,23 @@ class EffortTrackingSao {
     }
 
     getState(state: string) {
-        if (State.Open === state) {
-            return State.Open;
-        }
-
         if (State.Inprogress === state) {
             return State.Inprogress;
         }
 
-        return State.Complete;
+        if (State.Complete === state) {
+            return State.Complete;
+        }
+
+        if (State.Review === state) {
+            return State.Review;
+        }
+
+        if (State.Blocked === state) {
+            return State.Blocked;
+        }
+
+        return State.Open;
     }
 
     async updateTask(taskId: string, title: string, estimate: number, username: string, successCallback: Function) {

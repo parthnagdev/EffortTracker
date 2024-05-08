@@ -142,7 +142,7 @@ public class DbClient {
    public Task updateTask(final Task updatedTask) {
     getConnection();
       try {
-         String update_sql = "UPDATE tasks SET title = '" + updatedTask.getTitle() + "', description = '" + updatedTask.getDescription() + "', estimate = '" + updatedTask.getEstimate() + "', username = '" + updatedTask.getUsername() + "', state = '" + updatedTask.getState() + "', projectId = '" + updatedTask.getProjectId() + "' WHERE id = '" + updatedTask.getId() + "'";
+         String update_sql = "UPDATE tasks SET title = '" + updatedTask.getTitle() + "', description = '" + updatedTask.getDescription() + "', estimate = '" + updatedTask.getEstimate() + "', username = '" + updatedTask.getUsername() + "', state = '" + updatedTask.getState() + "', projectId = '" + updatedTask.getProjectId() + "', parentId = '" + updatedTask.getParentId() + "' WHERE id = '" + updatedTask.getId() + "'";
          try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(update_sql);
          }
@@ -260,7 +260,7 @@ public class DbClient {
 
     // }
 
-    public List<Task> listTasks(List<String> taskIds, List<String> usernames, List<String> projectIds, State state) {
+    public List<Task> listTasks(List<String> taskIds, List<String> usernames, List<String> projectIds, State state, List<String> parentTaskIds) {
         getConnection();
 
         final String select_sql_query;
@@ -268,11 +268,11 @@ public class DbClient {
         if ((taskIds == null || taskIds.isEmpty())
          && (usernames == null || usernames.isEmpty())
         && (projectIds == null || projectIds.isEmpty())
-        && state == null) {
+        && state == null
+        && (parentTaskIds == null || parentTaskIds.isEmpty())) {
             select_sql_query = "SELECT * FROM tasks";
         } else {
 
-            List<Task> tasks = new ArrayList<>();
             StringBuilder select_sql = new StringBuilder("SELECT * FROM tasks WHERE ");
 
             if (taskIds != null && !taskIds.isEmpty()) {
@@ -292,6 +292,11 @@ public class DbClient {
 
             if (state != null) {
                 select_sql.append("state = '").append(state).append("' AND ");
+            }
+
+            if (parentTaskIds != null && !parentTaskIds.isEmpty()) {
+                String parentTaskIdsStr = String.join("','", parentTaskIds);
+                select_sql.append("parentId IN ('").append(parentTaskIdsStr).append("') AND ");
             }
 
             // Remove the last " AND " from the query

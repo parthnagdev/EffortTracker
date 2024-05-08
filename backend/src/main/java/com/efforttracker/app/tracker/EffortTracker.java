@@ -255,8 +255,8 @@ import java.util.UUID;
            }
        }
 
-        public List<Task> listTasks(List<String> taskIds, List<String> usernames, List<String> projectIds, State state) {
-            return dbClient.listTasks(taskIds, usernames, projectIds, state);
+        public List<Task> listTasks(List<String> taskIds, List<String> usernames, List<String> projectIds, State state, List<String> parentTaskIds) {
+            return dbClient.listTasks(taskIds, usernames, projectIds, state, parentTaskIds);
             //return tasks;
         }
 

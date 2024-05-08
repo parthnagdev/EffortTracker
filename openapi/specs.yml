@@ -300,6 +300,8 @@ components:
         - OPEN
         - INPROGRESS
         - COMPLETE
+        - REVIEW
+        - BLOCKED
     StringFilter:
       type: array
       items:
@@ -316,6 +318,8 @@ components:
           $ref: '#/components/schemas/StringFilter'
         stateFilter:
           $ref: '#/components/schemas/State'
+        parentIdFilter:
+          $ref: '#/components/schemas/StringFilter'
     FilterUser:
       type: object
       properties:
