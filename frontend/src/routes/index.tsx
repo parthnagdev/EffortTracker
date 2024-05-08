@@ -14,6 +14,7 @@ import Tasks from 'components/tasks/tasks';
 import Login from 'pages/Login';
 import Projects from 'components/projects/projects';
 import Users from 'components/users/users';
+import Profile from 'components/users/profile';
 
 export function Routes() {
   return (
@@ -24,6 +25,7 @@ export function Routes() {
         <Route path='/login' element={<Login />} />
         {/*<Route path='/projects' element={<Projects />} />*/}
         <Route path='/users' element={<Users />} />
+        <Route path='/profile/:username' element={<Profile />} />
         <Route path='/' element={<Projects />} />
         <Route path='/tasks' element={<Tasks />} />
         <Route path='/tasks/:projectId' element={<Tasks />} />

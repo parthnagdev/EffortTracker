@@ -1,14 +1,16 @@
 import { User } from "api";
 
 import { Column } from 'primereact/column';
-import { Button, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 
 
 import { DataTable } from "primereact/datatable";
 import { useEffect, useState } from "react";
 import sao from 'sao/EffortTrackingSao';
+import { useParams } from "react-router-dom";
 
-const Users = () => {
+const Profile = () => {
+    const { username } = useParams();
     const [users, setUsers] = useState<User[]>([]);
 
     useEffect(() => {
@@ -30,14 +32,20 @@ const Users = () => {
 
   return (
       <Container>
-          <Row>
+         <Row>
+            <Col>
+            </Col>
+            <Col>
+            </Col>
+         </Row>
+         <Row>
             <DataTable value={users} selectionMode="single" stripedRows >
                 <Column field="id" body={constructIdTag} ></Column>
                 <Column field="name" header="Name" ></Column>
                 <Column field="username" header="User Name" ></Column>
                 
             </DataTable>
-          </Row>
+         </Row>
       </Container> 
   );
 }
@@ -67,4 +75,4 @@ export interface UserData {
     user: User | undefined
 }
 
-export default Users;
+export default Profile;
