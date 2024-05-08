@@ -91,13 +91,20 @@ import java.util.UUID;
             return dbClient.getUser(user.getUsername());
         }
 
-        public Task createTask( Task task) {
+        public Task createTask(Task task) {
             //String taskId = UUID.randomUUID().toString();
             //task.setId(taskId);
             //tasks.add(task);
             System.out.println("Task: " + task);
             task = dbClient.createTask(task);
             return dbClient.getTask(task.getId());
+        }
+
+        public void deleteTask(String id) {
+            //String taskId = UUID.randomUUID().toString();
+            //task.setId(taskId);
+            //tasks.add(task);
+            dbClient.deleteTask(id);
         }
 
         public Project createProject(Project project) {

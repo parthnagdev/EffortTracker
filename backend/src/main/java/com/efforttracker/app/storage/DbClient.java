@@ -450,6 +450,10 @@ public class DbClient {
     }
 
     public void deleteTask(final String taskId) {
+       if (taskId == null || taskId.isEmpty()) {
+           throw new RuntimeException("taskId cannot be empty");
+       }
+
         getConnection();
         try {
             String delete_sql = "DELETE FROM tasks WHERE id = ?";

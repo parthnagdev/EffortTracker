@@ -86,6 +86,28 @@ paths:
           description: Task not found
         '500':
           description: Internal Error
+  /task/delete:
+    delete:
+      tags:
+        - task
+      summary: Deletes a task
+      description: performs task updation
+      operationId: deleteTask
+      requestBody: 
+        description: Id of the Task that needs to be deleted
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteTaskRequest'
+      responses:
+        '200':
+          description: Successfully deleted
+        '400':
+          description: Invalid input
+        '404':
+          description: Task not found
+        '500':
+          description: Internal Error
   /user/create:
     post:
       tags:
@@ -236,6 +258,12 @@ components:
           type: string
           format: date
           example: 2021-09-30
+    DeleteTaskRequest:
+        type: object
+        properties:
+          id:
+            type: string
+            example: 3
     ListProjectsRequest:
       type: object
       properties:

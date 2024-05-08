@@ -3,6 +3,7 @@ package com.efforttracker.app.controller;
 
 //import com.efforttracker.app.models.User;
 import com.efforttracker.app.tracker.EffortTracker;
+import com.efforttracker.specs.DeleteTaskRequest;
 import com.efforttracker.specs.ListTasksRequest;
 import com.efforttracker.specs.ListTasksResponse;
 import com.efforttracker.specs.Task;
@@ -50,10 +51,12 @@ public class EffortTrackingController implements TaskApi {
 		final Task updatedTask = effortTracker.updateTask(task);
 		return ResponseEntity.of(Optional.of(updatedTask));
 	}
-	
-	 
-	
-	
+
+	@Override
+	public ResponseEntity<Void> deleteTask(DeleteTaskRequest request) {
+		effortTracker.deleteTask(request.getId());
+		return ResponseEntity.ok().build();
+	}
 
 	//code by chatGPT below
 	// @PostMapping("/assignTask")
