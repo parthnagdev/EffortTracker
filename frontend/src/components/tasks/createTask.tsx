@@ -3,7 +3,7 @@ import { FormEvent } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import sao from "sao/EffortTrackingSao";
 
-const CreateTask = ({parentId}: {parentId: string | undefined}) => {
+const CreateTask = ({parentId, setVisible}: {parentId: string | undefined, setVisible: Function}) => {
 
     var title = "";
     var estimate = "";
@@ -13,6 +13,7 @@ const CreateTask = ({parentId}: {parentId: string | undefined}) => {
        // Prevent the browser from reloading the page
        e.preventDefault();
        sao.createTask(title, Number(estimate), username, parentId);
+       setVisible(false);
     }
   
     return (

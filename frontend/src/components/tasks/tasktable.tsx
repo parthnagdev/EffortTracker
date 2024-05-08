@@ -227,7 +227,7 @@ const TaskTable = ({tasks, visible, setVisible} : {
                       ? "#f5f5f5"
                       : "#0f0f0f",  borderRadius: '16px'}}>
 
-                        <CreateTask parentId={selectedId}/>
+                        <CreateTask parentId={selectedId} setVisible={setVisible}/>
                         <Box  alignItems="top">
                          <PButton icon="pi pi-times" text severity="secondary" onClick={(e) => hide(e)} />
                         </Box>
