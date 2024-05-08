@@ -4,7 +4,7 @@ import { Button as PButton } from 'primereact/button';
 import { Column } from 'primereact/column';
 import { TreeNode } from 'primereact/treenode';
 import { TreeTable } from 'primereact/treetable';
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import sao from "sao/EffortTrackingSao";
 
 
@@ -107,6 +107,16 @@ function generateDepthRec(g: Map<String, String[]>, id: String, taskMap: Map<Str
   return node;
 }
 
+type SevType = 'secondary' | 'success' | 'info' | 'warning' | 'danger' | 'help' | undefined;
+
+const STATUS_TO_SEVERITY_MAP: Map<string, SevType> = new Map([
+  ["INPROGRESS", "info"],
+  ["OPEN", "secondary"],
+  ["COMPLETE", "success"],
+  ["REVIEW", "warning"],
+  ["BLOCKED", "danger"]
+]);
+
 const TaskTable = ({tasks, visible, setVisible, users, refresh} : {
                 tasks: Task[], visible: boolean, setVisible: Function, users: User[], refresh: Function}) => {
     console.log("Tasks isU: " + tasks);
@@ -156,7 +166,7 @@ const TaskTable = ({tasks, visible, setVisible, users, refresh} : {
       let taskd: TaskData = node.data;
 
       return (
-        <Button variant="secondary" size="sm"> T53575{taskd.task.id} </Button>
+        <Button variant={STATUS_TO_SEVERITY_MAP.get(taskd.task.state!)} size="sm"> T53575{taskd.task.id} </Button>
       );
     };
 
@@ -164,7 +174,13 @@ const TaskTable = ({tasks, visible, setVisible, users, refresh} : {
         let taskd: TaskData = node.data;
 
         return (
-          <Dropdown value={{name: taskd.task.username}} 
+        //   <Form.Select aria-label="Default select example">
+        //   <option>Open this select menu</option>
+        //   <option value="1">One</option>
+        //   <option value="2">Two</option>
+        //   <option value="3">Three</option>
+        // </Form.Select>
+          <Dropdown style={{ height: 40, width: 130, padding: 0, margin: 0 }} value={{name: taskd.task.username}} 
                   onChange={(e) => {
                       sao.updateTask({
                         ...taskd.task,
@@ -211,12 +227,12 @@ const TaskTable = ({tasks, visible, setVisible, users, refresh} : {
       <div className="card">
           <TreeTable value={task_data.nodes} size={1} selectionMode="single" stripedRows >
               <Column field="id" body={constructIdTag} expander></Column>
-              <Column field="task" header="Task" body={(node: TreeNode) => node.data.task.title} editor={(options) => textEditor(options)} ></Column>
+              <Column headerStyle={{ width: '25%' }}  field="task" header="Task" body={(node: TreeNode) => node.data.task.title} editor={(options) => textEditor(options)} ></Column>
               <Column  header="User" body={constructUserDropDown} ></Column>
-              <Column field="status" body={constructStatus} header="Status"></Column>
+              <Column headerStyle={{ width: '20%' }}  field="status" body={constructStatus} header="Status"></Column>
               <Column field="estimate" header="Estimate" body={(node: TreeNode) => node.data.task.estimate} ></Column>
-              <Column headerStyle={{ width: '15%', minWidth: '8rem' }} 
-                      bodyStyle={{ textAlign: 'center' }} 
+              <Column headerStyle={{ width: '15%' }} 
+                      bodyStyle={{ textAlign: 'left' }} 
                       body={(node: TreeNode) => {
                         return (
                            <div >
