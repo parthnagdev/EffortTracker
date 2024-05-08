@@ -75,8 +75,8 @@ const Status = ({ taskId, value, actual, handleUpdateCallback }: {taskId: string
         
           <Status taskId={taskId} value='OPEN' actual={currentStatus} handleUpdateCallback={handleUpdateStatus}/> 
           <Status taskId={taskId} value='INPROGRESS' actual={currentStatus} handleUpdateCallback={handleUpdateStatus}/>
-          <Status taskId={taskId} value='COMPELETE' actual={currentStatus} handleUpdateCallback={handleUpdateStatus}/>
           <Status taskId={taskId} value='REVIEW' actual={currentStatus} handleUpdateCallback={handleUpdateStatus}/>
+          <Status taskId={taskId} value='COMPELETE' actual={currentStatus} handleUpdateCallback={handleUpdateStatus}/>
           <Status taskId={taskId} value='BLOCKED' actual={currentStatus} handleUpdateCallback={handleUpdateStatus}/>
         
       </ButtonToolbar>

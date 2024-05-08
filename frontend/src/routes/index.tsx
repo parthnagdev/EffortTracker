@@ -22,10 +22,11 @@ export function Routes() {
       <Switch>
         <Route />
         <Route path='/login' element={<Login />} />
-        <Route path='/projects' element={<Projects />} />
+        {/*<Route path='/projects' element={<Projects />} />*/}
         <Route path='/users' element={<Users />} />
-        <Route path='/' element={<Admin />} />
+        <Route path='/' element={<Projects />} />
         <Route path='/tasks' element={<Tasks />} />
+        <Route path='/admin' element={<Admin />} />
         <Route path={NOT_FOUND_ROUTE} element={<NotFoundPage />} />
         <Route path='*' element={<Navigate to={NOT_FOUND_ROUTE} />} />
       </Switch>
