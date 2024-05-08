@@ -14,7 +14,15 @@ const FilterBy = ({handleSetTasks, users, selectedUser, selectedState, setSelect
         setSelectedState: Function
       }) => {
 
-    const users_data: UserData[] = getUserDataList(users);
+    interface UserData {
+      name: string,
+      user: User | undefined
+    }
+
+    const remove_filter = 'Remove Filter';
+
+    const users_data: UserData[] = [{name: remove_filter, user: undefined}];
+    users_data.push(...getUserDataList(users));
 
     function handleFilterBy(event: FormEvent) {
         event.preventDefault();
@@ -61,10 +69,7 @@ const FilterBy = ({handleSetTasks, users, selectedUser, selectedState, setSelect
       }
     }
 
-    interface UserData {
-      name: string,
-      user: User
-    }
+    
   
     function getUserDataList(users: User[]): UserData[] {
       const userds: UserData[] = [];
@@ -90,10 +95,27 @@ const FilterBy = ({handleSetTasks, users, selectedUser, selectedState, setSelect
       name: string
     } 
 
-    const states: StateData[] = [];
+    const states: StateData[] = [{name: remove_filter}];
     (Object.keys(State) as Array<keyof typeof State>).forEach((key) => states.push({name: key}));
 
+    function setState(state: StateData) {
+      if (state.name === remove_filter) {
+        console.log("Setting undef state");
+        setSelectedState(undefined);
+        return;
+      }
 
+      setSelectedState(state.name);
+    }
+
+    function setUser(user: UserData) {
+      if (user.name === remove_filter) {
+        setSelectedUser(undefined);
+        return;
+      }
+
+      setSelectedUser(user.user);
+    }
 
     return (
       <Box component="section" sx={{ p: 2 }}>
@@ -102,14 +124,14 @@ const FilterBy = ({handleSetTasks, users, selectedUser, selectedState, setSelect
         <Row>
           <Col>
             <div className="card flex justify-content-center">
-                <Dropdown value={getStateData(selectedState)} onChange={(e) => setSelectedState(e.value.name)} options={states} optionLabel="name" 
-                    placeholder="Select status" className="w-full" />
+                <Dropdown value={getStateData(selectedState)} onChange={(e) => setState(e.value)} options={states} optionLabel="name" 
+                    placeholder="Select state" className="w-full" />
             </div>
           </Col>
   
           <Col>
             <div className="card flex justify-content-center">
-                <Dropdown value={getUserData(selectedUser)} onChange={(e) => setSelectedUser(e.value.user)} options={users_data} optionLabel="name" 
+                <Dropdown value={getUserData(selectedUser)} onChange={(e) => setUser(e.value)} options={users_data} optionLabel="name" 
                     placeholder="Select user" className="w-full" />
             </div>
           </Col>
