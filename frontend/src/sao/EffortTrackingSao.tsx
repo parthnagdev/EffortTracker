@@ -1,4 +1,4 @@
-import { TaskApi, ListTasksRequest, ListUsersRequest, ListTasksResponse, User, Task, UserApi, ListUsersResponse, State, ProjectApi, ListProjectsRequest } from "api";
+import { TaskApi, ListTasksRequest, ListUsersRequest, ListTasksResponse, User, Task, UserApi, ListUsersResponse, State, ProjectApi, ListProjectsRequest, Filter } from "api";
 
 class EffortTrackingSao {
 
@@ -120,7 +120,7 @@ class EffortTrackingSao {
         // return this.taskApi.listTasks(listTaskRequest);
     }
 
-    async listTasks(callback: Function) {
+    async listTasks(filter: Filter, callback: Function) {
         // var tasks: Task[] = [];
         // tasks.push({
         //    id: 123 + "", 
@@ -143,6 +143,7 @@ class EffortTrackingSao {
         // callback(tasks);
 
         const listTaskRequest: ListTasksRequest = {};
+        listTaskRequest.filter = filter;
         const response = this.taskApi.listTasks(listTaskRequest);
         response.then((res) => {
             callback(res.data.taskList);

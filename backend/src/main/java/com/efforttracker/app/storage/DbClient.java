@@ -266,7 +266,7 @@ public class DbClient {
         final String select_sql_query;
 
         if ((taskIds == null || taskIds.isEmpty())
-         && (usernames == null || taskIds.isEmpty())
+         && (usernames == null || usernames.isEmpty())
         && (projectIds == null || projectIds.isEmpty())
         && state == null) {
             select_sql_query = "SELECT * FROM tasks";

@@ -1,10 +1,8 @@
 import Box from '@mui/material/Box';
-import { Task, User } from 'api';
-import { createContext, useEffect, useState } from 'react';
+import { State, Task, User } from 'api';
+import { useEffect, useState } from 'react';
 import { Alert } from 'react-bootstrap';
 import sao from 'sao/EffortTrackingSao';
-import CreateUser from '../admin/createUser';
-import CreateTask from './createTask';
 import FilterBy from './filterby';
 import TaskTable from './tasktable';
 
@@ -59,9 +57,8 @@ const BasicAlert = () => {
 const Tasks = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [users, setUsers] = useState<User[]>([]);
-
-  const TaskContext = createContext(tasks);
-  const UserContext = createContext(users);
+  const [selectedUser, setSelectedUser] = useState<User | undefined>(undefined);
+  const [selectedState, setSelectedState] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     listUsers();
@@ -74,20 +71,20 @@ const Tasks = () => {
     });
   }
 
-  function handleListTasks() {
-    sao.listTasks(setTasks);
-  }    
+  console.log("Tasks: " + tasks);
 
   return (
-    <UserContext.Provider value={users}>
-    <TaskContext.Provider value={tasks}>
       <Box>
             <BasicAlert />
-            <FilterBy handleListTasks={handleListTasks} />
+            <FilterBy handleSetTasks={setTasks}
+                       users={users} 
+                       selectedState={selectedState} 
+                       selectedUser={selectedUser}
+                       setSelectedState={setSelectedState}
+                       setSelectedUser={setSelectedUser}/>
             <TaskTable tasks={tasks!} />
       </Box>
-    </TaskContext.Provider>
-    </UserContext.Provider>
+   
   );
 }
   

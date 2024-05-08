@@ -58,8 +58,10 @@ function generateGraph(tasks: Task[]) {
   for (let i = 0; i< tasks!.length; i++) {
     let parentId = tasks[i].parentId;
     if (parentId) {
-      let ch: String[] = g.get(parentId)!;
-      ch.push(tasks[i].id!);
+      let ch: String[] | undefined = g.get(parentId);
+      if (ch) {
+        ch.push(tasks[i].id!);
+      }
     }
   }
 
