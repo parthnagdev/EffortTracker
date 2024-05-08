@@ -193,7 +193,6 @@ const TaskTable = ({tasks, visible, setVisible, users, refresh} : {
               <Column field="id" body={constructIdTag} expander></Column>
               <Column field="task" header="Task" body={(node: TreeNode) => node.data.task.title} editor={(options) => textEditor(options)} ></Column>
               <Column field="owner" header="Owner" body={(node: TreeNode) => node.data.task.username} ></Column>
-              <Column field="status" body={(node: TreeNode) => node.data.task.state} header="Status value"></Column>
               <Column field="status" body={constructStatus} header="Status"></Column>
               <Column field="estimate" header="Estimate" body={(node: TreeNode) => node.data.task.estimate} ></Column>
               <Column headerStyle={{ width: '10%', minWidth: '8rem' }} 
