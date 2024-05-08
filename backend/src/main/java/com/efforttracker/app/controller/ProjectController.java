@@ -43,7 +43,15 @@ public class ProjectController implements ProjectApi {
     @Override
     public ResponseEntity<ListProjectsResponse> listProjects (ListProjectsRequest listProjectsRequest) {
         final ListProjectsResponse response = new ListProjectsResponse();
-        response.setProjectList(effortTracker.listProjects());
+        if(listProjectsRequest.getFilter() == null) {
+            response.setProjectList(effortTracker.listProjects(null, null));
+            return ResponseEntity.of(Optional.of(response));
+        } else
+
+        response.setProjectList(effortTracker.listProjects(
+            listProjectsRequest.getFilter().getIdFilter(),
+            listProjectsRequest.getFilter().getNameFilter()
+        ));
         return ResponseEntity.of(Optional.of(response));
     }
 

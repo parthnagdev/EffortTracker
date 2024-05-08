@@ -138,8 +138,8 @@ import java.util.UUID;
             }
         }
 
-        public List<Project> listProjects() {
-            return dbClient.listProjects();
+        public List<Project> listProjects(List<String> projectIds, List<String> projectNames) {
+            return dbClient.listProjects(projectIds, projectNames);
         }
 
         // public Task updateTask(final Task task) {

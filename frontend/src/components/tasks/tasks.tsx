@@ -1,11 +1,12 @@
 import Box from '@mui/material/Box';
-import { Filter, State, Task, User } from 'api';
+import { Filter, FilterProject, Project, State, Task, User } from 'api';
 import { useEffect, useState } from 'react';
 import { Alert, Button, Col, Container, Row } from 'react-bootstrap';
 import sao from 'sao/EffortTrackingSao';
 import FilterBy from './filterby';
 import TaskTable from './tasktable';
 import { Margin } from '@mui/icons-material';
+import { useParams } from 'react-router-dom';
 
 const BasicAlert = () => {
 
@@ -56,15 +57,33 @@ const BasicAlert = () => {
 
 
 const Tasks = () => {
+  const { projectId } = useParams();
   const [tasks, setTasks] = useState<Task[]>([]);
   const [users, setUsers] = useState<User[]>([]);
   const [selectedUser, setSelectedUser] = useState<User | undefined>(undefined);
   const [selectedState, setSelectedState] = useState<string | undefined>(undefined);
+ // const [selectedProjectId, setSelectedProjectId] = useState<string | undefined>(undefined);
+  const [project, setProject] = useState<Project | null>(null);
+
+useEffect(() => {
+  if (projectId) {
+    const filter: FilterProject = {
+      idFilter: [projectId]
+    };
+
+    sao.listProjects(filter, (projects: Project[]) => {
+      if (projects.length > 0) {
+        setProject(projects[0]);
+      }
+    });
+  }
+}, [projectId]);
+
 
   useEffect(() => {
     listUsers();
     refreshTasks();
-  }, []);
+  }, [projectId]);
 
   function refreshTasks() {
         const filter = createListFilter();
@@ -84,9 +103,15 @@ const Tasks = () => {
       userFilter = [selectedUser.username!];
     }
 
+    let projectFilter: string[] | undefined = undefined;
+    if (projectId) { // Use the projectId from the URL to create the projectFilter
+      projectFilter = [projectId];
+    }
+
     return {
       stateFilter: stateFilter,
-      userFilter: userFilter
+      userFilter: userFilter,
+      projectFilter: projectFilter
     };
   }
 
@@ -114,6 +139,11 @@ const Tasks = () => {
       <Container>
             <Row>
               <BasicAlert />
+            </Row>
+            <Row className="justify-content-md-center">
+              <Col xs={12}>
+                <h3>{project ? project.name + ' Dashboard' : (projectId ? 'Loading...' : 'All Tasks')}</h3>
+              </Col>
             </Row>
             <Row className="justify-content-md-center">
               <Col xs={10}>

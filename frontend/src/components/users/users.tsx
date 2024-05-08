@@ -32,7 +32,8 @@ const Users = () => {
       <div className="card">
           <DataTable value={users} selectionMode="single" stripedRows >
               <Column field="id" body={constructIdTag} ></Column>
-              <Column field="name" header="User Name" ></Column>
+              <Column field="name" header="Name" ></Column>
+              <Column field="username" header="User Name" ></Column>
              
           </DataTable>
       </div> 

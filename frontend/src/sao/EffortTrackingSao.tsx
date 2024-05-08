@@ -1,4 +1,4 @@
-import { TaskApi, ListTasksRequest, ListUsersRequest, ListTasksResponse, User, Task, UserApi, ListUsersResponse, State, ProjectApi, ListProjectsRequest, Filter, DeleteTaskRequest } from "api";
+import { DeleteTaskRequest, Filter, FilterProject, ListProjectsRequest, ListTasksRequest, ProjectApi, State, Task, TaskApi, UserApi } from "api";
 
 class EffortTrackingSao {
 
@@ -171,8 +171,9 @@ class EffortTrackingSao {
         }).catch((error) => this.error!("Some error occurred while listing tasks"));
     }
 
-    async listProjects(callback: Function) {
+    async listProjects(filter: FilterProject, callback: Function) {
         const listProjectsRequest: ListProjectsRequest = {};
+        listProjectsRequest.filter = filter;
         const response = this.projectApi.listProjects(listProjectsRequest);
         response.then((res) => {
             callback(res.data.projectList);

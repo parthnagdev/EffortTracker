@@ -1,4 +1,4 @@
-import { Project } from "api";
+import { FilterProject, Project } from "api";
 
 import { Column } from 'primereact/column';
 import { TreeNode } from 'primereact/treenode';
@@ -8,12 +8,19 @@ import { Button, Container } from "react-bootstrap";
 import { DataTable } from "primereact/datatable";
 import { useEffect, useState } from "react";
 import sao from 'sao/EffortTrackingSao';
+import { useNavigate } from 'react-router-dom';
+
+// Inside your component
+
 
 const Projects = () => {
+  const navigate = useNavigate();
     const [projects, setProjects] = useState<Project[]>([]);
 
     useEffect(() => {
-        sao.listProjects((projects: Project[]) => {
+        const filter: FilterProject = {};
+
+        sao.listProjects(filter, (projects: Project[]) => {
             console.log("Projects found: " + projects.length!);
             setProjects(projects);
           });
@@ -24,7 +31,7 @@ const Projects = () => {
     const constructIdTag = (project: Project) => {
 
       return (
-        <Button variant="secondary" size="sm"> P53575{project.id} </Button>
+        <Button variant="secondary" size="sm" onClick={() => navigate(`/tasks/${project.id}`)}> P53575{project.id} </Button>
       );
     };
 

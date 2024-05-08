@@ -393,28 +393,50 @@ public class DbClient {
         return null;
     }
 
-    public List<Project> listProjects() {
+    public List<Project> listProjects(List<String> projectIds, List<String> projectNames) {
         getConnection();
-        try {
-            String select_sql = "SELECT * FROM projects";
-            try (ResultSet rs = betterExecuteQuery(select_sql)) {
-                List<Project> projects = new ArrayList<>();
-                while (rs.next()) {
-                    Project project = new Project();
-                    project.setId(rs.getString("id"));
-                    project.setName(rs.getString("name"));
-                    project.setDescription(rs.getString("description"));
-                    project.setStartDate(rs.getDate("startDate").toLocalDate());
-                    project.setEndDate(rs.getDate("endDate").toLocalDate());
-                    projects.add(project);
-                }
-                return projects;
+        final String select_sql_query;
+
+        if ((projectIds == null || projectIds.isEmpty()) && (projectNames == null || projectNames.isEmpty())) {
+            select_sql_query = "SELECT * FROM projects";
+        } else {
+            StringBuilder select_sql = new StringBuilder("SELECT * FROM projects WHERE ");
+
+            if (projectIds != null && !projectIds.isEmpty()) {
+                String projectIdsStr = String.join("','", projectIds);
+                select_sql.append("id IN ('").append(projectIdsStr).append("') AND ");
+            }
+
+            if (projectNames != null && !projectNames.isEmpty()) {
+                String projectNamesStr = String.join("','", projectNames);
+                select_sql.append("name IN ('").append(projectNamesStr).append("') AND ");
+            }
+
+            // Remove the last " AND " from the query
+            if (select_sql.toString().endsWith(" AND ")) {
+                select_sql.setLength(select_sql.length() - 5);
+            }
+
+            select_sql_query = select_sql.toString();
+        }
+
+        final List<Project> projects = new ArrayList<>();
+    
+        try (ResultSet rs = betterExecuteQuery(select_sql_query)) {
+            while (rs.next()) {
+                Project project = new Project();
+                project.setId(rs.getString("id"));
+                project.setName(rs.getString("name"));
+                project.setDescription(rs.getString("description"));
+                project.setStartDate(rs.getDate("startDate").toLocalDate());
+                project.setEndDate(rs.getDate("endDate").toLocalDate());
+                projects.add(project);
             }
         } catch (final SQLException ex) {
             throw new RuntimeException("Unable to retrieve projects data.", ex);
         }
     
-        //return null;
+        return projects;
     }
 
     public Project updateProject(final Project updatedProject) {
