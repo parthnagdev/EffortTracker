@@ -36,7 +36,7 @@ class EffortTrackingSao {
         });
     }
 
-    async createTask(title: string, estimate: number, username: string, parentId: string | undefined) {
+    async createTask(title: string, estimate: number | undefined, username: string | undefined, parentId: string | undefined, onUpdate: Function) {
 
         console.log("Parent Id: " + parentId);
 
@@ -48,8 +48,15 @@ class EffortTrackingSao {
             parentId: parentId,
             projectId: "1"
         })
-        .then((res) => this.log!("Task created successfully"))
-        .catch((error) => this.error!("Some error occurred while creating task"));
+        .then((res) => {
+            this.log!("Task created successfully");
+            onUpdate();
+        })
+        .catch((error) => {
+                console.log("Some error occurred: " + error);
+                error!("Some error occurred while creating task");
+            }
+        );
 
         // const listTaskRequest: ListTasksRequest = {};
         // return this.taskApi.listTasks(listTaskRequest);

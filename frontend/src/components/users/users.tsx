@@ -39,4 +39,29 @@ const Users = () => {
   );
 }
 
+export function getUserDataList(users: User[]): UserData[] {
+    const userds: UserData[] = [];
+    for (let i =0; i < users.length; i++) {
+        userds.push(getUserData(users[i])!);
+    }
+
+    return userds;
+}
+
+export function getUserData(user: User | undefined): UserData | undefined {
+    if (!user) {
+        return undefined;
+    }
+
+    return {
+        name: user.username!,
+        user: user
+    }
+}
+
+export interface UserData {
+    name: string,
+    user: User | undefined
+}
+
 export default Users;

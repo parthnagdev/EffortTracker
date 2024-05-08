@@ -1,23 +1,17 @@
-import { Box } from "@mui/material";
-import { Filter, State, Task, User } from "api";
+import { State, User } from "api";
+import { UserData, getUserData, getUserDataList } from "components/users/users";
 import { Dropdown } from "primereact/dropdown";
 import { FormEvent } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import sao from 'sao/EffortTrackingSao';
 
-const FilterBy = ({handleSetTasks, users, selectedUser, selectedState, setSelectedUser, setSelectedState}: {
-        handleSetTasks: Function,  
+const FilterBy = ({users, selectedUser, selectedState, setSelectedUser, setSelectedState, refresh}: {
         users: User[], 
         selectedUser: User | undefined, 
         selectedState: string | undefined,
         setSelectedUser: Function,
-        setSelectedState: Function
+        setSelectedState: Function,
+        refresh: Function
       }) => {
-
-    interface UserData {
-      name: string,
-      user: User | undefined
-    }
 
     const remove_filter = 'Remove Filter';
 
@@ -28,35 +22,7 @@ const FilterBy = ({handleSetTasks, users, selectedUser, selectedState, setSelect
         event.preventDefault();
         event.stopPropagation();
 
-        const filter = createListFilter();
-        sao.listTasks(filter, (tasks: Task[]) => {
-          handleSetTasks(tasks);
-        });
-    }
-
-    function getSelectedState(): State | undefined {
-      if (!selectedState) {
-        return undefined;
-      }
-
-      return State[selectedState!]
-    }
-
-    function createListFilter(): Filter {
-      let stateFilter: State | undefined = undefined;
-      if (selectedState) {
-        stateFilter = getSelectedState();
-      }
-  
-      let userFilter: string[] | undefined = undefined;
-      if (selectedUser) {
-        userFilter = [selectedUser.username!];
-      }
-  
-      return {
-        stateFilter: stateFilter,
-        userFilter: userFilter
-      };
+        refresh();
     }
 
     function getStateData(state: string | undefined): StateData | undefined {
@@ -66,28 +32,6 @@ const FilterBy = ({handleSetTasks, users, selectedUser, selectedState, setSelect
   
       return {
         name: state
-      }
-    }
-
-    
-  
-    function getUserDataList(users: User[]): UserData[] {
-      const userds: UserData[] = [];
-      for (let i =0; i < users.length; i++) {
-        userds.push(getUserData(users[i])!);
-      }
-  
-      return userds;
-    }
-
-    function getUserData(user: User | undefined): UserData | undefined {
-      if (!user) {
-        return undefined;
-      }
-
-      return {
-        name: user.username!,
-        user: user
       }
     }
 

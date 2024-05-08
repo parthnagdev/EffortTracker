@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box';
-import { State, Task, User } from 'api';
+import { Filter, State, Task, User } from 'api';
 import { useEffect, useState } from 'react';
 import { Alert, Button, Col, Container, Row } from 'react-bootstrap';
 import sao from 'sao/EffortTrackingSao';
@@ -63,7 +63,40 @@ const Tasks = () => {
 
   useEffect(() => {
     listUsers();
+    refreshTasks();
   }, []);
+
+  function refreshTasks() {
+        const filter = createListFilter();
+        sao.listTasks(filter, (tasks: Task[]) => {
+          setTasks(tasks);
+        });
+  }
+
+  function createListFilter(): Filter {
+    let stateFilter: State | undefined = undefined;
+    if (selectedState) {
+      stateFilter = getSelectedState();
+    }
+
+    let userFilter: string[] | undefined = undefined;
+    if (selectedUser) {
+      userFilter = [selectedUser.username!];
+    }
+
+    return {
+      stateFilter: stateFilter,
+      userFilter: userFilter
+    };
+  }
+
+  function getSelectedState(): State | undefined {
+    if (!selectedState) {
+      return undefined;
+    }
+
+    return State[selectedState!]
+  }
 
   function listUsers() {
     sao.listUsers((users: User[]) => {
@@ -84,12 +117,12 @@ const Tasks = () => {
             </Row>
             <Row className="justify-content-md-center">
               <Col xs={10}>
-                <FilterBy handleSetTasks={setTasks}
-                          users={users} 
+                <FilterBy users={users} 
                           selectedState={selectedState} 
                           selectedUser={selectedUser}
                           setSelectedState={setSelectedState}
-                          setSelectedUser={setSelectedUser} />
+                          setSelectedUser={setSelectedUser}
+                          refresh={refreshTasks} />
               </Col>
               <Col >
               <Button variant="primary" size="lg" 
@@ -105,7 +138,7 @@ const Tasks = () => {
               </Col>
             </Row>
             <Row>
-              <TaskTable tasks={tasks!} visible={visible} setVisible={setVisible}/>
+              <TaskTable tasks={tasks!} visible={visible} setVisible={setVisible} users={users} refresh={refreshTasks}/>
             </Row> 
       </Container>
       

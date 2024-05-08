@@ -1,4 +1,4 @@
-import { Task } from "api";
+import { Task, User } from "api";
 
 import { Button as PButton } from 'primereact/button';
 import { Column } from 'primereact/column';
@@ -104,8 +104,8 @@ function generateDepthRec(g: Map<String, String[]>, id: String, taskMap: Map<Str
   return node;
 }
 
-const TaskTable = ({tasks, visible, setVisible} : {
-                tasks: Task[], visible: boolean, setVisible: Function}) => {
+const TaskTable = ({tasks, visible, setVisible, users, refresh} : {
+                tasks: Task[], visible: boolean, setVisible: Function, users: User[], refresh: Function}) => {
     console.log("Tasks isU: " + tasks);
   
     console.log("Tasks: " + tasks);
@@ -227,7 +227,7 @@ const TaskTable = ({tasks, visible, setVisible} : {
                       ? "#f5f5f5"
                       : "#0f0f0f",  borderRadius: '16px'}}>
 
-                        <CreateTask parentId={selectedId} setVisible={setVisible}/>
+                        <CreateTask parentId={selectedId} setVisible={setVisible} users={users} refresh={refresh}/>
                         <Box  alignItems="top">
                          <PButton icon="pi pi-times" text severity="secondary" onClick={(e) => hide(e)} />
                         </Box>

@@ -1,48 +1,66 @@
 import { Box } from "@mui/material";
-import { FormEvent } from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { User } from "api";
+import { Dropdown } from "primereact/dropdown";
+import { FormEvent, useState } from "react";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import sao from "sao/EffortTrackingSao";
+import { UserData, getUserDataList, getUserData } from "components/users/users";
+import { InputText } from "primereact/inputtext";
+import { InputNumber } from "primereact/inputnumber";
 
-const CreateTask = ({parentId, setVisible}: {parentId: string | undefined, setVisible: Function}) => {
+const CreateTask = ({parentId, setVisible, users, refresh}: {parentId: string | undefined, setVisible: Function, users: User[], refresh: Function}) => {
 
-    var title = "";
-    var estimate = "";
-    var username = "";
+    const [title, setTitle] = useState<string>();
+    const [estimate, setEstimate] = useState<number | null>();
+    const [selectedUser, setSelectedUser] = useState<User>();
   
     function handleCreateTask(e: FormEvent) {
        // Prevent the browser from reloading the page
        e.preventDefault();
-       sao.createTask(title, Number(estimate), username, parentId);
+       e.stopPropagation();
+
+       console.log("Creating a new Task");
+
+       let est: number | undefined = ((estimate === null) ? undefined : estimate);
+       sao.createTask(title!, est, selectedUser?.username, parentId, refresh);
        setVisible(false);
     }
   
     return (
-      <Box sx={{ p: 2, bgcolor:  (theme) => theme.palette.mode === "light"
-      ? "#f5f5f5"
-      : "#0f0f0f"}}>
+      <Container>
         <h4>Create Task</h4>
       <Form onSubmit={handleCreateTask}>
         <Row>
-          <Col>
-            <Form.Control placeholder="Task title" id='title' onChange={e => title = e.target.value}/>
+          <Col xs={4}>
+              <div className="p-inputgroup flex-1">
+                  <InputText placeholder="Task Title" onChange={(e) => setTitle(e.target.value)} />
+              </div>
           </Col>
-  
+
           <Col>
-            <Form.Control placeholder="Estimate" id='estimate' onChange={e => estimate = e.target.value} />
+              <div className="p-inputgroup flex-1">
+                  <InputNumber placeholder="Estimate" onValueChange={(e) => setEstimate(e.target.value)} />
+              </div>
           </Col>
-  
+
           <Col>
-            <Form.Control placeholder="Assined to" id='username' onChange={e => username = e.target.value} />
+              <div className="p-inputgroup flex-1">
+                <span className="p-inputgroup-addon">
+                    <i className="pi pi-user"></i>
+                </span>
+                  <Dropdown value={getUserData(selectedUser)} onChange={(e) => setSelectedUser(e.value.user)} options={getUserDataList(users)} optionLabel="name" 
+                      placeholder="Select user" className="w-full" />
+              </div>
           </Col>
   
          <Col>
-            <Button variant="primary" type="submit">
-              Create Task
+            <Button size='lg' variant="primary" type="submit">
+              Create
             </Button>
           </Col>
         </Row>
       </Form>
-      </Box>
+      </Container>
     );
   }
 
