@@ -10,8 +10,6 @@ import { useEffect, useState } from "react";
 import sao from 'sao/EffortTrackingSao';
 import { useNavigate } from 'react-router-dom';
 
-// Inside your component
-
 
 const Projects = () => {
   const navigate = useNavigate();
