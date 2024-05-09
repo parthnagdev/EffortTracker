@@ -42,7 +42,7 @@ reset a file: git reset HEAD -- (file-path)
 #### Part 1: ECR docker image upload
 
 1. go to /backend folder 
-2. Build project: ./gradlew build
+2. Build project: ./gradlew build (to give permission: chmod +x gradlew)
 3. Make sure you have AWS access / secret key of IAM user.
 4. Run `aws configure` and enter access and secret key.
 5. build docker image: `docker build -t effort_tracker .`
