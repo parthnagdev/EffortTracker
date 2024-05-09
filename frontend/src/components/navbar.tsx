@@ -16,7 +16,6 @@ function NavBar() {
             <Nav.Link href="/tasks">Tasks</Nav.Link>
             <Nav.Link href="/users">Users</Nav.Link>
             <Nav.Link href="/admin">Admin</Nav.Link>
-            <Nav.Link href="/profile">Admin</Nav.Link>
             {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">

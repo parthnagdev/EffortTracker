@@ -1,9 +1,9 @@
 import { Configuration, DeleteTaskRequest, Filter, FilterProject, ListProjectsRequest, ListTasksRequest, ProjectApi, State, Task, TaskApi, UserApi } from "api";
 
-// const BASE_PATH: string = "http://13.200.246.203:8080";
+const BASE_PATH: string = "http://13.200.246.203:8080";
 
 // To use in local, comment above base path use this one.
-const BASE_PATH: string = "http://localhost:8080";
+// const BASE_PATH: string = "http://localhost:8080";
 
 class EffortTrackingSao {
 

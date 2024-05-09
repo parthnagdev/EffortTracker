@@ -1,6 +1,6 @@
 import { User } from 'api';
 import { createContext, useEffect, useState } from 'react';
-import { Alert } from 'react-bootstrap';
+import { Alert, Container } from 'react-bootstrap';
 import sao from 'sao/EffortTrackingSao';
 import CreateUser from 'components/admin/createUser';
 
@@ -69,9 +69,11 @@ const Admin = () => {
   }
 
   return (
-    <UserContext.Provider value={users}>
-       <CreateUser />
-    </UserContext.Provider>
+    <Container>
+      <UserContext.Provider value={users}>
+        <CreateUser />
+      </UserContext.Provider>
+    </Container>
   );
 }
   
