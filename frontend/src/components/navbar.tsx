@@ -2,7 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import profile from 'assets/images/profile.png'
+import profile from 'assets/images/profile.png';
 
 function NavBar() {
   return (

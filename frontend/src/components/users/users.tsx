@@ -1,7 +1,7 @@
 import { User } from "api";
 
 import { Column } from 'primereact/column';
-import { Button, Container, Row } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 
 
 import { DataTable } from "primereact/datatable";
@@ -30,14 +30,13 @@ const Users = () => {
 
   return (
       <Container>
-          <Row>
-            <DataTable value={users} selectionMode="single" stripedRows >
-                <Column field="id" body={constructIdTag} ></Column>
-                <Column field="name" header="Name" ></Column>
-                <Column field="username" header="User Name" ></Column>
-                
-            </DataTable>
-          </Row>
+          
+          <DataTable value={users} selectionMode="single" stripedRows >
+              <Column field="id" body={constructIdTag} ></Column>
+              <Column field="name" header="Name" ></Column>
+              <Column field="username" header="User Name" ></Column>
+             
+          </DataTable>
       </Container> 
   );
 }
