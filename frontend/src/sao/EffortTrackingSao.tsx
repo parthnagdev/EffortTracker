@@ -1,4 +1,9 @@
-import { DeleteTaskRequest, Filter, FilterProject, ListProjectsRequest, ListTasksRequest, ProjectApi, State, Task, TaskApi, UserApi } from "api";
+import { Configuration, DeleteTaskRequest, Filter, FilterProject, ListProjectsRequest, ListTasksRequest, ProjectApi, State, Task, TaskApi, UserApi } from "api";
+
+// const BASE_PATH: string = "http://13.200.246.203:8080";
+
+// To use in local, comment above base path use this one.
+const BASE_PATH: string = "http://localhost:8080";
 
 class EffortTrackingSao {
 
@@ -9,10 +14,16 @@ class EffortTrackingSao {
     log?: Function;
     error?: Function;
 
+    
+
     constructor() {
-        this.taskApi = new TaskApi();
-        this.userApi = new UserApi();
-        this.projectApi = new ProjectApi();
+        const config = new Configuration({
+            basePath: BASE_PATH
+        });
+
+        this.taskApi = new TaskApi(config);
+        this.userApi = new UserApi(config);
+        this.projectApi = new ProjectApi(config);
     }
 
     public setLoggers(log: Function, error: Function) {
