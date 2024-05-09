@@ -17,3 +17,14 @@
  3. Parent task can display effort by adding all the efforts of child tasks.
  4. Generate Report.
  
+# Steps for Frontend Deployment
+
+1. Go to /frontend
+2. Run 'npm run build' to generate build directory
+3. Go to build directory in Windows explorer
+4. select all files in build folder and make a zip file out of it.
+5. Log in into AWS account: https://aws.amazon.com/ (Make sure to switch to Mumbai region).
+6. In search Bar -> Go to 'Amplify'
+7. Go to Effort tracker -> Click on deploy updates.
+8. Choose the zip file created and upload it.
+9. In the Aplify effort tracker dashboard clik onn the public URL.
