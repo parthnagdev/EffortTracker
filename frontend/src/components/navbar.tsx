@@ -2,7 +2,6 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import profile from 'assets/images/profile.png';
 
 function NavBar() {
   return (
@@ -32,9 +31,9 @@ function NavBar() {
           </Nav>
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
-          <Navbar.Brand>
-            <img width={60} height={50} src={profile} alt="Profile" />
-          </Navbar.Brand>
+          <Navbar.Text>
+            Signed in as: <a href="#login">Parth Nagdev</a>
+          </Navbar.Text>
         </Navbar.Collapse>
       </Container>
     </Navbar>
